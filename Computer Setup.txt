@@ -1,0 +1,30 @@
+Setup New Computer: 
+Download and install: 
+https://www.ni.com/en/support/downloads/drivers/download.frc-game-tools.html#500107
+https://packages.wpilib.workers.dev/installer/v2024.2.1/Win64/WPILib_Windows-2024.2.1.iso
+https://github.com/REVrobotics/REV-Software-Binaries/releases/download/rhc-1.5.3/REV-Hardware-Client-Setup-1.5.3.exe
+https://github.com/git-for-windows/git/releases/download/v2.43.0.windows.1/Git-2.43.0-64-bit.exe
+https://download.kde.org/stable/kdiff3/kdiff3-1.10.0-windows-cl-64.exe
+https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.6.2/npp.8.6.2.Installer.x64.exe
+https://download.mythicsoft.com/flp/3420/agentransack_3420.exe
+
+
+Download and unzip the latest REVLib into the C:\Users\Public\wpilib\2024:
+https://docs.revrobotics.com/brushless/spark-flex/revlib
+Follow directions here to install: 
+https://docs.wpilib.org/en/latest/docs/software/vscode-overview/3rd-party-libraries.html#adding-offline-libraries
+
+
+
+Example program with CAN: 
+https://github.com/REVrobotics/SPARK-MAX-Examples/blob/master/Java/Tank%20Drive%20With%20CAN/src/main/java/frc/robot/Robot.java
+
+
+
+Configure SparkMax Controllers:
+https://docs.revrobotics.com/sparkmax/rev-hardware-client/getting-started-with-the-rev-hardware-client/navigating-the-rev-hardware-client
+
+
+For programmers...Create a login for github.com here and get added to TigersBro 2024 repository: 
+https://github.com/
+
