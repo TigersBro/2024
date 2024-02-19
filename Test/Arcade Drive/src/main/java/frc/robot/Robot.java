@@ -21,10 +21,10 @@ import com.revrobotics.RelativeEncoder;
  */
 public class Robot extends TimedRobot {
   
-  private static final int leftFrontDeviceID = 1;
+  private static final int leftFrontDeviceID = 5;
   private static final int leftRearDeviceID = 2;
-  private static final int rightFrontDeviceID = 3;
-  private static final int rightRearDeviceID = 4;
+  private static final int rightFrontDeviceID = 4;
+  private static final int rightRearDeviceID = 3;
   private CANSparkMax m_leftFrontMotor;
   private CANSparkMax m_rightFrontMotor;
   private CANSparkMax m_leftRearMotor;
@@ -32,9 +32,8 @@ public class Robot extends TimedRobot {
   private RelativeEncoder m_leftEncoder;
   private RelativeEncoder m_rightEncoder;
   
-  private final DifferentialDrive m_robotDrive =
-      new DifferentialDrive(m_leftFrontMotor::set, m_rightFrontMotor::set);
-  
+  private DifferentialDrive m_robotDrive;
+      
   private final Joystick m_joy = new Joystick(0);
 
   public Robot() {
@@ -54,12 +53,13 @@ public class Robot extends TimedRobot {
     m_rightFrontMotor = new CANSparkMax(rightFrontDeviceID, MotorType.kBrushed);
     m_rightRearMotor = new CANSparkMax(rightRearDeviceID, MotorType.kBrushed);
     
-    
+    m_robotDrive = new DifferentialDrive(m_leftFrontMotor::set, m_rightFrontMotor::set);
+  
     m_rightFrontMotor.setInverted(true);
     m_rightRearMotor.follow(m_rightFrontMotor);
     m_leftRearMotor.follow(m_leftFrontMotor);
-    m_leftEncoder = m_leftFrontMotor.getEncoder();
-    m_rightEncoder = m_rightFrontMotor.getEncoder();
+    //m_leftEncoder = m_leftFrontMotor.getEncoder();
+    //m_rightEncoder = m_rightFrontMotor.getEncoder();
   }
 
   @Override
@@ -67,10 +67,10 @@ public class Robot extends TimedRobot {
     // Drive with arcade drive.
     // That means that the Y axis drives forward
     // and backward, and the X turns left and right.
-    m_robotDrive.arcadeDrive(-m_joy.getY(), -m_joy.getZ());
+    m_robotDrive.arcadeDrive(m_joy.getY(), -m_joy.getZ());
     
-    SmartDashboard.putNumber("Encoder Velocity", m_leftEncoder.getVelocity());
-    SmartDashboard.putNumber("Encoder Velocity", m_rightEncoder.getVelocity());
+   // SmartDashboard.putNumber("Encoder Velocity", m_leftEncoder.getVelocity());
+   // SmartDashboard.putNumber("Encoder Velocity", m_rightEncoder.getVelocity());
     
 
   }
