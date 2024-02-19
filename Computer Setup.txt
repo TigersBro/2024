@@ -1,4 +1,4 @@
-Setup New Computer: 
+Setup New Computer:     
 Download and install the following programs: 
 https://www.ni.com/en/support/downloads/drivers/download.frc-game-tools.html#500107 (FRC game tools)
 https://packages.wpilib.workers.dev/installer/v2024.2.1/Win64/WPILib_Windows-2024.2.1.iso (WPLib for java)
