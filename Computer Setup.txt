@@ -25,3 +25,5 @@ https://github.com/
 Follow directions here to install revrobotics libraries: 
 https://docs.wpilib.org/en/latest/docs/software/vscode-overview/3rd-party-libraries.html#adding-offline-libraries
 
+REVROBOTICS starter bot code:
+https://github.com/REVrobotics/2023-REV-ION-FRC-Starter-Bot/tree/main
