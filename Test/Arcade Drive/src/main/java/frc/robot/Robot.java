@@ -10,6 +10,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.revrobotics.RelativeEncoder;
+
+
+
 /**
  * This is a demo program showing the use of the DifferentialDrive class. Runs the motors with
  * arcade steering.
@@ -24,7 +29,9 @@ public class Robot extends TimedRobot {
   private CANSparkMax m_rightFrontMotor;
   private CANSparkMax m_leftRearMotor;
   private CANSparkMax m_rightRearMotor;
-
+  private RelativeEncoder m_leftEncoder;
+  private RelativeEncoder m_rightEncoder;
+  
   private final DifferentialDrive m_robotDrive =
       new DifferentialDrive(m_leftFrontMotor::set, m_rightFrontMotor::set);
   
@@ -51,6 +58,8 @@ public class Robot extends TimedRobot {
     m_rightFrontMotor.setInverted(true);
     m_rightRearMotor.follow(m_rightFrontMotor);
     m_leftRearMotor.follow(m_leftFrontMotor);
+    m_leftEncoder = m_leftFrontMotor.getEncoder();
+    m_rightEncoder = m_rightFrontMotor.getEncoder();
   }
 
   @Override
@@ -59,5 +68,10 @@ public class Robot extends TimedRobot {
     // That means that the Y axis drives forward
     // and backward, and the X turns left and right.
     m_robotDrive.arcadeDrive(-m_joy.getY(), -m_joy.getZ());
+    
+    SmartDashboard.putNumber("Encoder Velocity", m_leftEncoder.getVelocity());
+    SmartDashboard.putNumber("Encoder Velocity", m_rightEncoder.getVelocity());
+    
+
   }
 }
