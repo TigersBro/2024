@@ -4,14 +4,15 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkLowLevel.MotorType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import com.revrobotics.RelativeEncoder;
 
 
 
@@ -48,6 +49,9 @@ public class Robot extends TimedRobot {
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
+  
+    CameraServer.startAutomaticCapture();
+  
     m_leftFrontMotor = new CANSparkMax(leftFrontDeviceID, MotorType.kBrushed);
     m_leftRearMotor = new CANSparkMax(leftRearDeviceID, MotorType.kBrushed);
     m_rightFrontMotor = new CANSparkMax(rightFrontDeviceID, MotorType.kBrushed);
