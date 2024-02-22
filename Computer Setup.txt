@@ -27,3 +27,6 @@ https://docs.wpilib.org/en/latest/docs/software/vscode-overview/3rd-party-librar
 
 REVROBOTICS starter bot code:
 https://github.com/REVrobotics/2023-REV-ION-FRC-Starter-Bot/tree/main
+
+wpilib examples
+https://github.com/wpilibsuite/frc-docs/blob/main/source/docs/software/examples-tutorials/wpilib-examples.rst
