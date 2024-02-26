@@ -26,13 +26,13 @@ public final class Constants {
 
  public static final class Drivetrain {
   public static final int kFrontLeftCanId = 5;
-  public static final int kFrontRightCanId = 2;
-  public static final int kRearLeftCanId = 3;
-  public static final int kRearRightCanId = 4;
+  public static final int kFrontRightCanId = 4;
+  public static final int kRearLeftCanId = 2;
+  public static final int kRearRightCanId = 3;
 
-  public static final boolean kFrontLeftInverted = true;
-  public static final boolean kFrontRightInverted = false;
-  public static final boolean kRearLeftInverted = true;
+  public static final boolean kFrontLeftInverted = false;
+  public static final boolean kFrontRightInverted = true;
+  public static final boolean kRearLeftInverted = false;
   public static final boolean kRearRightInverted = false;
 
   public static final int kCurrentLimit = 55;

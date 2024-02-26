@@ -24,23 +24,33 @@ public class DrivetrainSubsystem extends SubsystemBase {
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
     m_frontLeftMotor  = new CANSparkMax(Constants.Drivetrain.kFrontLeftCanId, CANSparkLowLevel.MotorType.kBrushed);
+    //m_frontLeftMotor.setSmartCurrentLimit(Constants.Drivetrain.kCurrentLimit);
     m_frontLeftMotor.setInverted(Constants.Drivetrain.kFrontLeftInverted);
+    //m_frontLeftMotor.burnFlash();
+   
 
 
     m_frontRightMotor = new CANSparkMax(Constants.Drivetrain.kFrontRightCanId, CANSparkLowLevel.MotorType.kBrushed);
-    //m_frontRightMotor.setInverted(Constants.Drivetrain.kFrontRightInverted);
-    m_frontRightMotor.setSmartCurrentLimit(Constants.Drivetrain.kCurrentLimit);
+    m_frontRightMotor.setInverted(Constants.Drivetrain.kFrontRightInverted);
+   // in constants, the front right motor's inversion is TRUE
+   // m_frontRightMotor.setSmartCurrentLimit(Constants.Drivetrain.kCurrentLimit);
    // m_frontRightMotor.setIdleMode(IdleMode.kBrake);
+   // m_frontRightMotor.burnFlash();
+   
 
     m_rearLeftMotor   = new CANSparkMax(Constants.Drivetrain.kRearLeftCanId, CANSparkLowLevel.MotorType.kBrushed);
-    //m_rearLeftMotor.setInverted(Constants.Drivetrain.kRearLeftInverted);
-    m_rearLeftMotor.setSmartCurrentLimit(Constants.Drivetrain.kCurrentLimit);
+    m_rearLeftMotor.setInverted(Constants.Drivetrain.kRearLeftInverted);
+    // in constants, the rear left motor's inversion is FALSE
+   // m_rearLeftMotor.setSmartCurrentLimit(Constants.Drivetrain.kCurrentLimit);
    // m_rearLeftMotor.setIdleMode(IdleMode.kBrake);
-    m_rearLeftMotor.burnFlash();
-
+   //m_rearLeftMotor.burnFlash();
+   
     m_rearRightMotor  = new CANSparkMax(Constants.Drivetrain.kRearRightCanId, CANSparkLowLevel.MotorType.kBrushed);
-    m_rearRightMotor.setSmartCurrentLimit(Constants.Drivetrain.kCurrentLimit);
+    m_rearRightMotor.setInverted(Constants.Drivetrain.kRearRightInverted);
+   // m_rearRightMotor.setSmartCurrentLimit(Constants.Drivetrain.kCurrentLimit);
     //m_rearRightMotor.setIdleMode(IdleMode.kBrake);
+   // m_rearRightMotor.burnFlash();
+   
 
     m_rearRightMotor.follow(m_frontRightMotor);
     m_rearLeftMotor.follow(m_frontLeftMotor);
