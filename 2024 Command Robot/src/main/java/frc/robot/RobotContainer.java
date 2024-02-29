@@ -6,7 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -29,7 +29,7 @@ public class RobotContainer {
 
   private final DrivetrainSubsystem m_drivetrain = new DrivetrainSubsystem();
 
-  private XboxController m_driveController = new XboxController(Constants.OIConstants.kDriverController); 
+  private Joystick m_driveController = new Joystick(Constants.OIConstants.kDriverController); 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -48,8 +48,8 @@ public class RobotContainer {
     m_drivetrain.setDefaultCommand(new RunCommand(
       () -> 
         m_drivetrain.driveArcade(
-          MathUtil.applyDeadband(- m_driveController.getLeftY(), Constants.OIConstants.kDriveDeadband),
-          MathUtil.applyDeadband(m_driveController.getRightX()*Constants.Drivetrain.kTurningScale, Constants.OIConstants.kDriveDeadband))
+          MathUtil.applyDeadband(m_driveController.getY(), Constants.OIConstants.kDriveDeadband),
+          MathUtil.applyDeadband(-m_driveController.getZ()*Constants.Drivetrain.kTurningScale, Constants.OIConstants.kDriveDeadband))
       , m_drivetrain)
     );
 
