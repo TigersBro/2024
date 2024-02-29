@@ -14,12 +14,20 @@ import com.revrobotics.CANSparkLowLevel;
 
 
 import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.Encoder;
+
 
 public class DrivetrainSubsystem extends SubsystemBase {
   private CANSparkMax m_frontLeftMotor;
   private CANSparkMax m_frontRightMotor;
   private CANSparkMax m_rearLeftMotor;
   private CANSparkMax m_rearRightMotor;
+
+private Encoder quadratureEncoderLeft;
+private Encoder quadratureEncoderRight;
+
+
 
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
@@ -54,6 +62,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     m_rearRightMotor.follow(m_frontRightMotor);
     m_rearLeftMotor.follow(m_frontLeftMotor);
+
+   quadratureEncoderLeft = new Encoder(0, 1, false, EncodingType.k4X);
+   addChild("Quadrature Encoder Left",quadratureEncoderLeft);
+   quadratureEncoderLeft.setDistancePerPulse(1.0);
+ 
+   quadratureEncoderRight = new Encoder(2, 3, true, EncodingType.k4X);
+   addChild("Quadrature Encoder Right",quadratureEncoderRight);
+   quadratureEncoderRight.setDistancePerPulse(1.0);
+
+
 
   }
 
