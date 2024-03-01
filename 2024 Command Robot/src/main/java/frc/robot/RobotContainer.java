@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -28,8 +29,7 @@ public class RobotContainer {
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final DrivetrainSubsystem m_drivetrain = new DrivetrainSubsystem();
-
-  private Joystick m_driveController = new Joystick(Constants.OIConstants.kDriverController); 
+  private final Joystick m_driveController = new Joystick(Constants.OIConstants.kDriverController); 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -37,12 +37,7 @@ public class RobotContainer {
     configureButtonBindings(); 
   }
 
-  /**
-   * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
+
   private void configureButtonBindings() {
     //set up the drivetrain command that runs all the time
     m_drivetrain.setDefaultCommand(new RunCommand(
@@ -52,6 +47,8 @@ public class RobotContainer {
           MathUtil.applyDeadband(-m_driveController.getZ()*Constants.Drivetrain.kTurningScale, Constants.OIConstants.kDriveDeadband))
       , m_drivetrain)
     );
+
+    SmartDashboard.putData(m_drivetrain);
 
     
     //set up arm manual and auto functions

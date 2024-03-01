@@ -38,5 +38,11 @@ public final class Constants {
   public static final int kCurrentLimit = 55;
 
   public static final double kTurningScale = 0.5;
+
+  public static final double kEncoderCPR = 2048; //https://www.revrobotics.com/rev-11-1271/
+  public static final double kWheelDiameter = 8;
+  // Circumference = diameter * pi. (inches) 
+  public static final double kEncoderDistancePerPulse = (kWheelDiameter * Math.PI) / kEncoderCPR;
+
 }
 }
