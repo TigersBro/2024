@@ -31,7 +31,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class RobotContainer {
 
-  public static RobotContainer m_robotContainer = new RobotContainer();
+  //public static RobotContainer m_robotContainer = new RobotContainer();
 
   // The robot's subsystems and commands are defined here...
   // private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
