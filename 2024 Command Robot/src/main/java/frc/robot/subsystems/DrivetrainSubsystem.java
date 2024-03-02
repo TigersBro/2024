@@ -49,7 +49,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     addChild("Quadrature Encoder Left", m_quadratureEncoderLeft);
     addChild("Quadrature Encoder Right", m_quadratureEncoderRight);
-
+    
   }
 
   public void driveArcade(double _straight, double _turn) {
