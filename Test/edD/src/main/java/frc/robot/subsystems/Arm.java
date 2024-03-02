@@ -46,6 +46,8 @@ public class Arm extends SubsystemBase {
     }
 
     @Override
+
+
     public void periodic() {
         // This method will be called once per scheduler run
         log();
@@ -61,7 +63,7 @@ public class Arm extends SubsystemBase {
         // TODO: Add limit switch and potentiometer
         //something like...
         // if analogPotentiometer1.get() == 1;
-        armMotor.set(1);
+        armMotor.set(.5);
 
 
 
@@ -72,7 +74,7 @@ public class Arm extends SubsystemBase {
         //something like...
         // if analogPotentiometer1.get() == Constant;
         
-        armMotor.set(-1);
+        armMotor.set(-.5);
 
 
 
