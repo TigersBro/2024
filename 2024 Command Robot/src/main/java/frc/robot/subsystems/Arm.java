@@ -21,9 +21,7 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
-/**
- *
- */
+
 public class Arm extends SubsystemBase {
 
     private PWMSparkMax armMotor;
