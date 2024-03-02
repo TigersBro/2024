@@ -20,22 +20,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DrivetrainSubsystem extends SubsystemBase {
   // creating these here versus in the Drivtrain constructor and as final so it
   // cannot be changed.
-  private final CANSparkMax m_frontLeftMotor = new CANSparkMax(Constants.Drivetrain.kFrontLeftCanId,
-      CANSparkLowLevel.MotorType.kBrushed);
-  private final CANSparkMax m_frontRightMotor = new CANSparkMax(Constants.Drivetrain.kFrontRightCanId,
-      CANSparkLowLevel.MotorType.kBrushed);
-  private final CANSparkMax m_rearLeftMotor = new CANSparkMax(Constants.Drivetrain.kRearLeftCanId,
-      CANSparkLowLevel.MotorType.kBrushed);
-  private final CANSparkMax m_rearRightMotor = new CANSparkMax(Constants.Drivetrain.kRearRightCanId,
-      CANSparkLowLevel.MotorType.kBrushed);
-
-  private final DifferentialDrive m_drive = new DifferentialDrive(m_frontLeftMotor, m_frontRightMotor);
+  private CANSparkMax m_frontLeftMotor ;
+  private  CANSparkMax m_frontRightMotor;
+  private  CANSparkMax m_rearLeftMotor ;
+  private  CANSparkMax m_rearRightMotor;
+  private  DifferentialDrive m_drive; 
   private final Encoder m_encoderLeft;
   private final Encoder m_encoderRight;
 
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
     // Only make calls you need to. This cuts down on having to read the code.
+    m_frontLeftMotor = new CANSparkMax(Constants.Drivetrain.kFrontLeftCanId, CANSparkLowLevel.MotorType.kBrushed);
+    m_frontRightMotor = new CANSparkMax(Constants.Drivetrain.kFrontRightCanId,CANSparkLowLevel.MotorType.kBrushed);
+    m_rearLeftMotor = new CANSparkMax(Constants.Drivetrain.kRearLeftCanId,CANSparkLowLevel.MotorType.kBrushed);
+    m_rearRightMotor = new CANSparkMax(Constants.Drivetrain.kRearRightCanId, CANSparkLowLevel.MotorType.kBrushed);
+    m_drive = new DifferentialDrive(m_frontLeftMotor, m_frontRightMotor);
+
     m_frontRightMotor.setInverted(Constants.Drivetrain.kFrontRightInverted);
 
     m_rearRightMotor.follow(m_frontRightMotor);
