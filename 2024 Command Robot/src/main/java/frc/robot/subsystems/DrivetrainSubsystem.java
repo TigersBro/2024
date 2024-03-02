@@ -30,8 +30,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
       CANSparkLowLevel.MotorType.kBrushed);
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_frontLeftMotor, m_frontRightMotor);
-  private final Encoder m_quadratureEncoderLeft;
-  private final Encoder m_quadratureEncoderRight;
+  private final Encoder m_encoderLeft;
+  private final Encoder m_encoderRight;
 
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
@@ -41,15 +41,15 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_rearRightMotor.follow(m_frontRightMotor);
     m_rearLeftMotor.follow(m_frontLeftMotor);
 
-    m_quadratureEncoderLeft = new Encoder(0, 1, false);
-    m_quadratureEncoderLeft.setDistancePerPulse(Constants.Drivetrain.kEncoderDistancePerPulse);
+    m_encoderLeft = new Encoder(0, 1, false);
+    m_encoderLeft.setDistancePerPulse(Constants.Drivetrain.kEncoderDistancePerPulse);
 
-    m_quadratureEncoderRight = new Encoder(2, 3, true);
-    m_quadratureEncoderRight.setDistancePerPulse(Constants.Drivetrain.kEncoderDistancePerPulse);
+    m_encoderRight = new Encoder(2, 3, true);
+    m_encoderRight.setDistancePerPulse(Constants.Drivetrain.kEncoderDistancePerPulse);
 
-    addChild("Quadrature Encoder Left", m_quadratureEncoderLeft);
-    addChild("Quadrature Encoder Right", m_quadratureEncoderRight);
-    
+    addChild("Quadrature Encoder Left", m_encoderLeft);
+    addChild("Quadrature Encoder Right", m_encoderRight);
+
   }
 
   public void driveArcade(double _straight, double _turn) {
@@ -77,33 +77,31 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // builder.addBooleanProperty("At Setpoint", () -> atSetpoint(), null);
     // addChild("Controller", m_controller);
   }
-  
 
   public void reset() {
-    m_quadratureEncoderLeft.reset();
-    m_quadratureEncoderRight.reset();
+    m_encoderLeft.reset();
+    m_encoderRight.reset();
 
   }
-  public double getDistance(){
 
-     return( m_quadratureEncoderLeft.getDistance() + m_quadratureEncoderRight.getDistance() / 2);
+  public double getDistance() {
+
+    return (m_encoderLeft.getDistance() + m_encoderRight.getDistance() / 2);
   }
 
   public void log() {
-    SmartDashboard.putNumber("Left Distance", m_quadratureEncoderLeft.getDistance());
-    SmartDashboard.putNumber("Right Distance", m_quadratureEncoderRight.getDistance());
-    SmartDashboard.putNumber("Left Speed", m_quadratureEncoderLeft.getRate());
-    SmartDashboard.putNumber("Right Speed", m_quadratureEncoderRight.getRate());
-    // SmartDashboard.putNumber("Gyro", m_gyro.getAngle());
+    SmartDashboard.putNumber("Left Distance", m_encoderLeft.getDistance());
+    SmartDashboard.putNumber("Right Distance", m_encoderRight.getDistance());
+    SmartDashboard.putNumber("Left Speed", m_encoderLeft.getRate());
+    SmartDashboard.putNumber("Right Speed", m_encoderRight.getRate());
   }
-
-
-  /////////////////////////////////////////////////////comment in when we have a rangefinder:///////////////////////////////////////////
+/////////////////////////////////////////commment/////////////////////////////////////////
+  ///////////////////////////////////////////////////// comment in when we have a
+  ///////////////////////////////////////////////////// rangefinder:///////////////////////////////////////////
 
   // public double getDistanceToObstacle() {
-  //   // Really meters in simulation since it's a rangefinder...
-  //   return m_rangefinder.getAverageVoltage();
+  // // Really meters in simulation since it's a rangefinder...
+  // return m_rangefinder.getAverageVoltage();
   // }
-
 
 }
