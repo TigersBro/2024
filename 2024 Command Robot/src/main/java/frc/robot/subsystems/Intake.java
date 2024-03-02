@@ -20,7 +20,7 @@ private PWMSparkMax intakeMotor;
     
 
  public Intake() {
- intakeMotor = new PWMSparkMax(1);
+ intakeMotor = new PWMSparkMax(12);
  addChild("Intake Motor",intakeMotor);
  intakeMotor.setInverted(false);
 
