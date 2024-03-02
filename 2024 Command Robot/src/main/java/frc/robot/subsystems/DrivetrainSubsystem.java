@@ -54,10 +54,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public void driveArcade(double _straight, double _turn) {
-    double straight = MathUtil.clamp(_straight + _turn, -1.0, 1.0);
-    double turn = MathUtil.clamp(_straight - _turn, -1.0, 1.0);
+    //double straight = MathUtil.clamp(_straight + _turn, -1.0, 1.0);
+    //double turn = MathUtil.clamp(_straight - _turn, -1.0, 1.0);
 
-    m_drive.arcadeDrive(straight, turn);
+    m_drive.arcadeDrive(_straight, _turn);
   }
 
   @Override

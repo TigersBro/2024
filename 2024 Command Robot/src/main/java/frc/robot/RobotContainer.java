@@ -70,10 +70,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // set up the drivetrain command that runs all the time
     m_drivetrain.setDefaultCommand(new RunCommand(
-        () -> m_drivetrain.driveArcade(
-            MathUtil.applyDeadband(m_driveController.getY(), Constants.OIConstants.kDriveDeadband),
-            MathUtil.applyDeadband(-m_driveController.getZ() * Constants.Drivetrain.kTurningScale,
-                Constants.OIConstants.kDriveDeadband)),
+        () -> m_drivetrain.driveArcade(m_driveController.getY(),-m_driveController.getZ()
+            //MathUtil.applyDeadband(m_driveController.getY(), Constants.OIConstants.kDriveDeadband),
+            //MathUtil.applyDeadband(-m_driveController.getZ() * Constants.Drivetrain.kTurningScale, Constants.OIConstants.kDriveDeadband)
+                ),
         m_drivetrain));
 
     SmartDashboard.putData(m_drivetrain);
