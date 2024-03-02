@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 public class Arm extends SubsystemBase {
 
     private PWMSparkMax armMotor;
-    private AnalogPotentiometer analogPotentiometer1;
+    private AnalogPotentiometer potPos;
 
     public Arm() {
 
@@ -33,14 +33,14 @@ public class Arm extends SubsystemBase {
         addChild("Arm Motor", armMotor);
         armMotor.setInverted(false);
 
-        analogPotentiometer1 = new AnalogPotentiometer(0, 1.0, 0.0);
-        addChild("Analog Potentiometer 1", analogPotentiometer1);
+        potPos = new AnalogPotentiometer(0, 1.0, 0.0);
+        addChild("Analog Potentiometer 1", potPos);
 
     }
 
     public void log() {
         
-        SmartDashboard.putData("Arm Pot", analogPotentiometer1);
+        SmartDashboard.putData("Arm Pot", potPos);
     }
 
     @Override
@@ -55,10 +55,22 @@ public class Arm extends SubsystemBase {
 
         
     }
+
+    public void Stop (){
+        // TODO: Add limit switch and potentiometer
+        //something like...
+        // if potPos.get() == Constant;
+        
+        armMotor.set(0);
+        armMotor.stopMotor();
+
+
+    }
+
     public void goUp() {
         // TODO: Add limit switch and potentiometer
         //something like...
-        // if analogPotentiometer1.get() == 1;
+        // if potPos.get() == 1;
         armMotor.set(.5);
 
 
@@ -68,7 +80,7 @@ public class Arm extends SubsystemBase {
     public void goDown(){
         // TODO: Add limit switch and potentiometer
         //something like...
-        // if analogPotentiometer1.get() == Constant;
+        // if potPos.get() == Constant;
         
         armMotor.set(-.5);
 
@@ -76,7 +88,16 @@ public class Arm extends SubsystemBase {
 
     }
 
+    public void CheckPosition (double valToCheck){
+        // TODO: Add limit switch and potentiometer
+        //something like...
+        // if potPos.get() == Constant;
+        
+        armMotor.set(-.5);
 
+
+
+    }
 
 
 }
