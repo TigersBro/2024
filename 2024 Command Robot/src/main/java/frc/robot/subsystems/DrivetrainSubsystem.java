@@ -25,8 +25,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private  CANSparkMax m_rearLeftMotor ;
   private  CANSparkMax m_rearRightMotor;
   private  DifferentialDrive m_drive; 
-  private final Encoder m_encoderLeft;
-  private final Encoder m_encoderRight;
+  private  Encoder m_encoderLeft;
+  private  Encoder m_encoderRight;
 
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
