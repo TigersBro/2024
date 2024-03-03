@@ -42,9 +42,9 @@ public class RobotContainer {
   private final DrivetrainSubsystem m_drivetrain = new DrivetrainSubsystem();
   private final Joystick m_driveController = new Joystick(Constants.OIConstants.kDriverController);
 
- // public final Arm m_arm = new Arm();
-  //public final Intake m_intake = new Intake();
-  //public final Shooter m_shooter = new Shooter();
+  public final Arm m_arm = new Arm();
+  public final Intake m_intake = new Intake();
+  public final Shooter m_shooter = new Shooter();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -57,7 +57,7 @@ public class RobotContainer {
     //SmartDashboard.putData("Speaker Pos", new SpeakerPos( m_arm ));
     //SmartDashboard.putData("Shoot Amp", new ShootAmp( m_shooter ));
     //SmartDashboard.putData("Shoot Speaker", new ShootSpeaker( m_shooter ));
-   // SmartDashboard.putData("Intake Com", new IntakeCom( m_intake ));
+   SmartDashboard.putData("Intake Com", new IntakeCom( m_intake ));
     //SmartDashboard.putData("Shoot", new Shoot( m_shooter ));
     //SmartDashboard.putData("Prepare Intake", new PrepareIntake( m_arm ));
 
