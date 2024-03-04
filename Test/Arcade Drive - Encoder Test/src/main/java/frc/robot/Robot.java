@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.util.sendable.SendableRegistry;
@@ -16,7 +17,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 
 /**
  * This is a demo program showing the use of the DifferentialDrive class. Runs the motors with
@@ -34,7 +35,12 @@ public class Robot extends TimedRobot {
   private CANSparkMax m_rightRearMotor;
   private DifferentialDrive m_robotDrive;
   private Encoder m_encoder;
+   private AnalogPotentiometer 
+
       
+  m_pot = new AnalogPotentiometer(0, 1);
+
+
   //REV encoder
   private RelativeEncoder m_leftEncoder;
   //private RelativeEncoder m_rightEncoder;
@@ -50,7 +56,10 @@ public class Robot extends TimedRobot {
     SendableRegistry.addChild(m_robotDrive, m_rightFrontMotor);
     SendableRegistry.addChild(m_robotDrive, m_leftRearMotor);
     SendableRegistry.addChild(m_robotDrive, m_rightRearMotor);
-  }
+ 
+
+}
+
 
   @Override
   public void robotInit() {
@@ -88,6 +97,7 @@ public class Robot extends TimedRobot {
     //SmartDashboard.putNumber("Encoder Velocity", m_encoder.get());
     SmartDashboard.putNumber("Encoder Velocity",m_encoder.getRate() );
     SmartDashboard.putData(m_encoder);
+    SmartDashboard.putNumber("pot", m_pot.get());
     
     //SmartDashboard.putNumber("Encoder Velocity", m_leftEncoder.getVelocity());
 
