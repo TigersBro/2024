@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
 
   //REV encoder
   private RelativeEncoder m_leftEncoder;
-  private CANSparkMax m_motor;
+  private PWMSparkMax m_motor;
 
   //private RelativeEncoder m_rightEncoder;
   
@@ -81,20 +81,20 @@ public class Robot extends TimedRobot {
     m_leftRearMotor = new CANSparkMax(leftRearDeviceID, MotorType.kBrushed);
     m_rightFrontMotor = new CANSparkMax(rightFrontDeviceID, MotorType.kBrushed);
     m_rightRearMotor = new CANSparkMax(rightRearDeviceID, MotorType.kBrushed);
-    m_motor = new CANSparkMax(6, MotorType.kBrushed);
+  //  m_motor = new CANSparkMax(6, MotorType.kBrushed);
 
+  m_motor = new PWMSparkMax(6);
     
     m_robotDrive = new DifferentialDrive(m_leftFrontMotor::set, m_rightFrontMotor::set);
   
     m_rightFrontMotor.setInverted(true);
     m_rightRearMotor.follow(m_rightFrontMotor);
     m_leftRearMotor.follow(m_leftFrontMotor);
-    m_motor.follow(m_rightFrontMotor);
+   // m_motor.follow(m_rightFrontMotor);
 
     
     m_encoder = new Encoder(kEncoderPortA, kEncoderPortB);
     //m_leftEncoder = new RelativeEncoder();
-     //  m_motor = new PWMSparkMax(6);
      
   }
 
@@ -105,11 +105,12 @@ public class Robot extends TimedRobot {
     // and backward, and the X turns left and right.
     m_robotDrive.arcadeDrive(m_joy.getY(), -m_joy.getZ());
 
-    
+    m_motor.set(m_joy.getY());
         final JoystickButton joystickButton1 = new JoystickButton(m_joy, 7);
         final JoystickButton joystickButton2 = new JoystickButton(m_joy, 8);
        // joystickButton1.onFalse( Commands.runOnce(() -> m_motor.set(0)));
-        joystickButton1.onTrue( Commands.runOnce(() -> m_motor.set(1)));
+       m_motor.set(kDefaultPeriod);
+        joystickButton1.onTrue( Commands.runOnce(() -> m_motor.setVoltage(1)));
       //  joystickButton2.onFalse( Commands.runOnce(() -> m_motor.set(0)));
         joystickButton2.onTrue( Commands.runOnce(() -> m_motor.set(1)));
 
