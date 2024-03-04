@@ -27,7 +27,7 @@ public class IntakeCom extends Command {
     public IntakeCom(Intake subsystem) {
 
 
- 
+        
         m_intake = subsystem;
         addRequirements(m_intake);
 

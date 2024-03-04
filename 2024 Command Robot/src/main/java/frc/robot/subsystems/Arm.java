@@ -12,6 +12,7 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.Constants;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -21,26 +22,36 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 
-public class Arm extends SubsystemBase {
 
-    private PWMSparkMax armMotor;
-    private AnalogPotentiometer potPos;
+public class Arm extends PIDSubsystem {
+
+    private PWMSparkMax m_motor;
+    private AnalogPotentiometer m_pot;
 
     public Arm() {
+        super(new PIDController(Constants.armConstants.PVal, Constants.armConstants.IVal, 0));
+        ///////////////////// HOW TO TUNE  //////////////////////
+        // copied from gears->elevator 
+        // https://www.youtube.com/watch?v=IB1Ir4oCP5k
+        
 
-        armMotor = new PWMSparkMax(6);
-        addChild("Arm Motor", armMotor);
-        armMotor.setInverted(false);
 
-        potPos = new AnalogPotentiometer(0, 1.0, 0.0);
-        addChild("Analog Potentiometer 1", potPos);
+        m_motor = new PWMSparkMax(6);
+        addChild("Arm Motor", m_motor);
 
+        // 3/4 turn potentiometer = 270 degrees
+        m_pot = new AnalogPotentiometer(0, 270);
+        addChild("Arm Potentiometer", m_pot);
+
+        getController().setTolerance(Constants.armConstants.armTolerance);
     }
 
     public void log() {
         
-        SmartDashboard.putData("Arm Pot", potPos);
+        SmartDashboard.putData("Arm Pot", m_pot);
     }
 
     @Override
@@ -59,45 +70,42 @@ public class Arm extends SubsystemBase {
     public void Stop (){
         // TODO: Add limit switch and potentiometer
         //something like...
-        // if potPos.get() == Constant;
+        // if m_pot.get() == Constant;
         
-        armMotor.set(0);
-        armMotor.stopMotor();
+        m_motor.set(0);
+        m_motor.stopMotor();
 
 
     }
-
-    public void goUp() {
-        // TODO: Add limit switch and potentiometer
-        //something like...
-        // if potPos.get() == 1;
-        armMotor.set(.5);
-
-
-
-    }
-
-    public void goDown(){
-        // TODO: Add limit switch and potentiometer
-        //something like...
-        // if potPos.get() == Constant;
-        
-        armMotor.set(-.5);
+// Manual overrides 
+    public void goUp(double speed) {
+        //PID Control may be good here...
+       
+        m_motor.set(speed);
 
 
 
     }
 
-    public void CheckPosition (double valToCheck){
-        // TODO: Add limit switch and potentiometer
-        //something like...
-        // if potPos.get() == Constant;
-        
-        armMotor.set(-.5);
-
-
-
+    public void goDown(double speed){
+        //PID control may be good here...
+       m_motor.set(speed);
+       
     }
 
+    public double getPosition( ){
+        return m_pot.get();
+    }
+
+    @Override
+    public double getMeasurement() {
+      return m_pot.get();
+    }
+  
+    /** Use the motor as the PID output. This method is automatically called by the subsystem. */
+    @Override
+    public void useOutput(double output, double setpoint) {
+      m_motor.set(output);
+    }
 
 }

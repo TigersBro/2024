@@ -45,4 +45,37 @@ public final class Constants {
   public static final double kEncoderDistancePerPulse = (kWheelDiameter * Math.PI) / kEncoderCPR;
 
 }
+
+public static final class Scoring {
+  //TODO set these to actual positions by reading the potentiometer when they are in position.
+  public static final double ampPos = 1.1;
+  public static final double speakerPos = .5;   
 }
+public static final class Limits{
+  //TODO set these to actual positions by reading the potentiometer when they are in position.
+  public static final double armTop = 0.1;
+  public static final double armBottom = 3.3; 
+  public static final double armMaxSpeed = 1;
+  
+  public static final double shooterMaxSpeed = 1;
+  public static final double shooterMinSpeed = .2;
+  
+  public static final double intakeMaxSpeed = 1;
+  public static final double intakeminSpeed = .1;
+  
+  
+}
+
+public static final class armConstants{
+  public static final double PVal = 4;
+  public static final double IVal = 0.007;
+  //I think this means if it is within 3 degress of our desired position.....
+  public static final double armTolerance = 3;
+  public static final double armAmpPos = 120;
+  // public static final double armSetPoint 
+}
+ 
+}
+
+
+

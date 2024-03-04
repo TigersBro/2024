@@ -11,42 +11,35 @@
 // ROBOTBUILDER TYPE: Command.
 
 package frc.robot.commands;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import java.util.function.DoubleSupplier;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
-
 
 public class AmpPos extends Command {
 
-        private final Arm m_arm;
- 
+    private final Arm m_arm;
 
-    public AmpPos(Arm subsystem) {
-    
-
-
+    public AmpPos(Arm subsystem) 
+    {
         m_arm = subsystem;
         addRequirements(m_arm);
-
     }
 
     @Override
-    public void initialize() {
-    
-    }
-
-    @Override
-    public void execute() {
-    }
-
-    @Override
-    public void end(boolean interrupted) {
+    public void initialize() 
+    {
+        m_arm.setSetpoint(Constants.armConstants.armAmpPos);
+        m_arm.enable();
     }
 
     @Override
     public boolean isFinished() {
-        return false;
+        // This is set to true when we hit the setpoint.
+        return m_arm.getController().atSetpoint();
+
     }
 
     @Override
