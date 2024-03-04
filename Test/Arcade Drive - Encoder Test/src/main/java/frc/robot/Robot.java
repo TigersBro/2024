@@ -14,9 +14,12 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 
 /**
@@ -35,14 +38,16 @@ public class Robot extends TimedRobot {
   private CANSparkMax m_rightRearMotor;
   private DifferentialDrive m_robotDrive;
   private Encoder m_encoder;
-   private AnalogPotentiometer 
+ private AnalogPotentiometer  m_pot = new AnalogPotentiometer(0, 1);
+ private final XboxController m_otherController = new XboxController(2);
+
 
       
-  m_pot = new AnalogPotentiometer(0, 1);
-
+ 
 
   //REV encoder
   private RelativeEncoder m_leftEncoder;
+  private PWMSparkMax m_motor;
   //private RelativeEncoder m_rightEncoder;
   
   // FRC Encoder logic
@@ -83,7 +88,8 @@ public class Robot extends TimedRobot {
     
     m_encoder = new Encoder(kEncoderPortA, kEncoderPortB);
     //m_leftEncoder = new RelativeEncoder();
-    
+       m_motor = new PWMSparkMax(6);
+     
   }
 
   @Override
@@ -92,6 +98,15 @@ public class Robot extends TimedRobot {
     // That means that the Y axis drives forward
     // and backward, and the X turns left and right.
     m_robotDrive.arcadeDrive(m_joy.getY(), -m_joy.getZ());
+
+    
+        final JoystickButton dpadUp = new JoystickButton(m_otherController, 5);
+        final JoystickButton dpadDown = new JoystickButton(m_otherController, 7);
+        dpadUp.toggleOnFalse( Commands.runOnce(() -> m_motor.set(0)));
+        dpadUp.toggleOnTrue( Commands.runOnce(() -> m_motor.set(1)));
+        dpadDown.toggleOnFalse( Commands.runOnce(() -> m_motor.set(0)));
+        dpadDown.toggleOnTrue( Commands.runOnce(() -> m_motor.set(1)));
+
     
     SmartDashboard.putNumber("Encoder", m_encoder.getDistance());
     //SmartDashboard.putNumber("Encoder Velocity", m_encoder.get());
@@ -102,7 +117,7 @@ public class Robot extends TimedRobot {
     //SmartDashboard.putNumber("Encoder Velocity", m_leftEncoder.getVelocity());
 
    // SmartDashboard.putNumber("Encoder Velocity", m_rightEncoder.getVelocity());
-    
+   m_motor.set(0);
 
   }
 }
