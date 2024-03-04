@@ -19,6 +19,7 @@ public final class Constants {
 
   public static final class OIConstants {
     public static final int kDriverController = 0;
+    public static final int kOtherController = 1;
     public static final double kDriveDeadband = 0.05;
     public static final double kArmManualDeadband = 0.05;
     public static final double kArmManualScale = 0.5;
@@ -53,8 +54,11 @@ public static final class Scoring {
 }
 public static final class Limits{
   //TODO set these to actual positions by reading the potentiometer when they are in position.
-  public static final double armTop = 0.1;
-  public static final double armBottom = 3.3; 
+  //scale 1...may need to play with this....
+  public static final double armTop = 0.00096;
+  public static final double armBottom = .0045; 
+
+
   public static final double armMaxSpeed = 1;
   
   public static final double shooterMaxSpeed = 1;

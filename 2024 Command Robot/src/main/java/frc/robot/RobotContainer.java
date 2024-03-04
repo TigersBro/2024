@@ -17,8 +17,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Commands;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -37,6 +39,7 @@ public class RobotContainer {
 
   private final DrivetrainSubsystem m_drivetrain = new DrivetrainSubsystem();
   private final Joystick m_driveController = new Joystick(Constants.OIConstants.kDriverController);
+  private final XboxController m_otherController = new XboxController(Constants.OIConstants.kDriverController);
 
   public final Arm m_arm = new Arm();
   public final Intake m_intake = new Intake();
@@ -72,6 +75,16 @@ public class RobotContainer {
             //MathUtil.applyDeadband(-m_driveController.getZ() * Constants.Drivetrain.kTurningScale, Constants.OIConstants.kDriveDeadband)
                 ),
         m_drivetrain));
+
+
+        final JoystickButton dpadUp = new JoystickButton(m_otherController, 5);
+        final JoystickButton dpadDown = new JoystickButton(m_otherController, 7);
+        dpadUp.toggleOnFalse( Commands.runOnce(() -> m_arm.Stop()));
+        dpadUp.toggleOnTrue( Commands.runOnce(() -> m_arm.goUp(1)));
+        dpadDown.toggleOnFalse( Commands.runOnce(() -> m_arm.Stop()));
+        dpadDown.toggleOnTrue( Commands.runOnce(() -> m_arm.goUp(1)));
+
+        // dpadDown.onTrue(new SetElevatorSetpoint(0.0, m_elevator));
 
     SmartDashboard.putData(m_drivetrain);
 
