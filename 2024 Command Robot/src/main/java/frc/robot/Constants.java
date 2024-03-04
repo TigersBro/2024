@@ -74,6 +74,12 @@ public static final class armConstants{
   public static final double armAmpPos = 120;
   // public static final double armSetPoint 
 }
+
+public static final class driveStraight{
+  public static final double PVal = 4;
+  public static final double IVal = 0;
+
+}
  
 }
 

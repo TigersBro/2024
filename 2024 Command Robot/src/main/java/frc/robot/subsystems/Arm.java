@@ -63,27 +63,16 @@ public class Arm extends PIDSubsystem {
     @Override
     public void simulationPeriodic() {
         // This method will be called once per scheduler run when in simulation
-
-        
     }
 
     public void Stop (){
-        // TODO: Add limit switch and potentiometer
-        //something like...
-        // if m_pot.get() == Constant;
-        
         m_motor.set(0);
         m_motor.stopMotor();
-
-
     }
 // Manual overrides 
     public void goUp(double speed) {
-        //PID Control may be good here...
-       
+
         m_motor.set(speed);
-
-
 
     }
 

@@ -31,13 +31,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class RobotContainer {
 
-  //public static RobotContainer m_robotContainer = new RobotContainer();
 
   // The robot's subsystems and commands are defined here...
-  // private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
-  // private final ExampleCommand m_autoCommand = new
-  // ExampleCommand(m_exampleSubsystem);
+ 
 
   private final DrivetrainSubsystem m_drivetrain = new DrivetrainSubsystem();
   private final Joystick m_driveController = new Joystick(Constants.OIConstants.kDriverController);
@@ -79,14 +75,9 @@ public class RobotContainer {
 
     SmartDashboard.putData(m_drivetrain);
 
-    // set up arm manual and auto functions
   }
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
+
   public Command getAutonomousCommand() {
     return null;
   }
