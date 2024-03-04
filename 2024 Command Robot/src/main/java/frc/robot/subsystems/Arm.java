@@ -43,7 +43,7 @@ public class Arm extends PIDSubsystem {
         addChild("Arm Motor", m_motor);
 
         // 3/4 turn potentiometer = 270 degrees
-        m_pot = new AnalogPotentiometer(0, 270);
+        m_pot = new AnalogPotentiometer(0, 1);
         addChild("Arm Potentiometer", m_pot);
 
         getController().setTolerance(Constants.armConstants.armTolerance);

@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.util.sendable.SendableRegistry;
@@ -39,7 +40,7 @@ public class Robot extends TimedRobot {
   private DifferentialDrive m_robotDrive;
   private Encoder m_encoder;
  private AnalogPotentiometer  m_pot = new AnalogPotentiometer(0, 1);
- private final XboxController m_otherController = new XboxController(2);
+ private final XboxController m_otherController = new XboxController(0);
 
 
       
@@ -47,7 +48,8 @@ public class Robot extends TimedRobot {
 
   //REV encoder
   private RelativeEncoder m_leftEncoder;
-  private PWMSparkMax m_motor;
+  private CANSparkMax m_motor;
+
   //private RelativeEncoder m_rightEncoder;
   
   // FRC Encoder logic
@@ -61,6 +63,7 @@ public class Robot extends TimedRobot {
     SendableRegistry.addChild(m_robotDrive, m_rightFrontMotor);
     SendableRegistry.addChild(m_robotDrive, m_leftRearMotor);
     SendableRegistry.addChild(m_robotDrive, m_rightRearMotor);
+  
  
 
 }
@@ -78,17 +81,20 @@ public class Robot extends TimedRobot {
     m_leftRearMotor = new CANSparkMax(leftRearDeviceID, MotorType.kBrushed);
     m_rightFrontMotor = new CANSparkMax(rightFrontDeviceID, MotorType.kBrushed);
     m_rightRearMotor = new CANSparkMax(rightRearDeviceID, MotorType.kBrushed);
+    m_motor = new CANSparkMax(6, MotorType.kBrushed);
+
     
     m_robotDrive = new DifferentialDrive(m_leftFrontMotor::set, m_rightFrontMotor::set);
   
     m_rightFrontMotor.setInverted(true);
     m_rightRearMotor.follow(m_rightFrontMotor);
     m_leftRearMotor.follow(m_leftFrontMotor);
+    m_motor.follow(m_rightFrontMotor);
 
     
     m_encoder = new Encoder(kEncoderPortA, kEncoderPortB);
     //m_leftEncoder = new RelativeEncoder();
-       m_motor = new PWMSparkMax(6);
+     //  m_motor = new PWMSparkMax(6);
      
   }
 
@@ -100,14 +106,14 @@ public class Robot extends TimedRobot {
     m_robotDrive.arcadeDrive(m_joy.getY(), -m_joy.getZ());
 
     
-        final JoystickButton dpadUp = new JoystickButton(m_otherController, 5);
-        final JoystickButton dpadDown = new JoystickButton(m_otherController, 7);
-        dpadUp.toggleOnFalse( Commands.runOnce(() -> m_motor.set(0)));
-        dpadUp.toggleOnTrue( Commands.runOnce(() -> m_motor.set(1)));
-        dpadDown.toggleOnFalse( Commands.runOnce(() -> m_motor.set(0)));
-        dpadDown.toggleOnTrue( Commands.runOnce(() -> m_motor.set(1)));
+        final JoystickButton joystickButton1 = new JoystickButton(m_joy, 7);
+        final JoystickButton joystickButton2 = new JoystickButton(m_joy, 8);
+       // joystickButton1.onFalse( Commands.runOnce(() -> m_motor.set(0)));
+        joystickButton1.onTrue( Commands.runOnce(() -> m_motor.set(1)));
+      //  joystickButton2.onFalse( Commands.runOnce(() -> m_motor.set(0)));
+        joystickButton2.onTrue( Commands.runOnce(() -> m_motor.set(1)));
 
-    
+    SmartDashboard.putBoolean("ur mom", joystickButton1.getAsBoolean());
     SmartDashboard.putNumber("Encoder", m_encoder.getDistance());
     //SmartDashboard.putNumber("Encoder Velocity", m_encoder.get());
     SmartDashboard.putNumber("Encoder Velocity",m_encoder.getRate() );
