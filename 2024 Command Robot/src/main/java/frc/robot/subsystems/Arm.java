@@ -13,12 +13,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants;
-import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
@@ -43,7 +38,7 @@ public class Arm extends PIDSubsystem {
         addChild("Arm Motor", m_motor);
 
         // 3/4 turn potentiometer = 270 degrees
-        m_pot = new AnalogPotentiometer(0, 1);
+        m_pot = new AnalogPotentiometer(0, 5);
         addChild("Arm Potentiometer", m_pot);
 
         getController().setTolerance(Constants.armConstants.armTolerance);

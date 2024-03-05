@@ -13,26 +13,28 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import java.util.function.DoubleSupplier;
 
-import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 
-public class AmpPos extends Command {
+public class ArmSetpoint extends Command {
 
     private final Arm m_arm;
+    private final double m_setpoint;
 
-    public AmpPos(Arm subsystem) 
+    public ArmSetpoint(Arm subsystem, double setpoint) 
     {
         m_arm = subsystem;
+        m_setpoint = setpoint;
         addRequirements(m_arm);
     }
+
 
     @Override
     public void initialize() 
     {
-        m_arm.setSetpoint(Constants.armConstants.armAmpPos);
+        m_arm.setSetpoint(m_setpoint);
         m_arm.enable();
+        addRequirements(m_arm);
     }
 
     @Override
@@ -42,9 +44,4 @@ public class AmpPos extends Command {
 
     }
 
-    @Override
-    public boolean runsWhenDisabled() {
-        return false;
-
-    }
 }

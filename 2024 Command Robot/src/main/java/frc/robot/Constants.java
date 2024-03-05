@@ -75,7 +75,9 @@ public static final class armConstants{
   public static final double IVal = 0.007;
   //I think this means if it is within 3 degress of our desired position.....
   public static final double armTolerance = 3;
-  public static final double armAmpPos = 120;
+  public static final double armAmpPos = .001;
+  public static final double armIntakePos = .0045;
+  public static final double armSpeakerPos = .0045;
   // public static final double armSetPoint 
 }
 

@@ -3,8 +3,7 @@
 package frc.robot.subsystems;
 
 
-import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
@@ -16,12 +15,16 @@ public class Intake extends SubsystemBase {
 
 
 private PWMSparkMax intakeMotor;
+private DigitalInput limitSwitch = new DigitalInput(4);
 
     
 
  public Intake() {
- intakeMotor = new PWMSparkMax(12);
+
+ intakeMotor = new PWMSparkMax(9);
  addChild("Intake Motor",intakeMotor);
+ addChild("Limit Switch", limitSwitch );
+
  intakeMotor.setInverted(false);
 
 
@@ -44,6 +47,11 @@ private PWMSparkMax intakeMotor;
 
     @Override
     public void simulationPeriodic() {
+
+    }
+
+    public boolean atLimit() {
+        return limitSwitch.get();
 
     }
 
