@@ -124,7 +124,7 @@ public class Robot extends TimedRobot {
     //SmartDashboard.putNumber("Encoder Velocity", m_leftEncoder.getVelocity());
 
    // SmartDashboard.putNumber("Encoder Velocity", m_rightEncoder.getVelocity());
-   m_motor.set(0);
+   //m_motor.set(0);
 
   }
 }
