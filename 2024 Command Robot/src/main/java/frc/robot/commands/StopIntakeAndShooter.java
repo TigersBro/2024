@@ -11,34 +11,34 @@
 // ROBOTBUILDER TYPE: Command.
 
 package frc.robot.commands;
-import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj2.command.Command;
-
-
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
     
-public class StartIntake extends Command {
+public class StopIntakeAndShooter extends Command {
 
+        private final Shooter m_shooter;
         private final Intake m_intake;
-        private final PS5Controller m_control;
+        private  boolean m_done;
  
 
-    public StartIntake(Intake subsystem, PS5Controller controller) {
+    public StopIntakeAndShooter(Shooter subsystem, Intake intake) {
 
 
         
-        m_intake = subsystem;
-        m_control = controller;
-        addRequirements(m_intake);
-
+        m_shooter = subsystem;
+        m_intake = intake;
+        addRequirements(m_shooter, m_intake);
+        m_done = false;
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        m_intake.suck();
-
+        m_shooter.Stop();
+        m_intake.stop();
+        m_done = true;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -48,16 +48,17 @@ public class StartIntake extends Command {
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
+    public void end(boolean interrupted) 
+    {
+        m_shooter.Stop();
         m_intake.stop();
-
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
         
-        return m_intake.atLimit()|| m_control.getCrossButtonReleased();
+        return m_done ;
     }
     
 }

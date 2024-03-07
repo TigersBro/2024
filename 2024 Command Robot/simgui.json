@@ -21,6 +21,7 @@
       "/SmartDashboard/Intake": "Subsystem",
       "/SmartDashboard/Intake Com": "Command",
       "/SmartDashboard/Intake Pos": "Command",
+      "/SmartDashboard/Shoot Amp": "Command",
       "/SmartDashboard/Shooter": "Subsystem",
       "/SmartDashboard/Speaker Pos": "Command"
     },

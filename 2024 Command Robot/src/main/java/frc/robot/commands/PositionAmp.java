@@ -11,12 +11,13 @@
 // ROBOTBUILDER TYPE: Command.
 
 package frc.robot.commands;
+import edu.wpi.first.wpilibj.PS5Controller;
 import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 
 public class PositionAmp extends ArmSetpoint {
-    public PositionAmp(Arm subsystem) 
+    public PositionAmp(Arm subsystem, PS5Controller controller) 
     {
-        super(subsystem, Constants.armConstants.armAmpPos);
+        super(subsystem, Constants.armConstants.armAmpPos, controller);
     }
 }

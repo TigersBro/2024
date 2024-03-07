@@ -11,48 +11,16 @@
 // ROBOTBUILDER TYPE: Command.
 
 package frc.robot.commands;
-import edu.wpi.first.wpilibj2.command.Command;
 
+import edu.wpi.first.wpilibj.PS5Controller;
 import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 
-public class PositionSpeaker extends Command {
+public class PositionSpeaker extends ArmSetpoint {
 
-        private final Arm m_arm;
-
-    public PositionSpeaker(Arm subsystem) {
-
-        m_arm = subsystem;
-        addRequirements(m_arm);
-
+    public PositionSpeaker(Arm subsystem, PS5Controller controller) {
+            super(subsystem, Constants.armConstants.armAmpPos, controller);
+        
     }
 
-    @Override
-    public void initialize() {
-    
-        m_arm.setSetpoint(Constants.armConstants.armSpeakerPos);
-        m_arm.enable();
-    
-    }  
-
-    @Override
-    public void execute() {
-    }
-
-    @Override
-    public void end(boolean interrupted) {
-    }
-
-    @Override
-    public boolean isFinished() {
-      
-        return m_arm.getController().atSetpoint();
-    
-    }
-
-    @Override
-    public boolean runsWhenDisabled() {
-        return false;
-
-    }
 }

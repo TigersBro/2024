@@ -12,6 +12,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.Arm;
@@ -20,11 +21,13 @@ public class ArmSetpoint extends Command {
 
     private final Arm m_arm;
     private final double m_setpoint;
+    private final PS5Controller m_controller;
 
-    public ArmSetpoint(Arm subsystem, double setpoint) 
+    public ArmSetpoint(Arm subsystem, double setpoint, PS5Controller controller) 
     {
         m_arm = subsystem;
         m_setpoint = setpoint;
+        m_controller = controller;
         addRequirements(m_arm);
     }
 
@@ -36,11 +39,14 @@ public class ArmSetpoint extends Command {
         m_arm.enable();
         addRequirements(m_arm);
     }
+    public void end(boolean interrupted) {
+        m_arm.stop();
 
+    }
     @Override
     public boolean isFinished() {
         // This is set to true when we hit the setpoint.
-        return m_arm.getController().atSetpoint();
+        return m_arm.getController().atSetpoint()|| m_controller.getCrossButtonReleased();
 
     }
 

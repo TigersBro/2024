@@ -19,7 +19,8 @@ private DigitalInput limitSwitch = new DigitalInput(4);
 
     
 
- public Intake() {
+ public Intake() 
+ {
 
  intakeMotor = new PWMSparkMax(9);
  addChild("Intake Motor",intakeMotor);
@@ -28,33 +29,48 @@ private DigitalInput limitSwitch = new DigitalInput(4);
  intakeMotor.setInverted(false);
 
 
-    }
+ }
 
     
-    public void suck() {
+    public void suck() 
+    {
         intakeMotor.set(.8);
      }
 
     
-     public void reversesuck() {
+     public void reversesuck() 
+    {
         intakeMotor.set(-.6);
     }
 
     @Override
-    public void periodic() {
+    public void periodic() 
+    {
 
     }
 
     @Override
-    public void simulationPeriodic() {
+    public void simulationPeriodic() 
+    {
 
     }
 
-    public boolean atLimit() {
+    public boolean atLimit() 
+    {
         return limitSwitch.get();
 
     }
 
+    public void stop()
+    {
+        intakeMotor.set(0);
+        intakeMotor.stopMotor();
+    }
+
+    public void feed()
+    {
+        intakeMotor.set(.4);
+    }
 
 }
 

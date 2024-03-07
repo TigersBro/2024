@@ -76,6 +76,10 @@ public class Arm extends PIDSubsystem {
        m_motor.set(speed);
        
     }
+    public void manualOverride(double speed)
+    {
+        m_motor.set(speed);    
+    }
 
     public double getPosition( ){
         return m_pot.get();
@@ -86,6 +90,10 @@ public class Arm extends PIDSubsystem {
       return m_pot.get();
     }
   
+    public void stop()
+    {
+        m_motor.stopMotor();
+    }
     /** Use the motor as the PID output. This method is automatically called by the subsystem. */
     @Override
     public void useOutput(double output, double setpoint) {

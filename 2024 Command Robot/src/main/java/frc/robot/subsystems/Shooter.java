@@ -8,22 +8,19 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
 package frc.robot.subsystems;
-
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
 public class Shooter extends SubsystemBase {
-  
-private PWMSparkMax shooterMotor;
+
+    private PWMSparkMax shooterMotor;
 
     public Shooter() {
-shooterMotor = new PWMSparkMax (7);
- addChild("Shooter Motor",shooterMotor);
- shooterMotor.setInverted(false);
-
+        shooterMotor = new PWMSparkMax(7);
+        addChild("Shooter Motor", shooterMotor);
+        shooterMotor.setInverted(false);
 
     }
 
@@ -37,19 +34,46 @@ shooterMotor = new PWMSparkMax (7);
 
     }
 
+    public void Place() 
+    {
+        shooterMotor.set(.1);
+    }
 
+    public void Launch() {
+        // spin it up slower...but that would take a PID..ooooor
+        shooterMotor.set(.1);
+        try {
+            wait(10);
+            shooterMotor.set(.3);
+            wait(10);
+            shooterMotor.set(.5);
+            wait(10);
+            shooterMotor.set(.7);
+            wait(10);
+            shooterMotor.set(.9);
+            wait(10);
+            shooterMotor.set(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
-    public void Launch () {
+    public void Stop() 
+    {
+        shooterMotor.set(0);
+        shooterMotor.stopMotor();
+    }
+    public void Collect() 
+    {
 
-        shooterMotor.set(1);
+        shooterMotor.set(-.2);
+
+    }
+    public void IDontKnow() 
+    {
+
+        shooterMotor.set(.2);
 
     }
 
-    public void Collect (){
-        
-        shooterMotor.set(-.2);
-
 }
-
-}
-

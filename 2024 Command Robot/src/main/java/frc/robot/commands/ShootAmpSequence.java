@@ -11,16 +11,20 @@ import frc.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-public class AutonomousCommand extends SequentialCommandGroup {
+public class ShootAmpSequence extends SequentialCommandGroup {
 
-  public AutonomousCommand(DrivetrainSubsystem drive, Arm arm, Shooter shooter, Intake intake, PS5Controller controller) {
+  public ShootAmpSequence(Arm arm, Shooter shooter, Intake intake, PS5Controller controller) {
     addCommands
     (
         Commands.parallel
         (
-          new DriveStraight(1, drive),
+          new StartIDontKnow(shooter),
           new PositionAmp(arm, controller)
         )
+        //new FeedShooter(intake, controller),
+        //new StopIntakeAndShooter(shooter, intake)
+
+
     );
 
         // new PrepareToPickup(claw, wrist, elevator),

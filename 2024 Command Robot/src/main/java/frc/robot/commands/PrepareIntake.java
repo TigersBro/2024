@@ -10,6 +10,7 @@
 
 
 package frc.robot.commands;
+import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Arm;
@@ -19,13 +20,13 @@ import frc.robot.subsystems.Intake;
 
 public class PrepareIntake extends SequentialCommandGroup {
 
-    public PrepareIntake(Arm arm, Intake intake){
+    public PrepareIntake(Arm arm, Intake intake, PS5Controller controller){
 
     addCommands(
         Commands.parallel
         (
-                new PositionIntake(arm),
-                new StartIntake(intake)
+                new PositionIntake(arm, controller),
+                new StartIntake(intake, controller)
         )
         // Add Commands here:
         // Also add parallel commands using the

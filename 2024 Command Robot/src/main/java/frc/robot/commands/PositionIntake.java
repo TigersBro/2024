@@ -12,38 +12,13 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.Command;
-
+import edu.wpi.first.wpilibj.PS5Controller;
 import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 
-public class PositionIntake extends Command {
-
-    private final Arm m_arm;
-
-    public PositionIntake(Arm subsystem) 
+public class PositionIntake extends ArmSetpoint {
+    public PositionIntake(Arm subsystem, PS5Controller controller) 
     {
-        m_arm = subsystem;
-        addRequirements(m_arm);
-    }
-
-    @Override
-    public void initialize() 
-    {
-        m_arm.setSetpoint(Constants.armConstants.armIntakePos);
-        m_arm.enable();
-    }
-
-    @Override
-    public boolean isFinished() {
-        // This is set to true when we hit the setpoint.
-        return m_arm.getController().atSetpoint();
-
-    }
-
-    @Override
-    public boolean runsWhenDisabled() {
-        return false;
-
+        super(subsystem, Constants.armConstants.armAmpPos, controller);
     }
 }

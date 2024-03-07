@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PS5Controller;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Intake;
@@ -12,10 +13,9 @@ import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.commands.AutonomousCommand;
+
 import frc.robot.commands.*;
 
 /**
@@ -40,9 +40,9 @@ public class RobotContainer {
   
   
   private final Joystick m_driveController = new Joystick(Constants.OIConstants.kDriverController);
-  private final XboxController m_otherController = new XboxController(Constants.OIConstants.kDriverController);
+  private final PS5Controller m_ps5 = new PS5Controller(Constants.OIConstants.kOtherController);
   
-  private final Command m_autonomousCommand = new AutonomousCommand(m_drivetrain, m_arm, m_shooter, m_intake);
+  private final Command m_autonomousCommand = new AutonomousCommand(m_drivetrain, m_arm, m_shooter, m_intake, m_ps5);
   
   
   /**
@@ -51,10 +51,12 @@ public class RobotContainer {
   public RobotContainer() {
 
     // SmartDashboard Buttons
-    SmartDashboard.putData("Autonomous Command", new AutonomousCommand(m_drivetrain, m_arm, m_shooter, m_intake));
-    SmartDashboard.putData("Amp Pos", new PositionAmp( m_arm ));
-    SmartDashboard.putData("Speaker Pos", new PositionSpeaker( m_arm ));
-    SmartDashboard.putData("Intake Pos", new PositionIntake( m_arm ));
+    SmartDashboard.putData("Autonomous Command", new AutonomousCommand(m_drivetrain, m_arm, m_shooter, m_intake, m_ps5));
+    SmartDashboard.putData("Amp Pos", new PositionAmp( m_arm, m_ps5 ));
+    SmartDashboard.putData("Speaker Pos", new PositionSpeaker( m_arm, m_ps5 ));
+    SmartDashboard.putData("Shoot Amp", new ShootAmpSequence(m_arm, m_shooter, m_intake, m_ps5));
+    SmartDashboard.putData("Shoot Amp", new ShootAmpSequence(m_arm, m_shooter, m_intake, m_ps5));
+    SmartDashboard.putData("Intake Pos", new PositionIntake( m_arm, m_ps5 ));
     
     SmartDashboard.putData(m_drivetrain);
     SmartDashboard.putData(m_arm);
@@ -70,22 +72,21 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     // set up the drivetrain command that runs all the time
-    m_drivetrain.setDefaultCommand(new RunCommand(
-        () -> m_drivetrain.driveArcade(m_driveController.getY(),-m_driveController.getZ()
-          //  MathUtil.applyDeadband(m_driveController.getY(), Constants.OIConstants.kDriveDeadband),
-            //MathUtil.applyDeadband(-m_driveController.getZ() * Constants.Drivetrain.kTurningScale, Constants.OIConstants.kDriveDeadband)
-                ),
-        m_drivetrain));
+        m_drivetrain.setDefaultCommand(new RunCommand( () -> m_drivetrain.driveArcade(m_driveController.getY(),-m_driveController.getZ()),m_drivetrain));
+
+        
+        m_arm.setDefaultCommand(new RunCommand ( () -> m_arm.manualOverride(m_ps5.getLeftY())));     
+
+        final JoystickButton shoot = new JoystickButton(m_driveController, 1);
+        final POVButton shootSpeaker = new POVButton(m_ps5, 0);
+        final POVButton shootAmp = new POVButton(m_ps5, 180);
+        shoot.onTrue(new FeedShooter(m_intake));
+        shootAmp.onTrue(new ShootAmpSequence(m_arm, m_shooter, m_intake, m_ps5));
+        shootSpeaker.onTrue(new ShootSpeakerSequence(m_arm, m_shooter, m_intake, m_ps5));
+
+        // final JoystickButton prepareArm = new JoystickButton(m_ps5, m_ps5.)
 
 
-        final JoystickButton dpadUp = new JoystickButton(m_otherController, 5);
-        final JoystickButton dpadDown = new JoystickButton(m_otherController, 7);
-        dpadUp.toggleOnFalse( Commands.runOnce(() -> m_arm.Stop()));
-        dpadUp.toggleOnTrue( Commands.runOnce(() -> m_arm.goUp(1)));
-        dpadDown.toggleOnFalse( Commands.runOnce(() -> m_arm.Stop()));
-        dpadDown.toggleOnTrue( Commands.runOnce(() -> m_arm.goUp(1)));
-
-        // dpadDown.onTrue(new SetElevatorSetpoint(0.0, m_elevator));
 
 
   }
