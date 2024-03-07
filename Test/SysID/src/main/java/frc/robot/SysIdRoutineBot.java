@@ -47,19 +47,19 @@ public class SysIdRoutineBot {
     // of bindings at once
     m_driverController
         .a()
-        .and(m_driverController.rightBumper())
+        //.and(m_driverController.rightBumper())
         .whileTrue(m_drive.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
     m_driverController
         .b()
-        .and(m_driverController.rightBumper())
+        //.and(m_driverController.rightBumper())
         .whileTrue(m_drive.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
     m_driverController
         .x()
-        .and(m_driverController.rightBumper())
+        //.and(m_driverController.rightBumper())
         .whileTrue(m_drive.sysIdDynamic(SysIdRoutine.Direction.kForward));
     m_driverController
         .y()
-        .and(m_driverController.rightBumper())
+        //.and(m_driverController.rightBumper())
         .whileTrue(m_drive.sysIdDynamic(SysIdRoutine.Direction.kReverse));
 
     // Control the shooter wheel with the left trigger
