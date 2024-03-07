@@ -4,18 +4,22 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS5Controller;
+import edu.wpi.first.wpilibj.PS5Controller.Button;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
 
 /**
@@ -44,6 +48,11 @@ public class RobotContainer {
   
   private final Command m_autonomousCommand = new AutonomousCommand(m_drivetrain, m_arm, m_shooter, m_intake, m_ps5);
   
+  private final DrivetrainSubsystem m_robotDrive = new DrivetrainSubsystem();
+
+
+    PS5Controller m_driverController = new PS5Controller(OIConstants.kOtherController);
+
   
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -75,7 +84,7 @@ public class RobotContainer {
         m_drivetrain.setDefaultCommand(new RunCommand( () -> m_drivetrain.driveArcade(m_driveController.getY(),-m_driveController.getZ()),m_drivetrain));
 
         
-        m_arm.setDefaultCommand(new RunCommand ( () -> m_arm.manualOverride(m_ps5.getLeftY())));     
+       // m_arm.setDefaultCommand(new RunCommand ( () -> m_arm.manualOverride(m_ps5.getLeftY())));     
 
         final JoystickButton shoot = new JoystickButton(m_driveController, 1);
         final POVButton shootSpeaker = new POVButton(m_ps5, 0);
@@ -90,8 +99,31 @@ public class RobotContainer {
         prepareIntake.onTrue(new PrepareIntake(m_arm, m_intake, m_ps5) );
         stopIt.onTrue(new StopIntakeAndShooter(m_shooter, m_intake));
 
+ new JoystickButton(m_driverController, Button.kR1.value)
+        .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)))
+        .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
 
-  }
+  new JoystickButton(m_driverController, Button.kL1.value)
+  .whileTrue(
+      new PIDCommand(
+          new PIDController(
+            Constants.kStabilizationP,
+            Constants.kStabilizationI,
+            Constants.kStabilizationD),
+          // Close the loop on the turn rate
+          m_robotDrive::getTurnRate,
+          // Setpoint is 0
+          0,
+          // Pipe the output to the turning controls
+          output -> m_robotDrive.arcadeDrive(-m_driverController.getLeftY(), output),
+          // Require the robot drive
+          m_robotDrive));
+        
+        }
+
+
+
+  
 
 
   public Command getAutonomousCommand() {
