@@ -79,14 +79,16 @@ public class RobotContainer {
 
         final JoystickButton shoot = new JoystickButton(m_driveController, 1);
         final POVButton shootSpeaker = new POVButton(m_ps5, 0);
-        final POVButton shootAmp = new POVButton(m_ps5, 180);
+        final POVButton shootAmp = new POVButton(m_ps5, 90);
+        final POVButton prepareIntake = new POVButton(m_ps5, 180);
+        final JoystickButton stopIt = new JoystickButton(m_ps5, 1);
+        
+
         shoot.onTrue(new FeedShooter(m_intake));
         shootAmp.onTrue(new ShootAmpSequence(m_arm, m_shooter, m_intake, m_ps5));
         shootSpeaker.onTrue(new ShootSpeakerSequence(m_arm, m_shooter, m_intake, m_ps5));
-
-        // final JoystickButton prepareArm = new JoystickButton(m_ps5, m_ps5.)
-
-
+        prepareIntake.onTrue(new PrepareIntake(m_arm, m_intake, m_ps5) );
+        stopIt.onTrue(new StopIntakeAndShooter(m_shooter, m_intake));
 
 
   }
