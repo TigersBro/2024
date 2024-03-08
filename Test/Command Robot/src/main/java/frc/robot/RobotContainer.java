@@ -75,7 +75,7 @@ public class RobotContainer {
         m_drivetrain.setDefaultCommand(new RunCommand( () -> m_drivetrain.driveArcade(m_driveController.getY(),-m_driveController.getZ()),m_drivetrain));
 
         
-        m_arm.setDefaultCommand(new RunCommand ( () -> m_arm.manualOverride(m_ps5.getLeftY()),m_arm));     
+        m_arm.setDefaultCommand(new RunCommand ( () -> m_arm.manualOverride(m_ps5.getLeftY())));     
 
         final JoystickButton shoot = new JoystickButton(m_driveController, 1);
         final POVButton shootSpeaker = new POVButton(m_ps5, 0);
