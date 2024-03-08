@@ -34,7 +34,7 @@ private DigitalInput limitSwitch = new DigitalInput(4);
     
     public void suck() 
     {
-        intakeMotor.set(.8);
+        intakeMotor.set(.5);
      }
 
     
@@ -69,7 +69,7 @@ private DigitalInput limitSwitch = new DigitalInput(4);
 
     public void feed()
     {
-        intakeMotor.set(.4);
+        intakeMotor.set(.8);
     }
 
 }

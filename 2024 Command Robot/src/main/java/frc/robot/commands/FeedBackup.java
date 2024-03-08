@@ -20,25 +20,34 @@ import frc.robot.subsystems.Intake;
     
 public class FeedBackup extends Command {
 
-        private final Intake m_intake;
-        private final PS5Controller m_control;
- 
+        private  Intake m_intake;
+        @SuppressWarnings("unused") 
+        //not sure why this keeps giving warnings....
+        private  PS5Controller m_control;
+        private  boolean m_done;
 
-    public FeedBackup(Intake subsystem, PS5Controller controller) {
 
-
-        
+    public FeedBackup (Intake subsystem, PS5Controller controller) 
+    {
         m_intake = subsystem;
         m_control = controller;
         addRequirements(m_intake);
-
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        
         m_intake.reversesuck();
         
+        try 
+        {
+            //We may need to bump this up..
+            wait(100);
+        } catch (InterruptedException e) 
+        {
+            
+        }
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -57,7 +66,7 @@ public class FeedBackup extends Command {
     @Override
     public boolean isFinished() {
         
-        return m_done;
+        return m_done || m_control.getCrossButtonReleased();
     }
     
 }

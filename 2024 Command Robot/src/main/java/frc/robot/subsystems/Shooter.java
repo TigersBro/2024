@@ -43,15 +43,15 @@ public class Shooter extends SubsystemBase {
         // spin it up slower...but that would take a PID..ooooor
         shooterMotor.set(.1);
         try {
-            wait(10);
+            wait(25);
             shooterMotor.set(.3);
-            wait(10);
+            wait(25);
             shooterMotor.set(.5);
-            wait(10);
+            wait(25);
             shooterMotor.set(.7);
-            wait(10);
+            wait(25);
             shooterMotor.set(.9);
-            wait(10);
+            wait(25);
             shooterMotor.set(1);
         } catch (InterruptedException e) {
             e.printStackTrace();
