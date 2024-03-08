@@ -23,7 +23,9 @@ public final class Constants {
     public static final double kDriveDeadband = 0.05;
     public static final double kArmManualDeadband = 0.05;
     public static final double kArmManualScale = 0.5;
-}
+    public static final boolean kGyroReversed = false;
+  }
+
 
  public static final class Drivetrain {
   public static final int kFrontLeftCanId = 5;
@@ -85,7 +87,21 @@ public static final class driveStraight{
   public static final double IVal = 0;
 
 }
- 
+
+   public static final double kStabilizationP = 1;
+    public static final double kStabilizationI = 0.5;
+    public static final double kStabilizationD = 0;
+
+    public static final double kTurnP = 1;
+    public static final double kTurnI = 0;
+    public static final double kTurnD = 0;
+
+    public static final double kMaxTurnRateDegPerS = 100;
+    public static final double kMaxTurnAccelerationDegPerSSquared = 300;
+
+    public static final double kTurnToleranceDeg = 5;
+    public static final double kTurnRateToleranceDegPerS = 10; // degrees per second
+    
 }
 
 
