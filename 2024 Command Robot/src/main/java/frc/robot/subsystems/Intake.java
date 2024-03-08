@@ -3,27 +3,34 @@
 package frc.robot.subsystems;
 
 
+import com.revrobotics.CANSparkLowLevel;
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+//import frc.robot.Constants;
+//import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
-
+//import com.revrobotics.CANSparkMax;
+//import com.revrobotics.CANSparkLowLevel;
 
 
 public class Intake extends SubsystemBase {
 
 
-private PWMSparkMax intakeMotor;
+//private PWMSparkMax intakeMotor;
+private CANSparkMax intakeMotor ;
 private DigitalInput limitSwitch = new DigitalInput(4);
 
     
 
  public Intake() 
  {
+ //intakeMotor = new PWMSparkMax(9);
+ intakeMotor = new CANSparkMax(7,CANSparkLowLevel.MotorType.kBrushless);
 
- intakeMotor = new PWMSparkMax(9);
- addChild("Intake Motor",intakeMotor);
+ //addChild("Intake Motor",intakeMotor);
  addChild("Limit Switch", limitSwitch );
 
  intakeMotor.setInverted(false);

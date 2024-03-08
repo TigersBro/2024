@@ -11,15 +11,22 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+//import frc.robot.Constants;
+
+import com.revrobotics.CANSparkLowLevel;
+import com.revrobotics.CANSparkMax;
+
+///import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
 public class Shooter extends SubsystemBase {
 
-    private PWMSparkMax shooterMotor;
+    //private PWMSparkMax shooterMotor;
+    private CANSparkMax shooterMotor;
 
     public Shooter() {
-        shooterMotor = new PWMSparkMax(7);
-        addChild("Shooter Motor", shooterMotor);
+        //shooterMotor = new PWMSparkMax(7);
+        shooterMotor = new CANSparkMax(8,CANSparkLowLevel.MotorType.kBrushed);
+        //addChild("Shooter Motor", shooterMotor);
         shooterMotor.setInverted(false);
 
     }
