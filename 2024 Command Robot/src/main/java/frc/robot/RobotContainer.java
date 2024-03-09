@@ -72,7 +72,7 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     // set up the drivetrain command that runs all the time
-        m_drivetrain.setDefaultCommand(new RunCommand( () -> m_drivetrain.driveArcade(m_driveController.getY(),-m_driveController.getZ()),m_drivetrain));
+        m_drivetrain.setDefaultCommand(new RunCommand( () -> m_drivetrain.driveArcade(m_driveController.getY(),m_driveController.getZ()),m_drivetrain));
         m_arm.setDefaultCommand(new RunCommand ( () -> m_arm.manualOverride(m_ps5.getLeftY()),m_arm));     
 
         final JoystickButton shoot = new JoystickButton(m_driveController, 1);
@@ -81,6 +81,7 @@ public class RobotContainer {
         final POVButton prepareIntake = new POVButton(m_ps5, 180);
         final JoystickButton stopIt = new JoystickButton(m_ps5, 2);
         final JoystickButton backupFeed = new JoystickButton(m_ps5, 3);
+        final JoystickButton backupShooter = new JoystickButton(m_ps5, 1);
         
 
         shoot.onTrue(new FeedShooter(m_intake));
@@ -88,8 +89,8 @@ public class RobotContainer {
         shootSpeaker.onTrue(new ShootSpeakerSequence(m_arm, m_shooter, m_intake, m_ps5));
         prepareIntake.onTrue(new PrepareIntake(m_arm, m_intake, m_ps5) );
         stopIt.onTrue(new StopIntakeAndShooter(m_shooter, m_intake));
-        backupFeed.onTrue(new FeedBackup(m_intake, m_ps5));
-
+        backupFeed.onTrue(new BackupFeed(m_intake, m_ps5));
+        backupShooter.onTrue( new BackupShoot( m_shooter, m_ps5));
 
   }
 

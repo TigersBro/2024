@@ -48,21 +48,21 @@ public class Shooter extends SubsystemBase {
 
     public void Launch() {
         // spin it up slower...but that would take a PID..ooooor
-        shooterMotor.set(.1);
-        try {
-            wait(25);
-            shooterMotor.set(.3);
-            wait(25);
-            shooterMotor.set(.5);
-            wait(25);
-            shooterMotor.set(.7);
-            wait(25);
-            shooterMotor.set(.9);
-            wait(25);
+       // shooterMotor.set(.1);
+       // try {
+          //  wait(25);
+          //  shooterMotor.set(.3);
+           // wait(25);
+           // shooterMotor.set(.5);
+           // wait(25);
+           // shooterMotor.set(.7);
+           // wait(25);
+            //shooterMotor.set(.9);
+           // wait(25);
             shooterMotor.set(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+      //  } catch (InterruptedException e) {
+      //      e.printStackTrace();
+      //  }
     }
 
     public void Stop() 
@@ -81,6 +81,18 @@ public class Shooter extends SubsystemBase {
 
         shooterMotor.set(.2);
 
+    } public void Shoot() 
+    {
+
+        shooterMotor.set(1);
+
     }
+    public void BackupShoot() 
+    {
+
+        shooterMotor.set(.1);
+
+    }
+
 
 }

@@ -11,52 +11,55 @@
 // ROBOTBUILDER TYPE: Command.
 
 package frc.robot.commands;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-
-
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.Shooter;
 
     
-public class FeedShooter extends Command {
+public class DriveContinuous extends Command {
 
-        private final Intake m_intake;
+        private final DrivetrainSubsystem m_drive;
         private boolean m_done;
 
-    public FeedShooter(Intake subsystem) {
+    public DriveContinuous(DrivetrainSubsystem subsystem) {
 
 
-        
-        m_intake = subsystem;
+        m_drive = subsystem;
         m_done = false;
-        addRequirements(m_intake);
+        addRequirements(m_drive);
 
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        m_intake.feed();
-       // m_done = true;
         
+        m_drive.arcadeDrive(-.5, 0);
+
 
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
-    public void execute() {
+    public void execute() 
+    {
+        m_drive.arcadeDrive(-.4, 0);
+
+
     }
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
-        
-
+    public void end(boolean interrupted) 
+    {
     }
 
     // Returns true when the command should end.
     @Override
-    public boolean isFinished () {
-        return m_done;
+    public boolean isFinished() {
+        
+        return false;
     }
     
 }

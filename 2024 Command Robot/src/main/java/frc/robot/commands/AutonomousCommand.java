@@ -18,8 +18,10 @@ public class AutonomousCommand extends SequentialCommandGroup {
     (
         Commands.parallel
         (
-          new DriveStraight(.1, drive),
-          new PositionAmp(arm, controller)
+          new DriveContinuous(drive)
+
+//          new DriveStraight(.1, drive),
+  //        new PositionAmp(arm, controller)
         )
     );
 

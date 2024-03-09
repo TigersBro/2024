@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.ADIS16470_IMU;
+//import edu.wpi.first.wpilibj.ADIS16470_IMU;
 
 public class DrivetrainSubsystem extends SubsystemBase {
   // creating these here versus in the Drivtrain constructor and as final so it
@@ -28,7 +28,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private  DifferentialDrive m_drive; 
   private  Encoder m_encoderLeft;
   private  Encoder m_encoderRight;
-  private final ADIS16470_IMU m_gyro = new ADIS16470_IMU();
+  //private final ADIS16470_IMU m_gyro = new ADIS16470_IMU();
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
     // Only make calls you need to. This cuts down on having to read the code.
@@ -111,19 +111,21 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public void zeroHeading() {
-    m_gyro.reset();
+ //   m_gyro.reset();
   }
 
   public double getHeading() {
-    return Math.IEEEremainder(m_gyro.getAngle(), 360) * (OIConstants.kGyroReversed ? -1.0 : 1.0);
-  }
+   // return Math.IEEEremainder(m_gyro.getAngle(), 360) * (OIConstants.kGyroReversed ? -1.0 : 1.0);
+  
+  return 0 ;}
 
   public double getTurnRate() {
-    return m_gyro.getRate() * (OIConstants.kGyroReversed ? -1.0 : 1.0);
+    //return m_gyro.getRate() * (OIConstants.kGyroReversed ? -1.0 : 1.0);
+    return 0 ;
   }
 
   public void arcadeDrive(double fwd, double rot) {
-    m_drive.arcadeDrive(fwd, rot);
+    m_drive.arcadeDrive(fwd, rot/100);
   }
 
 }

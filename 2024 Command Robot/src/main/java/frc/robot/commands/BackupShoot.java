@@ -16,18 +16,19 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
     
-public class FeedBackup extends Command {
+public class BackupShoot extends Command {
 
-        private  Intake m_intake;
+        private  Shooter m_intake;
         @SuppressWarnings("unused") 
         //not sure why this keeps giving warnings....
         private  PS5Controller m_control;
         private  boolean m_done;
 
 
-    public FeedBackup (Intake subsystem, PS5Controller controller) 
+    public BackupShoot (Shooter subsystem, PS5Controller controller) 
     {
         m_intake = subsystem;
         m_control = controller;
@@ -38,16 +39,8 @@ public class FeedBackup extends Command {
     @Override
     public void initialize() {
         
-        m_intake.reversesuck();
-        
-        try 
-        {
-            //We may need to bump this up..
-            wait(100);
-        } catch (InterruptedException e) 
-        {
+        m_intake.BackupShoot();
             
-        }
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -58,7 +51,7 @@ public class FeedBackup extends Command {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        m_intake.stop();
+        m_intake.Stop();
 
     }
 
