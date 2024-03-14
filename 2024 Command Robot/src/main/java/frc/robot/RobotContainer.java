@@ -6,7 +6,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS5Controller;
-import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -34,7 +33,6 @@ public class RobotContainer {
  
 
   private final DrivetrainSubsystem m_drivetrain = new DrivetrainSubsystem();
-  private final Arm m_arm = new Arm();
   private final Intake m_intake = new Intake();
   private final Shooter m_shooter = new Shooter();
   
@@ -42,7 +40,7 @@ public class RobotContainer {
   private final Joystick m_driveController = new Joystick(Constants.OIConstants.kDriverController);
   private final PS5Controller m_ps5 = new PS5Controller(Constants.OIConstants.kOtherController);
   
-  private final Command m_autonomousCommand = new AutonomousCommand(m_drivetrain, m_arm, m_shooter, m_intake, m_ps5);
+  private final Command m_autonomousCommand = new AutonomousCommand(m_drivetrain,  m_shooter, m_intake, m_ps5);
   
   
   /**
@@ -51,29 +49,24 @@ public class RobotContainer {
   public RobotContainer() {
 
     // SmartDashboard Buttons
-    SmartDashboard.putData("Autonomous Command", new AutonomousCommand(m_drivetrain, m_arm, m_shooter, m_intake, m_ps5));
-    SmartDashboard.putData("Amp Pos", new PositionAmp( m_arm, m_ps5 ));
-    SmartDashboard.putData("Speaker Pos", new PositionSpeaker( m_arm, m_ps5 ));
-    SmartDashboard.putData("Shoot Amp", new ShootAmpSequence(m_arm, m_shooter, m_intake, m_ps5));
-    SmartDashboard.putData("Shoot Amp", new ShootAmpSequence(m_arm, m_shooter, m_intake, m_ps5));
-    SmartDashboard.putData("Intake Pos", new PositionIntake( m_arm, m_ps5 ));
+    SmartDashboard.putData("Autonomous Command", new AutonomousCommand(m_drivetrain, m_shooter, m_intake, m_ps5));
+    SmartDashboard.putData("Shoot Amp", new ShootAmpSequence( m_shooter, m_intake, m_ps5));
+    SmartDashboard.putData("Shoot Amp", new ShootAmpSequence( m_shooter, m_intake, m_ps5));
     
     SmartDashboard.putData(m_drivetrain);
-    SmartDashboard.putData(m_arm);
     SmartDashboard.putData(m_intake);
     SmartDashboard.putData(m_shooter);
 
     // Configure the button bindings
     configureButtonBindings();
     
-
+    
     
   }
 
   private void configureButtonBindings() {
     // set up the drivetrain command that runs all the time
-        m_drivetrain.setDefaultCommand(new RunCommand( () -> m_drivetrain.driveArcade(m_driveController.getY(),m_driveController.getZ()),m_drivetrain));
-        m_arm.setDefaultCommand(new RunCommand ( () -> m_arm.manualOverride(m_ps5.getLeftY()),m_arm));     
+        m_drivetrain.setDefaultCommand(new RunCommand( () -> m_drivetrain.arcadeDrive(m_driveController.getY(),-m_driveController.getZ()),m_drivetrain));
 
         final JoystickButton shoot = new JoystickButton(m_driveController, 1);
         final POVButton shootSpeaker = new POVButton(m_ps5, 0);
@@ -81,16 +74,15 @@ public class RobotContainer {
         final POVButton prepareIntake = new POVButton(m_ps5, 180);
         final JoystickButton stopIt = new JoystickButton(m_ps5, 2);
         final JoystickButton backupFeed = new JoystickButton(m_ps5, 3);
-        final JoystickButton backupShooter = new JoystickButton(m_ps5, 1);
         
 
         shoot.onTrue(new FeedShooter(m_intake));
-        shootAmp.onTrue(new ShootAmpSequence(m_arm, m_shooter, m_intake, m_ps5));
-        shootSpeaker.onTrue(new ShootSpeakerSequence(m_arm, m_shooter, m_intake, m_ps5));
-        prepareIntake.onTrue(new PrepareIntake(m_arm, m_intake, m_ps5) );
+        shootAmp.onTrue(new ShootAmpSequence( m_shooter, m_intake, m_ps5));
+        shootSpeaker.onTrue(new ShootSpeakerSequence( m_shooter, m_intake, m_ps5));
+        prepareIntake.onTrue(new PrepareIntake( m_intake, m_ps5) );
         stopIt.onTrue(new StopIntakeAndShooter(m_shooter, m_intake));
         backupFeed.onTrue(new BackupFeed(m_intake, m_ps5));
-        backupShooter.onTrue( new BackupShoot( m_shooter, m_ps5));
+
 
   }
 

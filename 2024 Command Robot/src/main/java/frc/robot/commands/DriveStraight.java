@@ -31,7 +31,7 @@ public class DriveStraight extends PIDCommand {
             Constants.driveStraight.PVal, Constants.driveStraight.IVal, 0),
         drivetrain::getDistance,
         distance,
-        d -> drivetrain.driveArcade(d, d));
+        d -> drivetrain.arcadeDrive(d, d));
 
     m_drivetrain = drivetrain;
     addRequirements(m_drivetrain);
