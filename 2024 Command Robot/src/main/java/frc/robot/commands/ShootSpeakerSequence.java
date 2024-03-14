@@ -13,14 +13,13 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class ShootSpeakerSequence extends SequentialCommandGroup {
 
-  public ShootSpeakerSequence(Arm arm, Shooter shooter, Intake intake, PS5Controller controller) {
+  public ShootSpeakerSequence( Shooter shooter, Intake intake, PS5Controller controller) {
     addCommands
     (
         Commands.parallel
         (
-          new StartLaunch(shooter),
-          new PositionSpeaker(arm, controller)
-        )
+          new StartLaunch(shooter)
+         )
         //new FeedShooter(intake, controller),
         //new StopIntakeAndShooter(shooter, intake)
 

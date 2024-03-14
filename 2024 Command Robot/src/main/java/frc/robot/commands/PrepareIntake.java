@@ -13,19 +13,18 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 
 //The purpose of this command is to put the arm down and start spinning the intake 
 
 public class PrepareIntake extends SequentialCommandGroup {
 
-    public PrepareIntake(Arm arm, Intake intake, PS5Controller controller){
+    public PrepareIntake( Intake intake, PS5Controller controller){
 
     addCommands(
         Commands.parallel
         (
-                new PositionIntake(arm, controller),
+                
                 new StartIntake(intake, controller)
         )
         // Add Commands here:
