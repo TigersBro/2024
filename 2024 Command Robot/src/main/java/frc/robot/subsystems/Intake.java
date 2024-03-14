@@ -20,8 +20,8 @@ public class Intake extends SubsystemBase {
 
 
 //private PWMSparkMax intakeMotor;
-private CANSparkMax intakeMotor ;
-private DigitalInput limitSwitch = new DigitalInput(4);
+private CANSparkMax intakeMotor1 ;
+private CANSparkMax intakeMotor2 ;
 
     
 
