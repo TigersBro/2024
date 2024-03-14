@@ -58,7 +58,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     //double straight = MathUtil.clamp(_straight + _turn, -1.0, 1.0);
     //double turn = MathUtil.clamp(_straight - _turn, -1.0, 1.0);
 
-    m_drive.arcadeDrive(_straight, _turn/2);
+    m_drive.arcadeDrive(_straight, _turn);
   }
 
   @Override
@@ -126,11 +126,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public void arcadeDrive(double fwd, double rot) {
     SmartDashboard.putNumber("before", rot);
-
+    
     rot = rot / 100000;
     SmartDashboard.putNumber("z val", rot);
 
-    m_drive.arcadeDrive(fwd, rot);
+    m_drive.arcadeDrive(fwd, rot/100);
   }
 
 }
