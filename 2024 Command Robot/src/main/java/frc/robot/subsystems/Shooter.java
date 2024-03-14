@@ -26,6 +26,7 @@ public class Shooter extends SubsystemBase {
     public Shooter() {
         //shooterMotor = new PWMSparkMax(7);
         shooterMotor = new CANSparkMax(8,CANSparkLowLevel.MotorType.kBrushed);
+        shooterMotor = new CANSparkMax(9, CANSparkLowLevel.MotorType.kBrushed);
         //addChild("Shooter Motor", shooterMotor);
         shooterMotor.setInverted(false);
 
