@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -31,11 +30,8 @@ private CANSparkMax intakeMotor2 ;
  {
  //intakeMotor = new PWMSparkMax(9);
  intakeMotor1 = new CANSparkMax(7,CANSparkLowLevel.MotorType.kBrushless);
- intakeMotor2 = new CANSparkMax(7,CANSparkLowLevel.MotorType.kBrushless);
+ intakeMotor2 = new CANSparkMax(8,CANSparkLowLevel.MotorType.kBrushless);
 
-
- //addChild("Intake Motor",intakeMotor);
- addChild("Limit Switch", limitSwitch );
 
  intakeMotor1.setInverted(false);
  intakeMotor2.setInverted(false);
@@ -68,11 +64,6 @@ private CANSparkMax intakeMotor2 ;
 
     }
 
-    public boolean atLimit() 
-    {
-        return limitSwitch.get();
-
-    }
 
     public void stop()
     {
