@@ -83,12 +83,7 @@ public class Shooter extends SubsystemBase {
         shooterMotor1.set(-.2);
 
     }
-    public void IDontKnow() 
-    {
-
-        shooterMotor1.set(.2);
-
-    } public void Shoot() 
+    public void Shoot() 
     {
 
         shooterMotor1.set(1);
