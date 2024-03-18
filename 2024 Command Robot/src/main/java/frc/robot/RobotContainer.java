@@ -69,19 +69,18 @@ public class RobotContainer {
         m_drivetrain.setDefaultCommand(new RunCommand( () -> m_drivetrain.arcadeDrive(m_driveController.getY(),-m_driveController.getZ()),m_drivetrain));
 
         final JoystickButton shoot = new JoystickButton(m_driveController, 1);
-        final POVButton shootSpeaker = new POVButton(m_ps5, 0);
-        final POVButton shootAmp = new POVButton(m_ps5, 90);
-        final POVButton prepareIntake = new POVButton(m_ps5, 180);
-        final JoystickButton stopIt = new JoystickButton(m_ps5, 2);
-        final JoystickButton backupFeed = new JoystickButton(m_ps5, 3);
-        
-
-        shoot.onTrue(new FeedShooter(m_intake));
-        shootAmp.onTrue(new ShootAmpSequence( m_shooter, m_intake, m_ps5));
-        shootSpeaker.onTrue(new ShootSpeakerSequence( m_shooter, m_intake, m_ps5));
-        prepareIntake.onTrue(new PrepareIntake( m_intake, m_ps5) );
+       // final POVButton shootSpeaker = new POVButton(m_ps5, 0);
+       // final POVButton shootAmp = new POVButton(m_ps5, 90);
+       // final POVButton prepareIntake = new POVButton(m_ps5, 180);
+       // final JoystickButton backupFeed = new JoystickButton(m_ps5, 3);
+       final JoystickButton stopIt = new JoystickButton(m_ps5, 2);
+       final JoystickButton suckUp = new JoystickButton(m_ps5, 1);
+       final JoystickButton shootPS5Button= new JoystickButton(m_ps5, 8);
+       
+        shoot.onTrue(new StartLaunch(m_shooter,m_ps5) );
+shootPS5Button.onTrue(new StartLaunch(m_shooter,m_ps5));
         stopIt.onTrue(new StopIntakeAndShooter(m_shooter, m_intake));
-        backupFeed.onTrue(new BackupFeed(m_intake, m_ps5));
+        suckUp.onTrue(new StartIntake(m_intake,m_ps5));
 
 
   }

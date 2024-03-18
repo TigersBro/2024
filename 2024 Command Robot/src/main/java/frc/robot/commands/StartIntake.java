@@ -57,7 +57,7 @@ public class StartIntake extends Command {
     @Override
     public boolean isFinished() {
         
-        return m_control.getCrossButtonReleased();
+        return m_control.getCrossButtonReleased()|| m_control.getSquareButtonReleased();
     }
     
 }

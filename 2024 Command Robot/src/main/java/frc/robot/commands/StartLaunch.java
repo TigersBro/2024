@@ -11,9 +11,10 @@
 // ROBOTBUILDER TYPE: Command.
 
 package frc.robot.commands;
+import edu.wpi.first.wpilibj.PS5Controller;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-
-
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
     
@@ -21,10 +22,11 @@ public class StartLaunch extends Command {
 
         private final Shooter m_shooter;
         private boolean m_done;
+private Timer m_shootTimer;
+private PS5Controller m_ps5;
+    public StartLaunch(Shooter subsystem,PS5Controller ps5) {
 
-    public StartLaunch(Shooter subsystem) {
-
-
+    m_ps5 = ps5;
         
         m_shooter = subsystem;
         m_done = false;
@@ -36,13 +38,18 @@ public class StartLaunch extends Command {
     @Override
     public void initialize() {
         m_shooter.Launch();
-        m_done = true;
+        m_shootTimer.start();
 
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
-    public void execute() {
+    public void execute() 
+    {
+        if( m_shootTimer.advanceIfElapsed(2.5) == true)
+        {
+            m_done = true;
+        }
     }
 
     // Called once the command ends or is interrupted.
@@ -56,7 +63,7 @@ public class StartLaunch extends Command {
     @Override
     public boolean isFinished() {
         
-        return m_done;
+        return m_done || m_ps5.getCrossButtonReleased();
     }
     
 }
