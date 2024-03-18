@@ -14,8 +14,8 @@ public class ShootAmpSequence extends SequentialCommandGroup {
 
   public ShootAmpSequence(Shooter shooter, Intake intake, PS5Controller controller) {
     addCommands(
-        Commands.parallel(
-            new StartIDontKnow(shooter))
+        Commands.parallel()
+    //       new StartIDontKnow(shooter))
     // new FeedShooter(intake, controller),
     // new StopIntakeAndShooter(shooter, intake)
 
