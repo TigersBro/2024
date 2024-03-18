@@ -6,8 +6,10 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 //import frc.robot.Constants;
 //import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
@@ -28,26 +30,30 @@ private CANSparkMax intakeMotor2 ;
  public Intake() 
  {
  //intakeMotor = new PWMSparkMax(9);
- intakeMotor = new CANSparkMax(7,CANSparkLowLevel.MotorType.kBrushless);
+ intakeMotor1 = new CANSparkMax(7,CANSparkLowLevel.MotorType.kBrushless);
+ intakeMotor2 = new CANSparkMax(7,CANSparkLowLevel.MotorType.kBrushless);
+
 
  //addChild("Intake Motor",intakeMotor);
  addChild("Limit Switch", limitSwitch );
 
- intakeMotor.setInverted(false);
+ intakeMotor1.setInverted(false);
+ intakeMotor2.setInverted(false);
 
+ intakeMotor2.follow(intakeMotor1);
 
  }
 
     
     public void suck() 
     {
-        intakeMotor.set(.5);
+        intakeMotor1.set(.5);
      }
 
     
      public void reversesuck() 
     {
-        intakeMotor.set(-.6);
+        intakeMotor1.set(-.6);
     }
 
     @Override
@@ -70,13 +76,15 @@ private CANSparkMax intakeMotor2 ;
 
     public void stop()
     {
-        intakeMotor.set(0);
-        intakeMotor.stopMotor();
+        intakeMotor1.set(0);
+        intakeMotor1.stopMotor();
+        intakeMotor2.set(0);
+        intakeMotor2.stopMotor();
     }
 
     public void feed()
     {
-        intakeMotor.set(-.8);
+        intakeMotor1.set(-.8);
     }
 
 }

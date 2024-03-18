@@ -32,10 +32,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
     // Only make calls you need to. This cuts down on having to read the code.
-    m_frontLeftMotor = new CANSparkMax(Constants.Drivetrain.kFrontLeftCanId, CANSparkLowLevel.MotorType.kBrushed);
-    m_frontRightMotor = new CANSparkMax(Constants.Drivetrain.kFrontRightCanId,CANSparkLowLevel.MotorType.kBrushed);
-    m_rearLeftMotor = new CANSparkMax(Constants.Drivetrain.kRearLeftCanId,CANSparkLowLevel.MotorType.kBrushed);
-    m_rearRightMotor = new CANSparkMax(Constants.Drivetrain.kRearRightCanId, CANSparkLowLevel.MotorType.kBrushed);
+    m_frontLeftMotor = new CANSparkMax(Constants.motors.kFrontLeftCanId, CANSparkLowLevel.MotorType.kBrushed);
+    m_frontRightMotor = new CANSparkMax(Constants.motors.kFrontRightCanId,CANSparkLowLevel.MotorType.kBrushed);
+    m_rearLeftMotor = new CANSparkMax(Constants.motors.kRearLeftCanId,CANSparkLowLevel.MotorType.kBrushed);
+    m_rearRightMotor = new CANSparkMax(Constants.motors.kRearRightCanId, CANSparkLowLevel.MotorType.kBrushed);
     m_drive = new DifferentialDrive(m_frontLeftMotor, m_frontRightMotor);
 
     m_frontRightMotor.setInverted(Constants.Drivetrain.kFrontRightInverted);
