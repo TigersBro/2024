@@ -32,6 +32,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
     // Only make calls you need to. This cuts down on having to read the code.
+    
     m_frontLeftMotor = new CANSparkMax(Constants.motors.kFrontLeftCanId, CANSparkLowLevel.MotorType.kBrushed);
     m_frontRightMotor = new CANSparkMax(Constants.motors.kFrontRightCanId,CANSparkLowLevel.MotorType.kBrushed);
     m_rearLeftMotor = new CANSparkMax(Constants.motors.kRearLeftCanId,CANSparkLowLevel.MotorType.kBrushed);
