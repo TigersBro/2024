@@ -46,7 +46,7 @@ private PS5Controller m_ps5;
     @Override
     public void execute() 
     {
-        if( m_shootTimer.advanceIfElapsed(2.5) == true)
+        if( m_shootTimer.hasElapsed(2.5) == true)
         {
             m_done = true;
         }

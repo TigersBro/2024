@@ -81,7 +81,7 @@ public class RobotContainer {
        final JoystickButton shootPS5Button= new JoystickButton(m_ps5, 8);
        
         shoot.onTrue(new StartLaunch(m_shooter,m_ps5) );
-shootPS5Button.onTrue(new StartLaunch(m_shooter,m_ps5));
+        shootPS5Button.onTrue(new StartLaunch(m_shooter,m_ps5).withTimeout(2.5));
         stopIt.onTrue(new StopIntakeAndShooter(m_shooter, m_intake));
         suckUp.onTrue(new StartIntake(m_intake,m_ps5));
 
