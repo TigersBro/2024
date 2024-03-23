@@ -28,10 +28,7 @@ public final class Constants {
 
 
  public static final class Drivetrain {
-  public static final int kFrontLeftCanId = 5;
-  public static final int kFrontRightCanId = 4;
-  public static final int kRearLeftCanId = 2;
-  public static final int kRearRightCanId = 3;
+
 
   public static final boolean kFrontLeftInverted = false;
   public static final boolean kFrontRightInverted = true;
@@ -68,7 +65,7 @@ public static final class Limits{
   
   public static final double intakeMaxSpeed = 1;
   public static final double intakeminSpeed = .1;
-  
+  public static final double shooterTimeout = 2.5;
   
 }
 
@@ -86,6 +83,16 @@ public static final class driveStraight{
   public static final double PVal = 4;
   public static final double IVal = 0;
 
+}public static final class motors{
+  public static final int kFrontLeftCanId = 5;
+  public static final int kFrontRightCanId = 4;
+  public static final int kRearLeftCanId = 2;
+  public static final int kRearRightCanId = 3;
+  public static final int intakemotor1 = 6;
+  public static final int intakemotor2 = 7;
+  public static final int shootermotor1 = 8;
+  public static final int shootermotor2 = 9;
+  public static final int liftMotor1 = 10;
 }
 
    public static final double kStabilizationP = 1;

@@ -11,34 +11,36 @@
 // ROBOTBUILDER TYPE: Command.
 
 package frc.robot.commands;
+import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj2.command.Command;
 
 
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
     
-public class FeedShooter extends Command {
+public class BackupShoot extends Command {
 
-        private final Intake m_intake;
-        private boolean m_done;
+        private  Shooter m_intake;
+        @SuppressWarnings("unused") 
+        //not sure why this keeps giving warnings....
+        private  PS5Controller m_control;
+        private  boolean m_done;
 
-    public FeedShooter(Intake subsystem) {
 
-
-        
+    public BackupShoot (Shooter subsystem, PS5Controller controller) 
+    {
         m_intake = subsystem;
-        m_done = false;
+        m_control = controller;
         addRequirements(m_intake);
-
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        m_intake.feed();
-        m_done = true;
         
-
+        m_intake.BackupShoot();
+            
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -49,14 +51,15 @@ public class FeedShooter extends Command {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        
+        m_intake.Stop();
 
     }
 
     // Returns true when the command should end.
     @Override
-    public boolean isFinished () {
-        return m_done;
+    public boolean isFinished() {
+        
+        return m_done || m_control.getCrossButtonReleased();
     }
     
 }

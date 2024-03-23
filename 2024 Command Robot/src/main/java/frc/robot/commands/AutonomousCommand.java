@@ -13,13 +13,15 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class AutonomousCommand extends SequentialCommandGroup {
 
-  public AutonomousCommand(DrivetrainSubsystem drive, Arm arm, Shooter shooter, Intake intake, PS5Controller controller) {
+  public AutonomousCommand(DrivetrainSubsystem drive, Shooter shooter, Intake intake, PS5Controller controller) {
     addCommands
     (
         Commands.parallel
         (
-          new DriveStraight(.1, drive),
-          new PositionAmp(arm, controller)
+          new DriveContinuous(drive)
+
+//          new DriveStraight(.1, drive),
+  //        new PositionAmp(arm, controller)
         )
     );
 

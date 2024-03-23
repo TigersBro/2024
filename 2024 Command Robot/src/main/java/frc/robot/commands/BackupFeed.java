@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
     
-public class FeedBackup extends Command {
+public class BackupFeed extends Command {
 
         private  Intake m_intake;
         @SuppressWarnings("unused") 
@@ -27,7 +27,7 @@ public class FeedBackup extends Command {
         private  boolean m_done;
 
 
-    public FeedBackup (Intake subsystem, PS5Controller controller) 
+    public BackupFeed (Intake subsystem, PS5Controller controller) 
     {
         m_intake = subsystem;
         m_control = controller;
@@ -39,15 +39,7 @@ public class FeedBackup extends Command {
     public void initialize() {
         
         m_intake.reversesuck();
-        
-        try 
-        {
-            //We may need to bump this up..
-            wait(100);
-        } catch (InterruptedException e) 
-        {
             
-        }
     }
 
     // Called every time the scheduler runs while the command is scheduled.

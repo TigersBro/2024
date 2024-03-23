@@ -11,17 +11,29 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+//import frc.robot.Constants;
+import frc.robot.Constants;
+
+import com.revrobotics.CANSparkLowLevel;
+import com.revrobotics.CANSparkMax;
+
+///import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
 public class Shooter extends SubsystemBase {
 
-    private PWMSparkMax shooterMotor;
-
+    //private PWMSparkMax shooterMotor;
+    private CANSparkMax shooterMotor1;
+    private CANSparkMax shooterMotor2;
     public Shooter() {
-        shooterMotor = new PWMSparkMax(7);
-        addChild("Shooter Motor", shooterMotor);
-        shooterMotor.setInverted(false);
-
+        //shooterMotor = new PWMSparkMax(7);
+        shooterMotor1 = new CANSparkMax(Constants.motors.shootermotor1,CANSparkLowLevel.MotorType.kBrushed);
+        shooterMotor2 = new CANSparkMax(Constants.motors.shootermotor2, CANSparkLowLevel.MotorType.kBrushed);
+        //addChild("Shooter Motor", shooterMotor);
+        shooterMotor1.setInverted(false);
+        shooterMotor2.setInverted(false);
+    
+    
+        shooterMotor2.follow(shooterMotor1);
     }
 
     @Override
@@ -36,44 +48,53 @@ public class Shooter extends SubsystemBase {
 
     public void Place() 
     {
-        shooterMotor.set(.1);
+        shooterMotor1.set(.1);
     }
 
     public void Launch() {
         // spin it up slower...but that would take a PID..ooooor
-        shooterMotor.set(.1);
-        try {
-            wait(25);
-            shooterMotor.set(.3);
-            wait(25);
-            shooterMotor.set(.5);
-            wait(25);
-            shooterMotor.set(.7);
-            wait(25);
-            shooterMotor.set(.9);
-            wait(25);
-            shooterMotor.set(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+       // shooterMotor.set(.1);
+       // try {
+          //  wait(25);
+          //  shooterMotor.set(.3);
+           // wait(25);
+           // shooterMotor.set(.5);
+           // wait(25);
+           // shooterMotor.set(.7);
+           // wait(25);
+            //shooterMotor.set(.9);
+           // wait(25);
+            shooterMotor1.set(0.2);
+      //  } catch (InterruptedException e) {
+      //      e.printStackTrace();
+      //  }
     }
 
     public void Stop() 
     {
-        shooterMotor.set(0);
-        shooterMotor.stopMotor();
+        shooterMotor1.set(0);
+        shooterMotor1.stopMotor();
+        shooterMotor2.set(0);
+        shooterMotor2.stopMotor();
     }
     public void Collect() 
     {
 
-        shooterMotor.set(-.2);
+        shooterMotor1.set(-.2);
 
     }
-    public void IDontKnow() 
+    public void Shoot() 
     {
 
-        shooterMotor.set(.2);
+        shooterMotor1.set(1);
 
     }
+    public void BackupShoot() 
+    {
+
+        shooterMotor1.set(.1);
+
+    }
+
 
 }

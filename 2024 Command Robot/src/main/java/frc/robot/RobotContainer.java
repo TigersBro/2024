@@ -6,7 +6,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS5Controller;
-import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -16,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import frc.robot.commands.*;
 
 /**
@@ -29,70 +29,85 @@ import frc.robot.commands.*;
  */
 public class RobotContainer {
 
-
   // The robot's subsystems and commands are defined here...
- 
 
   private final DrivetrainSubsystem m_drivetrain = new DrivetrainSubsystem();
-  private final Arm m_arm = new Arm();
   private final Intake m_intake = new Intake();
   private final Shooter m_shooter = new Shooter();
-  
-  
+
   private final Joystick m_driveController = new Joystick(Constants.OIConstants.kDriverController);
   private final PS5Controller m_ps5 = new PS5Controller(Constants.OIConstants.kOtherController);
-  
-  private final Command m_autonomousCommand = new AutonomousCommand(m_drivetrain, m_arm, m_shooter, m_intake, m_ps5);
-  
-  
+  private final Command m_autonomousCommand = new AutonomousCommand(m_drivetrain, m_shooter, m_intake, m_ps5);
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
 
+    CameraServer.startAutomaticCapture();
+
     // SmartDashboard Buttons
-    SmartDashboard.putData("Autonomous Command", new AutonomousCommand(m_drivetrain, m_arm, m_shooter, m_intake, m_ps5));
-    SmartDashboard.putData("Amp Pos", new PositionAmp( m_arm, m_ps5 ));
-    SmartDashboard.putData("Speaker Pos", new PositionSpeaker( m_arm, m_ps5 ));
-    SmartDashboard.putData("Shoot Amp", new ShootAmpSequence(m_arm, m_shooter, m_intake, m_ps5));
-    SmartDashboard.putData("Shoot Amp", new ShootAmpSequence(m_arm, m_shooter, m_intake, m_ps5));
-    SmartDashboard.putData("Intake Pos", new PositionIntake( m_arm, m_ps5 ));
-    
+    SmartDashboard.putData("Autonomous Command", new AutonomousCommand(m_drivetrain, m_shooter, m_intake, m_ps5));
+    SmartDashboard.putData("Shoot Amp", new ShootAmpSequence(m_shooter, m_intake, m_ps5));
+
     SmartDashboard.putData(m_drivetrain);
-    SmartDashboard.putData(m_arm);
     SmartDashboard.putData(m_intake);
     SmartDashboard.putData(m_shooter);
 
     // Configure the button bindings
     configureButtonBindings();
-    
+    // ps5 button mapping:
+    // /** Square button. */
+    // kSquare(1),
+    // /** X button. */
+    // kCross(2),
+    // /** Circle button. */
+    // kCircle(3),
+    // /** Triangle button. */
+    // kTriangle(4),
+    // /** Left trigger 1 button. */
+    // kL1(5),
+    // /** Right trigger 1 button. */
+    // kR1(6),
+    // /** Left trigger 2 button. */
+    // kL2(7),
+    // /** Right trigger 2 button. */
+    // kR2(8),
+    // /** Create button. */
+    // kCreate(9),
+    // /** Options button. */
+    // kOptions(10),
+    // /** Left stick button. */
+    // kL3(11),
+    // /** Right stick button. */
+    // kR3(12),
+    // /** PlayStation button. */
+    // kPS(13),
+    // /** Touchpad click button. */
+    // kTouchpad(14);
 
-    
   }
 
   private void configureButtonBindings() {
     // set up the drivetrain command that runs all the time
-        m_drivetrain.setDefaultCommand(new RunCommand( () -> m_drivetrain.driveArcade(m_driveController.getY(),-m_driveController.getZ()),m_drivetrain));
-        m_arm.setDefaultCommand(new RunCommand ( () -> m_arm.manualOverride(m_ps5.getLeftY()),m_arm));     
+    m_drivetrain.setDefaultCommand(new RunCommand(
+        () -> m_drivetrain.arcadeDrive(m_driveController.getY(), -m_driveController.getZ()), m_drivetrain));
 
-        final JoystickButton shoot = new JoystickButton(m_driveController, 1);
-        final POVButton shootSpeaker = new POVButton(m_ps5, 0);
-        final POVButton shootAmp = new POVButton(m_ps5, 90);
-        final POVButton prepareIntake = new POVButton(m_ps5, 180);
-        final JoystickButton stopIt = new JoystickButton(m_ps5, 2);
-        final JoystickButton backupFeed = new JoystickButton(m_ps5, 3);
-        
+    final JoystickButton shoot = new JoystickButton(m_driveController, 1);
+    // final POVButton shootSpeaker = new POVButton(m_ps5, 0);
+    // final POVButton shootAmp = new POVButton(m_ps5, 90);
+    // final POVButton prepareIntake = new POVButton(m_ps5, 180);
+    // final JoystickButton backupFeed = new JoystickButton(m_ps5, 3);
+    final JoystickButton stopIt = new JoystickButton(m_ps5, 2);
+    final JoystickButton suckUp = new JoystickButton(m_ps5, 1);
+    final JoystickButton shootPS5Button = new JoystickButton(m_ps5, 8);
 
-        shoot.onTrue(new FeedShooter(m_intake));
-        shootAmp.onTrue(new ShootAmpSequence(m_arm, m_shooter, m_intake, m_ps5));
-        shootSpeaker.onTrue(new ShootSpeakerSequence(m_arm, m_shooter, m_intake, m_ps5));
-        prepareIntake.onTrue(new PrepareIntake(m_arm, m_intake, m_ps5) );
-        stopIt.onTrue(new StopIntakeAndShooter(m_shooter, m_intake));
-        backupFeed.onTrue(new FeedBackup(m_intake, m_ps5));
-
+    shoot.onTrue(new StartLaunch(m_shooter, m_ps5).withTimeout(Constants.Limits.shooterTimeout));
+    shootPS5Button.onTrue(new StartLaunch(m_shooter, m_ps5).withTimeout(Constants.Limits.shooterTimeout));
+    stopIt.onTrue(new StopIntakeAndShooter(m_shooter, m_intake));
+    suckUp.onTrue(new StartIntake(m_intake, m_ps5));
 
   }
-
 
   public Command getAutonomousCommand() {
     return m_autonomousCommand;

@@ -8,33 +8,28 @@ import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.*;
 
-
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class ShootAmpSequence extends SequentialCommandGroup {
 
-  public ShootAmpSequence(Arm arm, Shooter shooter, Intake intake, PS5Controller controller) {
-    addCommands
-    (
-        Commands.parallel
-        (
-          new StartIDontKnow(shooter),
-          new PositionAmp(arm, controller)
-        )
-        //new FeedShooter(intake, controller),
-        //new StopIntakeAndShooter(shooter, intake)
-
+  public ShootAmpSequence(Shooter shooter, Intake intake, PS5Controller controller) {
+    addCommands(
+        Commands.parallel()
+    //       new StartIDontKnow(shooter))
+    // new FeedShooter(intake, controller),
+    // new StopIntakeAndShooter(shooter, intake)
 
     );
 
-        // new PrepareToPickup(claw, wrist, elevator),
-        // new Pickup(claw, wrist, elevator),
-        // new SetDistanceToBox(AutoConstants.kDistToBox1, drive),
-        // // new DriveStraight(4), // Use encoders if ultrasonic is broken
-        // new Place(claw, wrist, elevator),
-        // new SetDistanceToBox(AutoConstants.kDistToBox2, drive),
-        // // new DriveStraight(-2), // Use Encoders if ultrasonic is broken
-        // Commands.parallel(
-        //     new SetWristSetpoint(AutoConstants.kWristSetpoint, wrist), new CloseClaw(claw)));
+    // new PrepareToPickup(claw, wrist, elevator),
+    // new Pickup(claw, wrist, elevator),
+    // new SetDistanceToBox(AutoConstants.kDistToBox1, drive),
+    // // new DriveStraight(4), // Use encoders if ultrasonic is broken
+    // new Place(claw, wrist, elevator),
+    // new SetDistanceToBox(AutoConstants.kDistToBox2, drive),
+    // // new DriveStraight(-2), // Use Encoders if ultrasonic is broken
+    // Commands.parallel(
+    // new SetWristSetpoint(AutoConstants.kWristSetpoint, wrist), new
+    // CloseClaw(claw)));
   }
 }

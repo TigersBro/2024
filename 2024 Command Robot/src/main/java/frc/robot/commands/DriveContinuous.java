@@ -11,51 +11,55 @@
 // ROBOTBUILDER TYPE: Command.
 
 package frc.robot.commands;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-
-
+import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Shooter;
 
     
-public class StartIDontKnow extends Command {
+public class DriveContinuous extends Command {
 
-        private final Shooter m_shooter;
+        private final DrivetrainSubsystem m_drive;
         private boolean m_done;
 
-    public StartIDontKnow(Shooter subsystem) {
+    public DriveContinuous(DrivetrainSubsystem subsystem) {
 
 
-        
-        m_shooter = subsystem;
+        m_drive = subsystem;
         m_done = false;
-        addRequirements(m_shooter);
+        addRequirements(m_drive);
 
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        m_shooter.IDontKnow();
-        m_done = true;
+        
+        m_drive.arcadeDrive(-.5, 0);
+
+
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
-    public void execute() {
+    public void execute() 
+    {
+        m_drive.arcadeDrive(-.4, 0);
+
+
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) 
     {
-        m_shooter.Stop();
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
         
-        return m_done;
+        return false;
     }
     
 }
