@@ -10,8 +10,10 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
+
 //import frc.robot.Constants;
-//import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkFlex;
 
 
 //import com.revrobotics.CANSparkMax;
@@ -22,22 +24,21 @@ public class Intake extends SubsystemBase {
 
 
 //private PWMSparkMax intakeMotor;
-private CANSparkMax intakeMotor1 ;
-private CANSparkMax intakeMotor2 ;
+private PWMVictorSPX intakeMotor1 ;
+private PWMVictorSPX intakeMotor2 ;
 
     
 
  public Intake() 
  {
  //intakeMotor = new PWMSparkMax(9);
- intakeMotor1 = new CANSparkMax(Constants.motors.intakemotor1, CANSparkLowLevel.MotorType.kBrushless);
- intakeMotor2 = new CANSparkMax(Constants.motors.intakemotor2, CANSparkLowLevel.MotorType.kBrushless);
+ intakeMotor1 = new PWMVictorSPX(Constants.motors.intakemotor1);
+ intakeMotor2 = new PWMVictorSPX(Constants.motors.intakemotor2);
 
 
  intakeMotor1.setInverted(false);
  intakeMotor2.setInverted(false);
-
- intakeMotor2.follow(intakeMotor1);
+intakeMotor1.addFollower(intakeMotor2);
 
  }
 
