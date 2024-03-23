@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.motorcontrol.Victor;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj.Joystick;
 
 /**
@@ -30,7 +31,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class Robot extends TimedRobot {
 
 
-  //private final Joystick m_driveController = new Joystick(0);
+  private final Joystick m_joy = new Joystick(0);
 
   private final Victor m_leftDrive = new Victor(0);
   private final Victor m_rightDrive = new Victor(1);
@@ -43,7 +44,7 @@ public class Robot extends TimedRobot {
 
   private final DifferentialDrive m_robotDrive =
       new DifferentialDrive(m_leftDrive, m_rightDrive);
-  private final PS5Controller m_controller = new PS5Controller(1);
+  //private final PS5Controller m_controller = new PS5Controller(1);
   private final Timer m_timer = new Timer();
 
   StringLogEntry myStringLog;
@@ -107,18 +108,8 @@ public class Robot extends TimedRobot {
 // Joystick
 
 //System.out.println("Another message");
-    m_robotDrive.arcadeDrive(-m_controller.getLeftY(),-m_controller.getRightY());
-    if (m_controller.getCircleButtonPressed() == true)
-    {
-       x.set(1);
-       myStringLog.append("Button pressed");
-       System.out.println("Some message");
-       
-    }
-    else
-    {
-      //x.set(0);
-    }
+    m_robotDrive.arcadeDrive(m_joy.getY(), -m_joy.getZ());
+    
   }
 
   /** This function is called once each time the robot enters test mode. */
