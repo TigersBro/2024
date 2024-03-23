@@ -108,7 +108,7 @@ public class Robot extends TimedRobot {
 // Joystick
 
 //System.out.println("Another message");
-    m_robotDrive.arcadeDrive(m_joy.getY(), -m_joy.getZ());
+    m_robotDrive.arcadeDrive(-m_joy.getY(), -m_joy.getZ()/2);
     
   }
 
