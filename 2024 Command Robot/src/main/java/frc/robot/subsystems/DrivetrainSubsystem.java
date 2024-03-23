@@ -57,8 +57,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void driveArcade(double _straight, double _turn) {
     //double straight = MathUtil.clamp(_straight + _turn, -1.0, 1.0);
     //double turn = MathUtil.clamp(_straight - _turn, -1.0, 1.0);
-
-    m_drive.arcadeDrive(_straight, _turn);
+    double dampenedTurn = _turn / 100;
+    m_drive.arcadeDrive(_straight, dampenedTurn);
   }
 
   @Override
@@ -122,8 +122,5 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return m_gyro.getRate() * (OIConstants.kGyroReversed ? -1.0 : 1.0);
   }
 
-  public void arcadeDrive(double fwd, double rot) {
-    m_drive.arcadeDrive(fwd, rot);
-  }
 
 }
