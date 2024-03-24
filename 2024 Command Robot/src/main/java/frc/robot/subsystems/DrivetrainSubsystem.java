@@ -128,7 +128,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void arcadeDrive(double fwd, double rot) {
     SmartDashboard.putNumber("before", rot);
     
-    //if they have turned it
+    //The more you turn the faster it gets
     if (rot > .9) 
     {
       rot = rot / 1.25;

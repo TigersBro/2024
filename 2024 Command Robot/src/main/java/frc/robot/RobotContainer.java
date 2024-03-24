@@ -92,6 +92,9 @@ public class RobotContainer {
     // set up the drivetrain command that runs all the time
     m_drivetrain.setDefaultCommand(new RunCommand(
         () -> m_drivetrain.arcadeDrive(m_driveController.getY(), -m_driveController.getZ()), m_drivetrain));
+    m_intake.setDefaultCommand( new RunCommand( 
+        () -> m_intake.suck(m_ps5.getSquareButton()), m_intake));
+    
 
     final JoystickButton shoot = new JoystickButton(m_driveController, 1);
     // final POVButton shootSpeaker = new POVButton(m_ps5, 0);
@@ -99,13 +102,15 @@ public class RobotContainer {
     // final POVButton prepareIntake = new POVButton(m_ps5, 180);
     // final JoystickButton backupFeed = new JoystickButton(m_ps5, 3);
     final JoystickButton stopIt = new JoystickButton(m_ps5, 2);
-    final JoystickButton suckUp = new JoystickButton(m_ps5, 1);
+    //final JoystickButton suckUp = new JoystickButton(m_ps5, 1);  //Square - Replaced with default command
     final JoystickButton shootPS5Button = new JoystickButton(m_ps5, 8);
 
     shoot.onTrue(new StartLaunch(m_shooter, m_ps5).withTimeout(Constants.Limits.shooterTimeout));
     shootPS5Button.onTrue(new StartLaunch(m_shooter, m_ps5).withTimeout(Constants.Limits.shooterTimeout));
     stopIt.onTrue(new StopIntakeAndShooter(m_shooter, m_intake));
-    suckUp.onTrue(new StartIntake(m_intake, m_ps5));
+    //suckUp.onTrue(new StartIntake(m_intake, m_ps5));
+    
+
 
   }
 

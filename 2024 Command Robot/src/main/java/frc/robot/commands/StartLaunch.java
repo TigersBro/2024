@@ -53,7 +53,7 @@ private PS5Controller m_ps5;
     @Override
     public void end(boolean interrupted) 
     {
-       // m_shooter.Stop();
+        m_shooter.Stop();
     }
 
     // Returns true when the command should end.

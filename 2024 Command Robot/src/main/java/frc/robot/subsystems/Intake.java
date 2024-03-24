@@ -36,18 +36,30 @@ private PWMVictorSPX intakeMotor2 ;
  intakeMotor2 = new PWMVictorSPX(Constants.motors.intakemotor2);
 
 
- intakeMotor1.setInverted(false);
- intakeMotor2.setInverted(false);
+ intakeMotor1.setInverted(true);
+ intakeMotor2.setInverted(true);
 intakeMotor1.addFollower(intakeMotor2);
 
  }
 
     
     public void suck() 
+
     {
-        intakeMotor1.set(.5);
+        intakeMotor1.set(.25);
      }
 
+    public void suck( boolean doIt)
+    {
+        if (doIt)
+        {
+            suck( );
+        }
+        else 
+        {
+            stop();
+        }
+    } 
     
      public void reversesuck() 
     {

@@ -65,7 +65,7 @@ public static final class Limits{
   
   public static final double intakeMaxSpeed = 1;
   public static final double intakeminSpeed = .1;
-  public static final double shooterTimeout = 2.5;
+  public static final double shooterTimeout = 1;
   
 }
 

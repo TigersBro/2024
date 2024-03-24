@@ -1,0 +1,37 @@
+Issues: 
+
+1)	Single point of failure.  Bad motor controller made everything stop...including drivetrain.  
+2)	In DrivetrainSubsystem we had a factor of 10000 we were dividing by.  This made it so it didn't turn.
+3)	Wiring nuts are there because the breaker seems to be having some issues...may want to replace/move
+4)	Shooter - Top bar chain is skippng...looks like our white spacer on the top bar may be on the wrong side
+5)	1 intake motor turning the wrong way
+6) 	RSL light stopped working....red wire popped out power supply to roborio 
+
+
+
+
+
+Warnings - 
+1)  The bottom roller is on the floor (carpet...not sure if it is actually on the floor). 
+2)  The camera is dangling.  Will it stay in place after taking a hit?
+3)  RoboRio wires aren't holding in the power supply very well
+4)  Wireless communication kept dropping.  Redundant power supply recommended.
+
+
+
+
+Tests: 
+1) Shooter
+	Spin Direction - Pass
+	Spin Timing - 1 second - Pass
+
+2) Drivetrain
+	Spin Direction Orientation
+		Forward/Reverse
+		Rotation
+	
+3) Intake
+	Spin Direction - Pass
+
+4) Camera
+	Can see
