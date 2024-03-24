@@ -11,53 +11,51 @@
 // ROBOTBUILDER TYPE: Command.
 
 package frc.robot.commands;
-import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj2.command.Command;
-
-
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.DrivetrainSubsystem;
 
     
-public class BackupShoot extends Command {
+public class MakeFrontBack extends Command {
 
-        private  Shooter m_shooter;
-        //not sure why this keeps giving warnings....
-        private  PS5Controller m_control;
-        private  boolean m_done;
+        private final DrivetrainSubsystem m_drive;
+        private boolean m_done;
+
+    public MakeFrontBack(DrivetrainSubsystem subsystem) {
 
 
-    public BackupShoot (Shooter subsystem, PS5Controller controller) 
-    {
-        m_shooter = subsystem;
-        m_control = controller;
-        addRequirements(m_shooter);
+        m_drive = subsystem;
+        m_done = false;
+        addRequirements(m_drive);
+
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        
-        m_shooter.BackupShoot();
-            
+        m_drive.setFrontBack();
+        m_done = true;
+
+
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
-    public void execute() {
+    public void execute() 
+    {
+
     }
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
-        m_shooter.Stop();
-
+    public void end(boolean interrupted) 
+    {
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
         
-        return m_done || m_control.getCrossButtonReleased();
+        return m_done;
     }
     
 }

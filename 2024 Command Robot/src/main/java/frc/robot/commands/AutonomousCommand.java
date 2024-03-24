@@ -18,10 +18,9 @@ public class AutonomousCommand extends SequentialCommandGroup {
     (
         Commands.parallel
         (
-          new DriveContinuous(drive)
+          new ShootSpeakerSequence(shooter, intake, controller).andThen(new DriveContinuous(drive))
+          
 
-//          new DriveStraight(.1, drive),
-  //        new PositionAmp(arm, controller)
         )
     );
 

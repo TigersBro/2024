@@ -62,11 +62,11 @@ public static final class Limits{
   
   public static final double shooterMaxSpeed = 1;
   public static final double shooterMinSpeed = .2;
+  public static final double shooterTimeout = 1;
   
   public static final double intakeMaxSpeed = 1;
   public static final double intakeminSpeed = .1;
-  public static final double shooterTimeout = 1;
-  
+  public static final double intakeFeedTimeout = .3; 
 }
 
 public static final class armConstants{

@@ -27,11 +27,11 @@ Tests:
 
 2) Drivetrain
 	Spin Direction Orientation
-		Forward/Reverse
-		Rotation
+		Forward/Reverse - Pass
+		Rotation - Pass
 	
 3) Intake
 	Spin Direction - Pass
 
 4) Camera
-	Can see
+	Can see - Pass

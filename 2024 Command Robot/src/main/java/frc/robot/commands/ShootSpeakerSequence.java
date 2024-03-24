@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.Constants;
 import frc.robot.subsystems.*;
 
 
@@ -18,7 +19,8 @@ public class ShootSpeakerSequence extends SequentialCommandGroup {
     (
         Commands.parallel
         (
-          new StartLaunch(shooter,controller)
+          new StartIntake(intake, controller).withTimeout(Constants.Limits.intakeFeedTimeout),
+          new StartLaunch(shooter,controller).withTimeout(Constants.Limits.shooterTimeout)
          )
         //new FeedShooter(intake, controller),
         //new StopIntakeAndShooter(shooter, intake)

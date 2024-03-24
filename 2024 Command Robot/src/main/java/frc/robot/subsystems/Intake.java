@@ -3,17 +3,17 @@
 package frc.robot.subsystems;
 
 
-import com.revrobotics.CANSparkLowLevel;
-import com.revrobotics.CANSparkMax;
+//import com.revrobotics.CANSparkLowLevel;
+//import com.revrobotics.CANSparkMax;
 
-import edu.wpi.first.wpilibj.DigitalInput;
+//import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 
 //import frc.robot.Constants;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkFlex;
+//import edu.wpi.first.wpilibj.motorcontrol.PWMSparkFlex;
 
 
 //import com.revrobotics.CANSparkMax;
@@ -46,7 +46,7 @@ intakeMotor1.addFollower(intakeMotor2);
     public void suck() 
 
     {
-        intakeMotor1.set(.25);
+        intakeMotor1.set(.5);
      }
 
     public void suck( boolean doIt)
@@ -63,7 +63,7 @@ intakeMotor1.addFollower(intakeMotor2);
     
      public void reversesuck() 
     {
-        intakeMotor1.set(-.6);
+        intakeMotor1.set(-.4);
     }
 
     @Override
@@ -88,7 +88,7 @@ intakeMotor1.addFollower(intakeMotor2);
 
     public void feed()
     {
-        intakeMotor1.set(-.8);
+        intakeMotor1.set(.4);
     }
 
 }

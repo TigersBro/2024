@@ -11,22 +11,18 @@
 // ROBOTBUILDER TYPE: Command.
 
 package frc.robot.commands;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.Shooter;
 
     
 public class DriveContinuous extends Command {
 
         private final DrivetrainSubsystem m_drive;
-        private boolean m_done;
 
     public DriveContinuous(DrivetrainSubsystem subsystem) {
 
 
         m_drive = subsystem;
-        m_done = false;
         addRequirements(m_drive);
 
     }

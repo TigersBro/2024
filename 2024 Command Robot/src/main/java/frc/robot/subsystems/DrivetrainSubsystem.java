@@ -28,6 +28,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private  DifferentialDrive m_drive; 
   private  Encoder m_encoderLeft;
   private  Encoder m_encoderRight;
+  private  int m_makeFrontBack = 1;
   //private final ADIS16470_IMU m_gyro = new ADIS16470_IMU();
   /** Creates a new DrivetrainSubsystem. */
   public DrivetrainSubsystem() {
@@ -126,7 +127,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public void arcadeDrive(double fwd, double rot) {
-    SmartDashboard.putNumber("before", rot);
+
     
     //The more you turn the faster it gets
     if (rot > .9) 
@@ -141,10 +142,22 @@ public class DrivetrainSubsystem extends SubsystemBase {
     {
       rot = rot / 2;
     }    
-
-    SmartDashboard.putNumber("z val", rot);
-
+    fwd = fwd * m_makeFrontBack;
+    rot = rot * m_makeFrontBack;
     m_drive.arcadeDrive(fwd, rot);
   }
+
+
+  public void setFrontBack( )
+  {
+    if( m_makeFrontBack == -1 )
+    {
+      m_makeFrontBack = 1;
+    }
+    else
+    {
+      m_makeFrontBack = -1;
+    }
+ }
 
 }

@@ -45,9 +45,9 @@ public class Lift extends SubsystemBase {
         liftMotor1.stopMotor();
     }
 
-    public void Lift()
-    {
-        liftMotor1.set(.3);
-    }
+    // public void Lift()
+    // {
+    //     liftMotor1.set(.3);
+    // }
 
 }
