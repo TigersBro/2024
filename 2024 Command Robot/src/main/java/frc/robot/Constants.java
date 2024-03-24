@@ -88,9 +88,9 @@ public static final class driveStraight{
   public static final int kFrontRightCanId = 3;
   public static final int kRearLeftCanId = 4;
   public static final int kRearRightCanId = 5;
-  public static final int intakemotor1 = 6;
-  public static final int intakemotor2 = 7;
-  public static final int shootermotor1 = 8;
+  public static final int intakemotor1 = 0;
+  public static final int intakemotor2 = 1;
+  public static final int shootermotor1 = 11;
   public static final int shootermotor2 = 9;
   public static final int liftMotor1 = 10;
   public static final int liftMotor2 = 11;

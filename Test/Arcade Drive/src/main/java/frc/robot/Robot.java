@@ -22,10 +22,10 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  */
 public class Robot extends TimedRobot {
   
-  private static final int leftFrontDeviceID = 5;
-  private static final int leftRearDeviceID = 2;
-  private static final int rightFrontDeviceID = 4;
-  private static final int rightRearDeviceID = 3;
+  private static final int leftFrontDeviceID = 2;
+  private static final int leftRearDeviceID = 4;
+  private static final int rightFrontDeviceID = 3;
+  private static final int rightRearDeviceID = 5;
   private CANSparkMax m_leftFrontMotor;
   private CANSparkMax m_rightFrontMotor;
   private CANSparkMax m_leftRearMotor;

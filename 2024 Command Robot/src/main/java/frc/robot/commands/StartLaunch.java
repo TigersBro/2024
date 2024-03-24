@@ -22,7 +22,7 @@ public class StartLaunch extends Command {
 
         private final Shooter m_shooter;
         private boolean m_done;
-private Timer m_shootTimer;
+//private Timer m_shootTimer;
 private PS5Controller m_ps5;
     public StartLaunch(Shooter subsystem,PS5Controller ps5) {
 
@@ -38,7 +38,7 @@ private PS5Controller m_ps5;
     @Override
     public void initialize() {
         m_shooter.Launch();
-        m_shootTimer.start();
+     //   m_shootTimer.start();
 
     }
 
@@ -46,10 +46,7 @@ private PS5Controller m_ps5;
     @Override
     public void execute() 
     {
-        if( m_shootTimer.hasElapsed(2.5) == true)
-        {
-            m_done = true;
-        }
+          //  m_done = true;
     }
 
     // Called once the command ends or is interrupted.

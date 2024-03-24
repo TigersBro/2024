@@ -91,7 +91,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // set up the drivetrain command that runs all the time
     m_drivetrain.setDefaultCommand(new RunCommand(
-        () -> m_drivetrain.arcadeDrive(m_driveController.getY(), -m_driveController.getZ()/2), m_drivetrain));
+        () -> m_drivetrain.arcadeDrive(m_driveController.getY(), -m_driveController.getZ()), m_drivetrain));
 
     final JoystickButton shoot = new JoystickButton(m_driveController, 1);
     // final POVButton shootSpeaker = new POVButton(m_ps5, 0);

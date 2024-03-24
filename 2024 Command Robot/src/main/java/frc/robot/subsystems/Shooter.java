@@ -64,7 +64,7 @@ public class Shooter extends SubsystemBase {
            // wait(25);
             //shooterMotor.set(.9);
            // wait(25);
-            shooterMotor1.set(0.2);
+            shooterMotor1.set(1);
       //  } catch (InterruptedException e) {
       //      e.printStackTrace();
       //  }
