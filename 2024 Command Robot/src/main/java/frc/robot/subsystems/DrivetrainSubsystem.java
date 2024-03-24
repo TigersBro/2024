@@ -128,7 +128,20 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void arcadeDrive(double fwd, double rot) {
     SmartDashboard.putNumber("before", rot);
     
-    rot = rot / 100000;
+    //if they have turned it
+    if (rot > .9) 
+    {
+      rot = rot / 1.25;
+    } 
+    else if ( rot > .8 )
+    {
+      rot = rot / 1.5 ;
+    }
+    else 
+    {
+      rot = rot / 2;
+    }    
+
     SmartDashboard.putNumber("z val", rot);
 
     m_drive.arcadeDrive(fwd, rot);
