@@ -92,7 +92,7 @@ public class Shooter extends SubsystemBase {
     public void BackupShoot() 
     {
 
-        shooterMotor1.set(.25);
+        shooterMotor1.set(-.25);
 
     }
 
