@@ -58,7 +58,7 @@ public class BackupFeed extends Command {
     @Override
     public boolean isFinished() {
         
-        return m_done || m_control.getCrossButtonReleased();
+        return m_done || m_control.getCrossButtonReleased()|| m_control.getCreateButtonReleased();
     }
     
 }

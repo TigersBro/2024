@@ -129,9 +129,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void arcadeDrive(double fwd, double rot) {
 
     
-    rot = rot /2;
+    rot = rot/1.8;
     fwd = fwd * m_makeFrontBack;
-    rot = rot * m_makeFrontBack;
+    //rot = rot * m_makeFrontBack;
     m_drive.arcadeDrive(fwd, rot);
   }
 
