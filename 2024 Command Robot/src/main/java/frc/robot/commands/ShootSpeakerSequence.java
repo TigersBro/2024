@@ -19,8 +19,8 @@ public class ShootSpeakerSequence extends SequentialCommandGroup {
     (
         Commands.parallel
         (
-          new StartIntake(intake, controller).withTimeout(Constants.Limits.intakeFeedTimeout),
-          new StartLaunch(shooter,controller).withTimeout(Constants.Limits.shooterTimeout)
+          new StartIntake(intake, controller).withTimeout(1),
+          new StartLaunch(shooter,controller).withTimeout(1.5)
          )
         //new FeedShooter(intake, controller),
         //new StopIntakeAndShooter(shooter, intake)

@@ -129,19 +129,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void arcadeDrive(double fwd, double rot) {
 
     
-    //The more you turn the faster it gets
-    if (rot > .9) 
-    {
-      rot = rot / 1.25;
-    } 
-    else if ( rot > .8 )
-    {
-      rot = rot / 1.5 ;
-    }
-    else 
-    {
-      rot = rot / 2;
-    }    
+    rot = rot /2;
     fwd = fwd * m_makeFrontBack;
     rot = rot * m_makeFrontBack;
     m_drive.arcadeDrive(fwd, rot);

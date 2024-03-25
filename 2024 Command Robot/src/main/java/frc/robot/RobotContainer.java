@@ -102,7 +102,7 @@ public class RobotContainer {
 
     
     m_drivetrain.setDefaultCommand(new RunCommand(
-        () -> m_drivetrain.arcadeDrive(m_driveController.getY(), -m_driveController.getZ()), m_drivetrain));
+        () -> m_drivetrain.arcadeDrive(m_driveController.getY(), m_driveController.getZ()), m_drivetrain));
     m_intake.setDefaultCommand( new RunCommand( 
         () -> m_intake.suck(m_ps5.getSquareButton()), m_intake));
     

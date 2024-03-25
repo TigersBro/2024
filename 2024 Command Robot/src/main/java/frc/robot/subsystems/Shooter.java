@@ -86,7 +86,7 @@ public class Shooter extends SubsystemBase {
     public void Shoot() 
     {
 
-        shooterMotor1.set(1);
+        shooterMotor1.set(.8);
 
     }
     public void BackupShoot() 

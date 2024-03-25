@@ -37,7 +37,7 @@ private PWMVictorSPX intakeMotor2 ;
 
 
  intakeMotor1.setInverted(true);
- intakeMotor2.setInverted(true);
+ intakeMotor2.setInverted(false);
 intakeMotor1.addFollower(intakeMotor2);
 
  }
