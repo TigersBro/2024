@@ -2,7 +2,7 @@ Issues:
 
 1)	Single point of failure.  Bad motor controller made everything stop...including drivetrain.  
 2)	In DrivetrainSubsystem we had a factor of 10000 we were dividing by.  This made it so it didn't turn.
-3)	Wiring nuts are there because the breaker seems to be having some issues...may want to replace/move
+3)	Wiring nuts are there because the breaker seems to be having some issues...may want to replace/move...fixed by unplugging replugging
 4)	Shooter - Top bar chain is skippng...looks like our white spacer on the top bar may be on the wrong side
 5)	1 intake motor turning the wrong way
 6) 	RSL light stopped working....red wire popped out power supply to roborio 
