@@ -52,23 +52,11 @@ public class Shooter extends SubsystemBase {
     }
 
     public void Launch() {
-        // spin it up slower...but that would take a PID..ooooor
-       // shooterMotor.set(.1);
-       // try {
-          //  wait(25);
-          //  shooterMotor.set(.3);
-           // wait(25);
-           // shooterMotor.set(.5);
-           // wait(25);
-           // shooterMotor.set(.7);
-           // wait(25);
-            //shooterMotor.set(.9);
-           // wait(25);
-            shooterMotor1.set(1);
-      //  } catch (InterruptedException e) {
-      //      e.printStackTrace();
-      //  }
-    }
+        
+        shooterMotor2.follow(shooterMotor1);
+        shooterMotor1.set(1);
+        
+        }
 
     public void Stop() 
     {
@@ -77,16 +65,11 @@ public class Shooter extends SubsystemBase {
         shooterMotor2.set(0);
         shooterMotor2.stopMotor();
     }
-    public void Collect() 
-    {
 
-        shooterMotor1.set(-.2);
-
-    }
-    public void Shoot() 
-    {
-
-        shooterMotor1.set(.8);
+    public void LaunchLow(){
+        // /bottom motor should spin faster to make the note go vertical
+        shooterMotor1.set(.2);
+        shooterMotor2.set(.4);
 
     }
     public void BackupShoot() 

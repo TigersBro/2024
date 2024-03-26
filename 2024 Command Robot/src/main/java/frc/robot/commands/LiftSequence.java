@@ -10,14 +10,14 @@ import frc.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-public class ShootAmpSequence extends SequentialCommandGroup {
+public class LiftSequence extends SequentialCommandGroup {
 
-  public ShootAmpSequence(Shooter shooter, Intake intake, PS5Controller controller) {
+  public LiftSequence(Lift lift, Shooter shooter, PS5Controller controller) {
     addCommands(
-        
-          new BackupShoot(shooter, controller).withTimeout(.5),
-          new StartLaunchLow(shooter,controller).withTimeout(.5)
-          
+        Commands.parallel(
+          new BackupDelivery(lift, controller).withTimeout(1),
+          new StartLift(lift, controller).withTimeout(5)
+          )
     //       new StartIDontKnow(shooter))
     // new FeedShooter(intake, controller),
     // new StopIntakeAndShooter(shooter, intake)

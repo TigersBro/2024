@@ -16,21 +16,35 @@ import frc.robot.Constants;
 
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
+import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
+import edu.wpi.first.wpilibj.motorcontrol.Victor;
+import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
 ///import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
 public class Lift extends SubsystemBase {
 
     //private PWMSparkMax shooterMotor;
-    private CANSparkMax liftMotor1;
+    private PWMSparkMax liftMotor1;
+    private PWMVictorSPX liftMotor2;
+    private PWMVictorSPX deliverHooks;
+    private Victor justInCaseWeNeedThe888;
+    private boolean m_hooksDelivered;
+
     public Lift() {
         //shooterMotor = new PWMSparkMax(7);
-        liftMotor1 = new CANSparkMax(Constants.motors.liftMotor1,CANSparkLowLevel.MotorType.kBrushed);
-      
-     }
+        liftMotor1 = new PWMSparkMax(4);
+        liftMotor2 = new PWMVictorSPX(5);
+        deliverHooks = new PWMVictorSPX(6);
+        
+        liftMotor1.addFollower(liftMotor2);
+        m_hooksDelivered = false;
+    }
 
     @Override
-    public void periodic() {
+    public void periodic() 
+    {
 
     }
 
@@ -43,11 +57,29 @@ public class Lift extends SubsystemBase {
     {
         liftMotor1.set(0);
         liftMotor1.stopMotor();
+    
     }
 
-    // public void Lift()
-    // {
-    //     liftMotor1.set(.3);
-    // }
+    public void Deliver()
+    {
+        deliverHooks.set(.3);
+        m_hooksDelivered = true;
+    }
 
+    public void ReverseDeliver()
+    {
+        deliverHooks.set(-.3);
+        m_hooksDelivered = true;
+    }
+
+
+    public void LiftIt()
+    {
+        if( m_hooksDelivered == true)
+        {
+            liftMotor1.set(.3);
+        }
+        
+
+    }
 }

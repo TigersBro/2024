@@ -8,10 +8,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS5Controller;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.cameraserver.CameraServer;
@@ -33,6 +35,7 @@ public class RobotContainer {
   private final DrivetrainSubsystem m_drivetrain = new DrivetrainSubsystem();
   private final Intake m_intake = new Intake();
   private final Shooter m_shooter = new Shooter();
+  private final Lift m_lift = new Lift();
 
   private final Joystick m_driveController = new Joystick(Constants.OIConstants.kDriverController);
   private final PS5Controller m_ps5 = new PS5Controller(Constants.OIConstants.kOtherController);
@@ -43,7 +46,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
 
-    CameraServer.startAutomaticCapture();
+    CameraServer.startAutomaticCapture(0);
 
     // SmartDashboard Buttons
     SmartDashboard.putData("Autonomous Command", new AutonomousCommand(m_drivetrain, m_shooter, m_intake, m_ps5));
@@ -97,7 +100,10 @@ public class RobotContainer {
     final JoystickButton shootPS5Button = new JoystickButton(m_ps5, 8); //Right L2 Trigger
     final JoystickButton backupShootPS5Button = new JoystickButton(m_ps5, 7);  //Left L2 Trigger
     final JoystickButton backupIntakePS5Button = new JoystickButton(m_ps5, 3);  //Circle
-    
+    final JoystickButton shootLow = new JoystickButton(m_ps5, 4);
+    final POVButton deliverHooks = new POVButton(m_ps5, 0);
+    final POVButton liftEdD = new POVButton(m_ps5, 180);
+
 
 
     
@@ -115,6 +121,9 @@ public class RobotContainer {
     shootPS5Button.onTrue(new ShootSpeakerSequence(m_shooter,m_intake,m_ps5));
     backupShootPS5Button.onTrue(new BackupShoot(m_shooter, m_ps5).withTimeout((3)));  //Shouldn't hit the timeout...but if we do...we do.
     backupIntakePS5Button.onTrue(new BackupFeed(m_intake, m_ps5).withTimeout(3));
+    deliverHooks.onTrue(new StartDeliverHooks(m_lift, m_ps5));
+    liftEdD.onTrue(new StartLift(m_lift, m_ps5));
+    shootLow.onTrue( new ShootAmpSequence(m_shooter, m_intake, m_ps5));
 
 
     //How to put stuff to SmartDashboard.

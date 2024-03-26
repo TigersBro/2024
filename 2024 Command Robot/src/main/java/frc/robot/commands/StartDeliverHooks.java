@@ -11,53 +11,54 @@
 // ROBOTBUILDER TYPE: Command.
 
 package frc.robot.commands;
+
 import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Lift;
 
+public class StartDeliverHooks extends Command {
 
-import frc.robot.subsystems.Shooter;
+    private final Lift m_lift;
+    private boolean m_done;
+    private PS5Controller m_ps5;
 
-    
-public class BackupShoot extends Command {
-
-        private  Shooter m_shooter;
-        //not sure why this keeps giving warnings....
-        private  PS5Controller m_control;
-        private  boolean m_done;
-
-
-    public BackupShoot (Shooter subsystem, PS5Controller controller) 
+    public StartDeliverHooks(Lift lift, PS5Controller ps5) 
     {
-        m_shooter = subsystem;
-        m_control = controller;
-        addRequirements(m_shooter);
+
+        m_ps5 = ps5;
+        m_lift = lift;
+        m_done = false;
+        addRequirements(m_lift);
+
     }
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {
-        
-        m_shooter.BackupShoot();
-            
+    public void initialize() 
+    {
+        m_lift.Deliver();
+
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
-    public void execute() {
+    public void execute() 
+    {
     }
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
-        m_shooter.Stop();
-
+    public void end(boolean interrupted) 
+    {
+        m_lift.Stop();
     }
 
     // Returns true when the command should end.
     @Override
-    public boolean isFinished() {
-        
-        return m_done || m_control.getCrossButtonReleased()||m_control.getL2ButtonReleased();
+    public boolean isFinished() 
+    {
+
+        return m_done || m_ps5.getCrossButtonReleased();
     }
-    
+
 }

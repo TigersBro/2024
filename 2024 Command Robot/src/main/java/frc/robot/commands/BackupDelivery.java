@@ -15,29 +15,28 @@ import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj2.command.Command;
 
 
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Lift;
 
     
-public class BackupShoot extends Command {
+public class BackupDelivery extends Command {
 
-        private  Shooter m_shooter;
-        //not sure why this keeps giving warnings....
+        private  Lift m_lift;
         private  PS5Controller m_control;
         private  boolean m_done;
 
 
-    public BackupShoot (Shooter subsystem, PS5Controller controller) 
+    public BackupDelivery (Lift subsystem, PS5Controller controller) 
     {
-        m_shooter = subsystem;
+        m_lift = subsystem;
         m_control = controller;
-        addRequirements(m_shooter);
+        addRequirements(m_lift);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
         
-        m_shooter.BackupShoot();
+        m_lift.ReverseDeliver();
             
     }
 
@@ -49,7 +48,7 @@ public class BackupShoot extends Command {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        m_shooter.Stop();
+        m_lift.Stop();
 
     }
 
@@ -57,7 +56,7 @@ public class BackupShoot extends Command {
     @Override
     public boolean isFinished() {
         
-        return m_done || m_control.getCrossButtonReleased()||m_control.getL2ButtonReleased();
+        return m_done || m_control.getCrossButtonReleased();
     }
     
 }

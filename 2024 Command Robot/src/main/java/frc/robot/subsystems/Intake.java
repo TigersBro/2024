@@ -46,7 +46,8 @@ intakeMotor1.addFollower(intakeMotor2);
     public void suck() 
 
     {
-        intakeMotor1.set(.5);
+        //.5 was what we got it to shoot well with.
+        intakeMotor1.set(.8);
      }
 
     public void suck( boolean doIt)
