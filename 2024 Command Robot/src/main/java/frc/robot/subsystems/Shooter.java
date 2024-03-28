@@ -10,9 +10,14 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import frc.robot.Constants;
 import frc.robot.Constants;
+
+import java.util.Map;
 
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
@@ -24,6 +29,14 @@ public class Shooter extends SubsystemBase {
     //private PWMSparkMax shooterMotor;
     private CANSparkMax shooterMotor1;
     private CANSparkMax shooterMotor2;
+    
+
+    
+    private GenericEntry motor1Speed ;
+    private GenericEntry motor2Speed ;
+    private double  motor2SpeedDefault = .2;
+    private double  motor1SpeedDefault = .4; 
+
     public Shooter() {
         //shooterMotor = new PWMSparkMax(7);
         shooterMotor1 = new CANSparkMax(Constants.motors.shootermotor1,CANSparkLowLevel.MotorType.kBrushed);
@@ -34,6 +47,22 @@ public class Shooter extends SubsystemBase {
     
     
         shooterMotor2.follow(shooterMotor1);
+
+        
+        motor2Speed = Shuffleboard.getTab("Motors")
+                .add("Shooter2 Speed", motor2SpeedDefault)
+                .withWidget(BuiltInWidgets.kNumberSlider)
+                .withProperties(Map.of("min", 0, "max", 1))
+                .getEntry();
+                
+        motor1Speed = Shuffleboard.getTab("Motors")
+        .add("Shooter1 Speed", motor1SpeedDefault)
+        .withWidget(BuiltInWidgets.kNumberSlider)
+        .withProperties(Map.of("min", 0, "max", 1))
+        .getEntry();
+
+
+
     }
 
     @Override
@@ -68,8 +97,12 @@ public class Shooter extends SubsystemBase {
 
     public void LaunchLow(){
         // /bottom motor should spin faster to make the note go vertical
-        shooterMotor1.set(.2);
-        shooterMotor2.set(.4);
+        
+        
+        double speed1 = motor2Speed.getDouble(motor2SpeedDefault);
+        double speed2 = motor1Speed.getDouble(motor1SpeedDefault);
+        shooterMotor1.set(speed1);
+        shooterMotor2.set(speed2);
 
     }
     public void BackupShoot() 

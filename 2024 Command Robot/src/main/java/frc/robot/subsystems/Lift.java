@@ -42,21 +42,22 @@ public class Lift extends SubsystemBase {
 
     public Lift() {
         //shooterMotor = new PWMSparkMax(7);
-        liftMotor1 = new VictorSP(2);
+        liftMotor1 = new VictorSP(4);
         liftMotor2 = new VictorSP(3);
-        deliverHooks = new PWMVictorSPX(4);
+
+        deliverHooks = new PWMVictorSPX(2);
         
         liftMotor1.addFollower(liftMotor2);
         m_hooksDelivered = false;
 
         liftSpeed = Shuffleboard.getTab("Motors")
-                .add("Lift Speed", liftDefault)
+                .add("Lift Bot Speed", liftDefault)
                 .withWidget(BuiltInWidgets.kNumberSlider)
                 .withProperties(Map.of("min", 0, "max", 1))
                 .getEntry();
 
         deliverSpeed = Shuffleboard.getTab("Motors")
-                .add("Lift Speed", deliverDefault)
+                .add("Lift Deliver Speed", deliverDefault)
                 .withWidget(BuiltInWidgets.kNumberSlider)
                 .withProperties(Map.of("min", 0, "max", 1))
                 .getEntry();
