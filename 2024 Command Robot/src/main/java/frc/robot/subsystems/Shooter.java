@@ -34,27 +34,31 @@ public class Shooter extends SubsystemBase {
     
     private GenericEntry motor1Speed ;
     private GenericEntry motor2Speed ;
-    private double  motor2SpeedDefault = .2;
+    private GenericEntry motor3Speed ;
     private double  motor1SpeedDefault = .4; 
+    private double  motor2SpeedDefault = .2;
+    private double  motor3SpeedDefault = 1;
 
     public Shooter() {
-        //shooterMotor = new PWMSparkMax(7);
         shooterMotor1 = new CANSparkMax(Constants.motors.shootermotor1,CANSparkLowLevel.MotorType.kBrushed);
         shooterMotor2 = new CANSparkMax(Constants.motors.shootermotor2, CANSparkLowLevel.MotorType.kBrushed);
-        //addChild("Shooter Motor", shooterMotor);
         shooterMotor1.setInverted(false);
         shooterMotor2.setInverted(false);
     
     
-        shooterMotor2.follow(shooterMotor1);
-
         
-        motor2Speed = Shuffleboard.getTab("Motors")
-                .add("Shooter2 Speed", motor2SpeedDefault)
+        motor3Speed = Shuffleboard.getTab("Motors")
+                .add("Shoot Speaker Speed", motor3SpeedDefault)
                 .withWidget(BuiltInWidgets.kNumberSlider)
                 .withProperties(Map.of("min", 0, "max", 1))
                 .getEntry();
                 
+        motor2Speed = Shuffleboard.getTab("Motors")
+        .add("Shooter2 Speed", motor2SpeedDefault)
+        .withWidget(BuiltInWidgets.kNumberSlider)
+        .withProperties(Map.of("min", 0, "max", 1))
+        .getEntry();
+        
         motor1Speed = Shuffleboard.getTab("Motors")
         .add("Shooter1 Speed", motor1SpeedDefault)
         .withWidget(BuiltInWidgets.kNumberSlider)
@@ -81,9 +85,10 @@ public class Shooter extends SubsystemBase {
     }
 
     public void Launch() {
-        
-        shooterMotor2.follow(shooterMotor1);
-        shooterMotor1.set(1);
+
+        double speed = motor3Speed.getDouble(motor3SpeedDefault);
+        shooterMotor1.set(speed);
+        shooterMotor2.set(speed);
         
         }
 

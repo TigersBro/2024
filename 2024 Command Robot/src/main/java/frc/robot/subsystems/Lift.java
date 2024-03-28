@@ -35,29 +35,30 @@ public class Lift extends SubsystemBase {
     private VictorSP liftMotor2;
     private PWMVictorSPX deliverHooks;
     private boolean m_hooksDelivered;
-    private double liftDefault = .3;
-    private double deliverDefault = .3;
+    private double liftDefault = .8;
+    private double deliverDefault = .2;
     private GenericEntry liftSpeed ;
     private GenericEntry deliverSpeed ;
 
     public Lift() {
         //shooterMotor = new PWMSparkMax(7);
-        liftMotor1 = new VictorSP(4);
+        liftMotor1 = new VictorSP(2);
         liftMotor2 = new VictorSP(3);
 
-        deliverHooks = new PWMVictorSPX(2);
+        deliverHooks = new PWMVictorSPX(4);
         
         liftMotor1.addFollower(liftMotor2);
+        liftMotor2.setInverted(true);
         m_hooksDelivered = false;
 
         liftSpeed = Shuffleboard.getTab("Motors")
-                .add("Lift Bot Speed", liftDefault)
+                .add("Lift Deliver Speed", liftDefault)
                 .withWidget(BuiltInWidgets.kNumberSlider)
                 .withProperties(Map.of("min", 0, "max", 1))
                 .getEntry();
 
         deliverSpeed = Shuffleboard.getTab("Motors")
-                .add("Lift Deliver Speed", deliverDefault)
+                .add("Lift Bot Speed", deliverDefault)
                 .withWidget(BuiltInWidgets.kNumberSlider)
                 .withProperties(Map.of("min", 0, "max", 1))
                 .getEntry();

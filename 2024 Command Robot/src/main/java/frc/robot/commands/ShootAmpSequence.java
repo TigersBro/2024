@@ -13,16 +13,37 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 public class ShootAmpSequence extends SequentialCommandGroup {
 
   public ShootAmpSequence(Shooter shooter, Intake intake, PS5Controller controller) {
-    addCommands(
+    addCommands
+    (
+    Commands.parallel
+    (
+
+        new BackupFeed(intake, controller).withTimeout(.12),
+        new BackupShoot(shooter, controller).withTimeout(.2)
         
-          new BackupShoot(shooter, controller).withTimeout(.5),
-          new StartLaunchLow(shooter,controller).withTimeout(.5)
+    ),
+    new StartLaunchLow(shooter,controller).withTimeout(.4),
+
+    Commands.parallel
+    (
+      
+      new StartIntake(intake, controller).withTimeout(1),
+      new StartLaunchLow(shooter,controller).withTimeout(1)
+
+    )
+
+    );
+    //
+    //addCommands(
+    //    
+    //      new BackupShoot(shooter, controller).withTimeout(.5),
+    //      new StartLaunchLow(shooter,controller).withTimeout(.5)
           
     //       new StartIDontKnow(shooter))
     // new FeedShooter(intake, controller),
     // new StopIntakeAndShooter(shooter, intake)
 
-    );
+    //);
 
     // new PrepareToPickup(claw, wrist, elevator),
     // new Pickup(claw, wrist, elevator),
