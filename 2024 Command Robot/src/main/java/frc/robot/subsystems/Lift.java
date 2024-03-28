@@ -14,11 +14,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import frc.robot.Constants;
 import frc.robot.Constants;
 
+import java.util.Map;
+
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.motorcontrol.Victor;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
 ///import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
@@ -30,6 +35,10 @@ public class Lift extends SubsystemBase {
     private VictorSP liftMotor2;
     private PWMVictorSPX deliverHooks;
     private boolean m_hooksDelivered;
+    private double liftDefault = .3;
+    private double deliverDefault = .3;
+    private GenericEntry liftSpeed ;
+    private GenericEntry deliverSpeed ;
 
     public Lift() {
         //shooterMotor = new PWMSparkMax(7);
@@ -39,6 +48,21 @@ public class Lift extends SubsystemBase {
         
         liftMotor1.addFollower(liftMotor2);
         m_hooksDelivered = false;
+
+        liftSpeed = Shuffleboard.getTab("Motors")
+                .add("Lift Speed", liftDefault)
+                .withWidget(BuiltInWidgets.kNumberSlider)
+                .withProperties(Map.of("min", 0, "max", 1))
+                .getEntry();
+
+        deliverSpeed = Shuffleboard.getTab("Motors")
+                .add("Lift Speed", deliverDefault)
+                .withWidget(BuiltInWidgets.kNumberSlider)
+                .withProperties(Map.of("min", 0, "max", 1))
+                .getEntry();
+
+
+
     }
 
     @Override
@@ -57,12 +81,15 @@ public class Lift extends SubsystemBase {
         liftMotor1.set(0);
         liftMotor1.stopMotor();
         deliverHooks.stopMotor();
+        deliverHooks.set(0);
     
     }
 
     public void Deliver()
     {
-        deliverHooks.set(.3);
+        
+        double speed = deliverSpeed.getDouble(deliverDefault);
+        deliverHooks.set(speed);
         m_hooksDelivered = true;
     }
 
@@ -75,9 +102,11 @@ public class Lift extends SubsystemBase {
 
     public void LiftIt()
     {
+        
+        double speed = liftSpeed.getDouble(liftDefault);
         if( m_hooksDelivered == true)
         {
-            liftMotor1.set(.3);
+            liftMotor1.set(speed);
         }
         
 
