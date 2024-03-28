@@ -26,17 +26,16 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 public class Lift extends SubsystemBase {
 
     //private PWMSparkMax shooterMotor;
-    private PWMSparkMax liftMotor1;
-    private PWMVictorSPX liftMotor2;
+    private VictorSP liftMotor1;
+    private VictorSP liftMotor2;
     private PWMVictorSPX deliverHooks;
-    private Victor justInCaseWeNeedThe888;
     private boolean m_hooksDelivered;
 
     public Lift() {
         //shooterMotor = new PWMSparkMax(7);
-        liftMotor1 = new PWMSparkMax(4);
-        liftMotor2 = new PWMVictorSPX(5);
-        deliverHooks = new PWMVictorSPX(6);
+        liftMotor1 = new VictorSP(2);
+        liftMotor2 = new VictorSP(3);
+        deliverHooks = new PWMVictorSPX(4);
         
         liftMotor1.addFollower(liftMotor2);
         m_hooksDelivered = false;
@@ -57,6 +56,7 @@ public class Lift extends SubsystemBase {
     {
         liftMotor1.set(0);
         liftMotor1.stopMotor();
+        deliverHooks.stopMotor();
     
     }
 
@@ -69,7 +69,7 @@ public class Lift extends SubsystemBase {
     public void ReverseDeliver()
     {
         deliverHooks.set(-.3);
-        m_hooksDelivered = true;
+        
     }
 
 

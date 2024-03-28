@@ -100,9 +100,9 @@ public class RobotContainer {
     final JoystickButton shootPS5Button = new JoystickButton(m_ps5, 8); //Right L2 Trigger
     final JoystickButton backupShootPS5Button = new JoystickButton(m_ps5, 7);  //Left L2 Trigger
     final JoystickButton backupIntakePS5Button = new JoystickButton(m_ps5, 3);  //Circle
-    final JoystickButton shootLow = new JoystickButton(m_ps5, 4);
-    final POVButton deliverHooks = new POVButton(m_ps5, 0);
-    final POVButton liftEdD = new POVButton(m_ps5, 180);
+    final JoystickButton shootLow = new JoystickButton(m_ps5, 4);  //Triangle
+    final POVButton deliverHooks = new POVButton(m_ps5, 0); //ps5 DPAD up
+    final POVButton liftEdD = new POVButton(m_ps5, 180); //ps5 DPAD down
 
 
 
