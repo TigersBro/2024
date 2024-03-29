@@ -18,13 +18,17 @@ import java.util.Map;
 
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
-import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
+//import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.motorcontrol.Victor;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.GenericEntry;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+
+import com.revrobotics.CANSparkMax;
+
 
 ///import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
@@ -33,20 +37,21 @@ public class Lift extends SubsystemBase {
     //private PWMSparkMax shooterMotor;
     private VictorSP liftMotor1;
     private VictorSP liftMotor2;
-    private PWMVictorSPX deliverHooks;
+    private CANSparkMax deliverHooks;
+ 
     private boolean m_hooksDelivered;
     private double liftDefault = .8;
-    private double deliverDefault = .2;
+    private double deliverDefault = 1 ;
+   // private double deliverTimeoutDefault = 2;
     private GenericEntry liftSpeed ;
     private GenericEntry deliverSpeed ;
+    //private GenericEntry deliverTimeout ;
 
     public Lift() {
-        //shooterMotor = new PWMSparkMax(7);
         liftMotor1 = new VictorSP(2);
         liftMotor2 = new VictorSP(3);
 
-        deliverHooks = new PWMVictorSPX(4);
-        
+        deliverHooks = new CANSparkMax(12, CANSparkLowLevel.MotorType.kBrushed);
         liftMotor1.addFollower(liftMotor2);
         liftMotor2.setInverted(true);
         m_hooksDelivered = false;
@@ -63,7 +68,11 @@ public class Lift extends SubsystemBase {
                 .withProperties(Map.of("min", 0, "max", 1))
                 .getEntry();
 
-
+//        deliverTimeout = Shuffleboard.getTab("Motors")
+  //              .add("DeliverTimeout", deliverTimeoutDefault)
+    //            .withWidget(BuiltInWidgets.kNumberSlider)
+      //          .withProperties(Map.of("min", 0, "max", 1))
+        //        .getEntry();
 
     }
 
@@ -93,6 +102,9 @@ public class Lift extends SubsystemBase {
         double speed = deliverSpeed.getDouble(deliverDefault);
         deliverHooks.set(speed);
         m_hooksDelivered = true;
+        
+     SmartDashboard.putNumber("before", 1);
+
     }
 
     public void ReverseDeliver()

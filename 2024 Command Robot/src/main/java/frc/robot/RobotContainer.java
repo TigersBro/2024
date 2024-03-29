@@ -6,6 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS5Controller;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Lift;
@@ -16,7 +18,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.util.Map;
+
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.GenericEntry;
 import frc.robot.commands.*;
 
 /**
@@ -36,6 +41,9 @@ public class RobotContainer {
   private final Intake m_intake = new Intake();
   private final Shooter m_shooter = new Shooter();
   private final Lift m_lift = new Lift();
+  private double m_defaultLiftTimeout = 3;
+  private GenericEntry liftTimeOut ;
+    
 
   private final Joystick m_driveController = new Joystick(Constants.OIConstants.kDriverController);
   private final PS5Controller m_ps5 = new PS5Controller(Constants.OIConstants.kOtherController);
@@ -55,6 +63,10 @@ public class RobotContainer {
     SmartDashboard.putData(m_drivetrain);
     SmartDashboard.putData(m_intake);
     SmartDashboard.putData(m_shooter);
+
+    
+
+
 
     // Configure the button bindings
     configureButtonBindings();
@@ -128,7 +140,7 @@ public class RobotContainer {
     backupIntakePS5Button.onTrue(new BackupFeed(m_intake, m_ps5).withTimeout(3));
     
     
-    deliverHooks.onTrue(new StartDeliverHooks(m_lift, m_ps5).withTimeout(2));
+    deliverHooks.onTrue(new StartDeliverHooks(m_lift, m_ps5));
     liftEdD.onTrue(new StartLift(m_lift, m_ps5));
     shootLow.onTrue( new ShootAmpSequence(m_shooter, m_intake, m_ps5));
 

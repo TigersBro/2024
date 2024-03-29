@@ -13,6 +13,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.PS5Controller;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Lift;
 
@@ -36,6 +37,8 @@ public class StartDeliverHooks extends Command {
     @Override
     public void initialize() 
     {
+        
+     SmartDashboard.putNumber("before", 2);
         m_lift.Deliver();
 
     }
