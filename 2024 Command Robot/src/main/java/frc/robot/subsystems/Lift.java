@@ -102,6 +102,13 @@ public class Lift extends SubsystemBase {
     }
 
 
+    public void ReverseLift()
+    {
+        liftMotor1.set(-.3);
+        
+    }
+
+
     public void LiftIt()
     {
         

@@ -21,7 +21,8 @@ public class AutonomousCommand extends SequentialCommandGroup {
           new ShootSpeakerSequence(shooter, intake, controller).andThen(new DriveContinuous(drive))
           
 
-        )
+        ),
+        new DriveContinuous(drive)
     );
 
         // new PrepareToPickup(claw, wrist, elevator),

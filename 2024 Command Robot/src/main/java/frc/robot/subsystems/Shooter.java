@@ -35,9 +35,9 @@ public class Shooter extends SubsystemBase {
     private GenericEntry motor1Speed ;
     private GenericEntry motor2Speed ;
     private GenericEntry motor3Speed ;
-    private double  motor1SpeedDefault = .4; 
-    private double  motor2SpeedDefault = .2;
-    private double  motor3SpeedDefault = 1;
+    private double  motor1SpeedDefault = .68; 
+    private double  motor2SpeedDefault = .68;
+    private double  motor3SpeedDefault = .66;
 
     public Shooter() {
         shooterMotor1 = new CANSparkMax(Constants.motors.shootermotor1,CANSparkLowLevel.MotorType.kBrushed);

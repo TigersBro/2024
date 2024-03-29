@@ -95,6 +95,8 @@ public class RobotContainer {
 
     final JoystickButton shoot = new JoystickButton(m_driveController, 1); //trigger
     final JoystickButton makeFrontBack = new JoystickButton(m_driveController, 5);  //top left thumb
+    final JoystickButton backupLiftButton = new JoystickButton(m_driveController, 4);
+    final JoystickButton backupDeliveryButton = new JoystickButton(m_driveController, 6);
 
     final JoystickButton stopIt = new JoystickButton(m_ps5, 2); //X - Panic button
     final JoystickButton shootPS5Button = new JoystickButton(m_ps5, 8); //Right L2 Trigger
@@ -103,7 +105,7 @@ public class RobotContainer {
     final JoystickButton shootLow = new JoystickButton(m_ps5, 4);  //Triangle
     final POVButton deliverHooks = new POVButton(m_ps5, 0); //ps5 DPAD up
     final POVButton liftEdD = new POVButton(m_ps5, 180); //ps5 DPAD down
-
+    
 
 
     
@@ -116,13 +118,17 @@ public class RobotContainer {
     // Joystick Mappings
     shoot.onTrue(new ShootSpeakerSequence(m_shooter,m_intake,m_ps5));
     
+    backupLiftButton.onTrue(new BackupLift( m_lift, m_ps5 ));
+    backupDeliveryButton.onTrue(new BackupDelivery(m_lift, m_ps5));
     makeFrontBack.onTrue(new MakeFrontBack(m_drivetrain));
     //PS5 mappings
     stopIt.onTrue(new StopIntakeAndShooter(m_shooter, m_intake));
     shootPS5Button.onTrue(new ShootSpeakerSequence(m_shooter,m_intake,m_ps5));
     backupShootPS5Button.onTrue(new BackupShoot(m_shooter, m_ps5).withTimeout((3)));  //Shouldn't hit the timeout...but if we do...we do.
     backupIntakePS5Button.onTrue(new BackupFeed(m_intake, m_ps5).withTimeout(3));
-    deliverHooks.onTrue(new StartDeliverHooks(m_lift, m_ps5));
+    
+    
+    deliverHooks.onTrue(new StartDeliverHooks(m_lift, m_ps5).withTimeout(2));
     liftEdD.onTrue(new StartLift(m_lift, m_ps5));
     shootLow.onTrue( new ShootAmpSequence(m_shooter, m_intake, m_ps5));
 
