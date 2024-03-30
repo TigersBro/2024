@@ -37,7 +37,7 @@ public class Shooter extends SubsystemBase {
     private GenericEntry motor3Speed ;
     private double  motor1SpeedDefault = .68; 
     private double  motor2SpeedDefault = .68;
-    private double  motor3SpeedDefault = .66;
+    private double  motor3SpeedDefault = 6.6;
 
     public Shooter() {
         shooterMotor1 = new CANSparkMax(Constants.motors.shootermotor1,CANSparkLowLevel.MotorType.kBrushed);
@@ -46,19 +46,21 @@ public class Shooter extends SubsystemBase {
         shooterMotor2.setInverted(false);
     
     
-        
+        // Both motors for shooting speaker
         motor3Speed = Shuffleboard.getTab("Motors")
                 .add("Shoot Speaker Speed", motor3SpeedDefault)
                 .withWidget(BuiltInWidgets.kNumberSlider)
-                .withProperties(Map.of("min", 0, "max", 1))
+                .withProperties(Map.of("min", 0, "max", 12))
                 .getEntry();
                 
+        //top motor for shooting amp        
         motor2Speed = Shuffleboard.getTab("Motors")
         .add("Shooter2 Speed", motor2SpeedDefault)
         .withWidget(BuiltInWidgets.kNumberSlider)
         .withProperties(Map.of("min", 0, "max", 1))
         .getEntry();
         
+        //bottom motor for shooting amp
         motor1Speed = Shuffleboard.getTab("Motors")
         .add("Shooter1 Speed", motor1SpeedDefault)
         .withWidget(BuiltInWidgets.kNumberSlider)
@@ -86,10 +88,18 @@ public class Shooter extends SubsystemBase {
 
     public void Launch() {
 
-        double speed = motor3Speed.getDouble(motor3SpeedDefault);
-        shooterMotor1.set(speed);
-        shooterMotor2.set(speed);
+        // double speed = motor3Speed.getDouble(motor3SpeedDefault);
+        // shooterMotor1.set(speed);
+        // shooterMotor2.set(speed);
         
+        double voltage = motor3Speed.getDouble(motor3SpeedDefault);
+
+        shooterMotor1.setVoltage(voltage);
+        shooterMotor2.setVoltage(voltage);
+
+
+
+
         }
 
     public void Stop() 
@@ -114,6 +124,7 @@ public class Shooter extends SubsystemBase {
     {
 
         shooterMotor1.set(-.25);
+        shooterMotor2.set(-.25);
 
     }
 

@@ -14,6 +14,7 @@ import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 //import frc.robot.Constants;
 //import edu.wpi.first.wpilibj.motorcontrol.PWMSparkFlex;
@@ -27,7 +28,7 @@ public class Intake extends SubsystemBase {
     private PWMVictorSPX intakeMotor1;
     private PWMVictorSPX intakeMotor2;
     private GenericEntry maxSpeed;
-    private double intakeDefault = .4;
+    private double intakeDefault = .7;
 
     public Intake() {
         // intakeMotor = new PWMSparkMax(9);
@@ -43,7 +44,7 @@ public class Intake extends SubsystemBase {
                 .withWidget(BuiltInWidgets.kNumberSlider)
                 .withProperties(Map.of("min", 0, "max", 1))
                 .getEntry();
-
+                
     }
 
     public void suck()
