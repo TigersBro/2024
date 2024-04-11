@@ -22,11 +22,11 @@ public class ShootSpeakerSequence extends SequentialCommandGroup {
     Commands.parallel
     (
 
-        new BackupFeed(intake, controller).withTimeout(.2),
+        new BackupFeed(intake, controller).withTimeout(.15),
         new BackupShoot(shooter, controller).withTimeout(.2)
         
     ),
-    new StartLaunch(shooter,controller).withTimeout(.4),
+    new StartLaunch(shooter,controller).withTimeout(1.5),
 
     Commands.parallel
     (
