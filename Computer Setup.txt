@@ -33,11 +33,5 @@ https://github.com/wpilibsuite/frc-docs/blob/main/source/docs/software/examples-
 
 https://github.com/wpilibsuite/allwpilib/tree/main/wpilibjExamples/src/main/java/edu/wpi/first/wpilibj/examples
 
-Email: gobles9638@outlook.com Password: Tigersbro9638
-Computer pins: 9638 
-Shared Acc Password: Tigers123!
-Bot Wifi: TigersBro!
-Github Email: gobles9638@outlook.com Pswd: Tigersbro9638
-
 
 
