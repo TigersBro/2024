@@ -35,9 +35,11 @@ public class Shooter extends SubsystemBase {
     private GenericEntry motor1Speed ;
     private GenericEntry motor2Speed ;
     private GenericEntry motor3Speed ;
+    private GenericEntry motorSpeedPercent ;
     private double  motor1SpeedDefault = .68; 
     private double  motor2SpeedDefault = .68;
     private double  motor3SpeedDefault = 6.6;
+    private double  percentSpeedDefault = 80;
 
     public Shooter() {
         shooterMotor1 = new CANSparkMax(Constants.motors.shootermotor1,CANSparkLowLevel.MotorType.kBrushed);
@@ -68,6 +70,13 @@ public class Shooter extends SubsystemBase {
         .getEntry();
 
 
+        //bottom motor for shooting amp
+        motorSpeedPercent = Shuffleboard.getTab("Motors")
+        .add("Shooter Percent", percentSpeedDefault)
+        .withWidget(BuiltInWidgets.kNumberSlider)
+        .withProperties(Map.of("min", 0, "max", 100))
+        .getEntry();
+
 
     }
 
@@ -93,9 +102,9 @@ public class Shooter extends SubsystemBase {
         // shooterMotor2.set(speed);
         
         double voltage = motor3Speed.getDouble(motor3SpeedDefault);
-
+        double voltageLower = voltage * motorSpeedPercent.getDouble(percentSpeedDefault)/100;
         shooterMotor1.setVoltage(voltage);
-        shooterMotor2.setVoltage(voltage);
+        shooterMotor2.setVoltage(voltageLower);
 
 
 
