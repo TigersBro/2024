@@ -11,9 +11,7 @@ import frc.robot.commands.Cannon;
 import frc.robot.commands.CannonDown;
 import frc.robot.commands.CannonUp;
 import frc.robot.commands.Drive;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -26,7 +24,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Joystick j_joy = new Joystick(Constants.Controls.JOYSTICK_USB);
   private final Pneumatics m_pneumatics = new Pneumatics();
   private final Cannon c_fire = new Cannon(m_pneumatics);
@@ -37,7 +34,6 @@ public class RobotContainer {
   private final JoystickButton b_dn = new JoystickButton(j_joy, Constants.Controls.JOYSTICK_DN);
   private final DriveTrain m_driveTrain = new DriveTrain();
   private final Drive drive = new Drive(m_driveTrain, j_joy);
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -53,9 +49,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    b_shoot.whileHeld(c_fire);
-    b_up.whileHeld(c_up);
-    b_dn.whileHeld(c_dn);
+    b_shoot.whileTrue(c_fire);
+    b_up.whileTrue(c_up);
+    b_dn.whileTrue(c_dn);
     m_driveTrain.setDefaultCommand(drive);
   }
 
@@ -64,8 +60,5 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
-  }
+ 
 }
