@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Relay;
@@ -17,10 +18,11 @@ public class Pneumatics extends SubsystemBase {
   private DoubleSolenoid lifter;
   private Timer time;
   private Relay cannon;
+  private final Compressor m_compressor = new Compressor(PneumaticsModuleType.REVPH);
   public Pneumatics() {
-    lifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.Pneumatics.PNEUMATICS_LIFTER_UP, Constants.Pneumatics.PNEUMATICS_LIFTER_DN);
+   lifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.Pneumatics.PNEUMATICS_LIFTER_UP, Constants.Pneumatics.PNEUMATICS_LIFTER_DN);
     time = new Timer();
-    cannon = new Relay(3);
+    cannon = new Relay(7);
   }
 
   @Override
@@ -44,6 +46,10 @@ public class Pneumatics extends SubsystemBase {
   }
   public void disable(){
     lifter.set(Value.kOff);
+  }
+  public void enableCompressor(){
+    m_compressor.enableAnalog(70, 120);
+    m_compressor.enableHybrid(70, 120);
   }
   @Override
   public void simulationPeriodic() {

@@ -30,7 +30,7 @@ public class DriveTrain extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   public void arcadeDrive(double x, double y, double z){
-    drive.arcadeDrive(-x, -y);
+    drive.arcadeDrive(-x, -z/2);
   }
   @Override
   public void simulationPeriodic() {

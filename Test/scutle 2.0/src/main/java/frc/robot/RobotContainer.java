@@ -40,6 +40,8 @@ public class RobotContainer {
     // Configure the button bindings
     
     configureButtonBindings();
+   // m_pneumatics.enableCompressor();
+
   }
 
   /**
