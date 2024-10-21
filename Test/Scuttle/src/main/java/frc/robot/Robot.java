@@ -35,8 +35,7 @@ public class Robot extends TimedRobot {
 
   private final Victor m_leftDrive = new Victor(0);
   private final Victor m_rightDrive = new Victor(1);
-  private final PWMVictorSPX x = new PWMVictorSPX(4);
-
+ 
 
   private final Victor m_leftDrive2 = new Victor(18);
   private final Victor m_rightDrive2 = new Victor(19);
