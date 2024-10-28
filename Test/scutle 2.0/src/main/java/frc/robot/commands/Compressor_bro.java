@@ -9,10 +9,10 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class Cannon extends Command {
+public class Compressor_bro extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Pneumatics m_pneumatics;
-  private Timer time = new Timer();
+  // private Timer time = new Timer();
 
 
   /**
@@ -20,7 +20,7 @@ public class Cannon extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public Cannon(Pneumatics pn) {
+  public Compressor_bro(Pneumatics pn) {
     m_pneumatics = pn;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(pn);
@@ -33,19 +33,20 @@ public class Cannon extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_pneumatics.fire();
+
+    m_pneumatics.toggleCompressor();
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_pneumatics.stop();
+    
   }
 
   // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    time.reset();
-    time.start();
-    return false;  }
+  // @Override
+  // public boolean isFinished() {
+
+  //   }
 }

@@ -6,10 +6,10 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class CannonUp extends CommandBase {
+public class CannonUp extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Pneumatics m_pneumatics;
   private Timer time = new Timer();

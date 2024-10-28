@@ -21,6 +21,9 @@ public class DriveTrain extends SubsystemBase {
     DT_L2 = new Victor(Constants.Drivetrain.PWM_L2);
     DT_R1 = new Victor(Constants.Drivetrain.PWM_R1);
     DT_R2 = new Victor(Constants.Drivetrain.PWM_R2);
+    DT_L1.addFollower(DT_L2);
+    DT_R1.addFollower(DT_R2);
+    
     drive = new DifferentialDrive(DT_L1, DT_R1);
 
   }
