@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+
+import edu.wpi.first.wpilibj.PneumaticHub;
 //import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
@@ -22,13 +24,15 @@ public class Pneumatics extends SubsystemBase {
   //private Timer time;
   // private Relay cannon;
   private Spark cannon2;
+  private final PneumaticHub hub = new PneumaticHub();
   private final Compressor m_compressor = new Compressor(PneumaticsModuleType.REVPH);
   public Pneumatics() {
    lifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.Pneumatics.PNEUMATICS_LIFTER_UP, Constants.Pneumatics.PNEUMATICS_LIFTER_DN);
     //time = new Timer();
     // cannon = new Relay(7);
-    cannon2 = new Spark(3);
-
+    cannon2 = new Spark(2);
+    addShuffleBoard();
+    
   }
 
   @Override
@@ -64,6 +68,7 @@ public class Pneumatics extends SubsystemBase {
     // m_compressor.enableAnalog(70, 120);
     // m_compressor.enableHybrid(70, 120);
     m_compressor.disable();
+    //m_compressor.close();
   }
   public boolean getCompressor(){
     return m_compressor.isEnabled();
@@ -91,7 +96,9 @@ public class Pneumatics extends SubsystemBase {
     tab.add("Lifter", lifter);
     tab.add("Compressor", m_compressor);
     
-    tab.addDouble("PH Pressure [PSI]", m_compressor::getPressure);
+    tab.addDouble("PH Pressure [PSI]", this.hub.getPressure(0));
+    
+    tab.addDouble("PH Pressure [PSI]2", this.hub.getPressure(1));
     // Get compressor current draw.
     tab.addDouble("Compressor Current", m_compressor::getCurrent);
     // Get whether the compressor is active.
