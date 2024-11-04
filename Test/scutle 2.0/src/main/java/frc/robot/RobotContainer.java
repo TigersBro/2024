@@ -56,7 +56,7 @@ public class RobotContainer {
     b_shoot.whileTrue(c_fire);
     b_up.whileTrue(c_up);
     b_dn.whileTrue(c_dn);
-    b_Compressor.onTrue(c_compressor);
+    b_Compressor.whileTrue(c_compressor);
     m_driveTrain.setDefaultCommand(drive);
   }
 

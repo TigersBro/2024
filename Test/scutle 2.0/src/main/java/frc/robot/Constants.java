@@ -29,5 +29,6 @@ public final class Constants {
     public static final class Pneumatics{
         public static final int PNEUMATICS_LIFTER_UP = 0;
         public static final int PNEUMATICS_LIFTER_DN = 1;
+        public static final int PNEUMATICS_PRESSURE_LIMIT = 120;
     }
 }
