@@ -67,32 +67,17 @@ public class Pneumatics extends SubsystemBase {
     lifter.set(Value.kOff);
   }
   public void enableCompressor(){
-    // m_compressor.enableAnalog(70, 120);
-    // m_compressor.enableHybrid(70, 120);
-    m_compressor.enableDigital();
-  }
-  public void resetCompressor(){
-    // m_compressor.enableAnalog(70, 120);
-    // m_compressor.enableHybrid(70, 120);
-    //m_compressor.disable();
-    //m_compressor.close();
+    
+    m_compressor.enableHybrid(0, Constants.Pneumatics.PNEUMATICS_PRESSURE_LIMIT);
+    
   }
   public boolean getCompressor(){
     return m_compressor.isEnabled();
   }
 
   public void toggleCompressor(){
-    if (getCompressor() == true )
-    {
-     //set the pressure hopefully!!
-     m_compressor.enableHybrid(0, chonkyDragon.getDouble(Constants.Pneumatics.PNEUMATICS_PRESSURE_LIMIT));
-
-     // disableCompressor();
-    }
-    else
-    {
-      //enableCompressor();
-    }
+    double test = chonkyDragon.getDouble(Constants.Pneumatics.PNEUMATICS_PRESSURE_LIMIT);
+    m_compressor.enableHybrid(0, test);
   }
 
   @Override
