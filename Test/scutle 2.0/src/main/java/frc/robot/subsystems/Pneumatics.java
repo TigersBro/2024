@@ -29,6 +29,8 @@ public class Pneumatics extends SubsystemBase {
   //private Timer time;
   // private Relay cannon;
   private Spark cannon2;
+  private Spark cannon3;
+  private Spark cannon4;
   private final PneumaticHub hub = new PneumaticHub();
   private final Compressor m_compressor = new Compressor(PneumaticsModuleType.REVPH);
   private GenericEntry chonkyDragon ;
@@ -38,6 +40,9 @@ public class Pneumatics extends SubsystemBase {
     //time = new Timer();
     // cannon = new Relay(7);
     cannon2 = new Spark(2);
+    cannon3 = new Spark(3);
+    cannon4 = new Spark(4);
+
     addShuffleBoard();
 
   }
@@ -47,15 +52,33 @@ public class Pneumatics extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void fire(){
+  public void fire4(){
     // cannon.set(Relay.Value.kOn);
     cannon2.set(1);;
     }
+  public void fire5(){
+    // cannon.set(Relay.Value.kOn);
+    cannon4.set(1);;
+    }
+  public void fire3(){
+    // cannon.set(Relay.Value.kOn);
+    cannon3.set(1);;
+    }
   
-  public void stop(){
+  public void stop4(){
     // cannon.set(Relay.Value.kOff);
     cannon2.set(0);;
   }
+  public void stop5(){
+    // cannon.set(Relay.Value.kOff);
+    cannon4.set(0);;
+  }
+  public void stop3(){
+    // cannon.set(Relay.Value.kOff);
+    cannon3.set(0);;
+  }
+    
+
   public void liftUp(){
     lifter.set(Value.kForward);
   }

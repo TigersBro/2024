@@ -7,10 +7,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.Cannon;
+import frc.robot.commands.cannon3;
 import frc.robot.commands.CannonDown;
 import frc.robot.commands.CannonUp;
 import frc.robot.commands.Drive;
+import frc.robot.commands.cannon3;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -26,7 +27,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Joystick j_joy = new Joystick(Constants.Controls.JOYSTICK_USB);
   private final Pneumatics m_pneumatics = new Pneumatics();
-  private final Cannon c_fire = new Cannon(m_pneumatics);
+  private final cannon3 c_fire = new cannon3(m_pneumatics);
   private final CannonUp c_up = new CannonUp(m_pneumatics);
   private final CannonDown c_dn = new CannonDown(m_pneumatics);
   private final Compressor_bro c_compressor = new Compressor_bro(m_pneumatics);

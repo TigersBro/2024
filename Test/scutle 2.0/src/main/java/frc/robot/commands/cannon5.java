@@ -4,26 +4,12 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Pneumatics;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 
-/** An example command that uses an example subsystem. */
-public class Cannon extends Command {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Pneumatics m_pneumatics;
-  private Timer time = new Timer();
-
-
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  public Cannon(Pneumatics pn) {
-    m_pneumatics = pn;
+public class cannon5 extends Command {
+  /** Creates a new cannon5. */
+  public cannon5() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(pn);
   }
 
   // Called when the command is initially scheduled.
@@ -32,20 +18,15 @@ public class Cannon extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_pneumatics.fire();
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_pneumatics.stop();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    time.reset();
-    time.start();
-    return false;  }
+    return false;
+  }
 }
