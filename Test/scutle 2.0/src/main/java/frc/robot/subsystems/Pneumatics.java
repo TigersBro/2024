@@ -107,7 +107,7 @@ public class Pneumatics extends SubsystemBase {
     tab.add("Compressor", m_compressor);
     //tab.addDouble("PH Pressure [PSI]", this.hub.getPressure(0));
 
-   // tab.addDouble("PH Pressure [PSI]2", this.hub.getPressure(1));
+    tab.addDouble("PH Pressure [PSI]2", ()->this.hub.getPressure(0));
     // Get compressor current draw. 
     tab.addDouble("Compressor Current", m_compressor::getCurrent);
     // Get whether the compressor is active.
