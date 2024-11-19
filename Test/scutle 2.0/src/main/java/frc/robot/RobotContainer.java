@@ -25,6 +25,25 @@ import frc.robot.commands.Compressor_bro;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+
+
+
+  /*  TODO  */
+/*  We need to add buttons and remap buttons
+ *  The operation of the robot should be:
+ * 1) Flight controller only controls the driving of the robot.  We need to remove
+ *    any of the buttons which have those controls mapped.
+ * 2) The raising, lowering and firing of the robot should be controlled by the ps5 controller 
+ *  
+ * Button logic: 
+ * left or right stick on the ps5 should control up/down of the lifter.
+ * fire logic should use the same double trigger logic.  
+ * R1 or L1  should 'unlock' the firing options (maybe a lock attribute in the Pneumatics class
+ * that is set when you hold R1 and unset when you let go or if a cannon fires? )
+ * DPAD left up and right should fire the cannons if unlocked
+ * 
+ */
+
   private final Joystick j_joy = new Joystick(Constants.Controls.JOYSTICK_USB);
   private final Pneumatics m_pneumatics = new Pneumatics();
   private final cannon3 c_fire = new cannon3(m_pneumatics);
