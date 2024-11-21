@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.cannon3;
+import frc.robot.commands.cannon4;
 import frc.robot.commands.CannonDown;
 import frc.robot.commands.CannonUp;
 import frc.robot.commands.Drive;
@@ -27,11 +28,11 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Joystick j_joy = new Joystick(Constants.Controls.JOYSTICK_USB);
   private final Pneumatics m_pneumatics = new Pneumatics();
-  private final cannon3 c_fire = new cannon3(m_pneumatics);
+  private final cannon3 c_fire3 = new cannon3(m_pneumatics);
   private final CannonUp c_up = new CannonUp(m_pneumatics);
   private final CannonDown c_dn = new CannonDown(m_pneumatics);
   private final Compressor_bro c_compressor = new Compressor_bro(m_pneumatics);
-  private final JoystickButton b_shoot = new JoystickButton(j_joy, Constants.Controls.JOYSTICK_FIRE);
+  private final JoystickButton b_shoot3 = new JoystickButton(j_joy, Constants.Controls.JOYSTICK_FIRE);
   private final JoystickButton b_up = new JoystickButton(j_joy, Constants.Controls.JOYSTICK_UP);
   private final JoystickButton b_dn = new JoystickButton(j_joy, Constants.Controls.JOYSTICK_DN);
   private final JoystickButton b_Compressor = new JoystickButton(j_joy, Constants.Controls.STOP_COMPRESSOR);
@@ -54,7 +55,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    b_shoot.whileTrue(c_fire);
+    b_shoot3.whileTrue(c_fire3);
     b_up.whileTrue(c_up);
     b_dn.whileTrue(c_dn);
     b_Compressor.whileTrue(c_compressor);
