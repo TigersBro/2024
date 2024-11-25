@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.PS5Controller;
 import frc.robot.commands.cannon3;
 import frc.robot.commands.cannon4;
 import frc.robot.commands.CannonDown;
@@ -16,6 +17,8 @@ import frc.robot.commands.cannon3;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import frc.robot.commands.Compressor_bro;
 
 /**
@@ -46,18 +49,13 @@ public class RobotContainer {
  */
 
   private final Joystick j_joy = new Joystick(Constants.Controls.JOYSTICK_USB);
+  private final PS5Controller ps_5 = new PS5Controller(0);
   private final Pneumatics m_pneumatics = new Pneumatics();
   private final cannon3 c_fire3 = new cannon3(m_pneumatics);
   private final CannonUp c_up = new CannonUp(m_pneumatics);
   private final CannonDown c_dn = new CannonDown(m_pneumatics);
   private final Compressor_bro c_compressor = new Compressor_bro(m_pneumatics);
-  private final JoystickButton b_shoot3 = new JoystickButton(j_joy, Constants.Controls.JOYSTICK_FIRE);
-  private final JoystickButton b_up = new JoystickButton(j_joy, Constants.Controls.JOYSTICK_UP);
-  private final JoystickButton b_dn = new JoystickButton(j_joy, Constants.Controls.JOYSTICK_DN);
-  private final JoystickButton b_Compressor = new JoystickButton(j_joy, Constants.Controls.STOP_COMPRESSOR);
-  private final DriveTrain m_driveTrain = new DriveTrain();
-  private final Drive drive = new Drive(m_driveTrain, j_joy);
-
+ 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -74,11 +72,34 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    b_shoot3.whileTrue(c_fire3);
+    
+    
+   final JoystickButton b_up = new JoystickButton(ps_5, Constants.Controls.JOYSTICK_UP);
+   final JoystickButton b_dn = new JoystickButton(ps_5, Constants.Controls.JOYSTICK_DN);
+   final POVButton fire_3 = new POVButton(ps_5, Constants.Controls.JOYSTICK_FIRE3);
+   final POVButton fire_4 = new POVButton(ps_5, Constants.Controls.JOYSTICK_FIRE4);
+   final POVButton fire_5 = new POVButton(ps_5, Constants.Controls.JOYSTICK_FIRE5);
+   final JoystickButton R_trigger = new JoystickButton(ps_5,6);
+   final JoystickButton L_trigger = new JoystickButton(ps_5, 5);
+
+
+   final JoystickButton b_Compressor = new JoystickButton(j_joy, Constants.Controls.STOP_COMPRESSOR);
+   final DriveTrain m_driveTrain = new DriveTrain();
+   final Drive drive = new Drive(m_driveTrain, j_joy);
+  
+
+    
+    
+    
+    
+    
+    
+    fire_3.whileTrue(c_fire3);
     b_up.whileTrue(c_up);
     b_dn.whileTrue(c_dn);
     b_Compressor.whileTrue(c_compressor);
     m_driveTrain.setDefaultCommand(drive);
+
   }
 
   /**
