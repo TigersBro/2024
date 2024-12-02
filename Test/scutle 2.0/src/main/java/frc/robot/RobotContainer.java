@@ -14,6 +14,9 @@ import frc.robot.commands.CannonDown;
 import frc.robot.commands.CannonUp;
 import frc.robot.commands.Drive;
 import frc.robot.commands.cannon3;
+import frc.robot.commands.cannon4;
+import frc.robot.commands.cannon5;
+import frc.robot.commands.cannonAll;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -52,6 +55,9 @@ public class RobotContainer {
   private final PS5Controller ps_5 = new PS5Controller(0);
   private final Pneumatics m_pneumatics = new Pneumatics();
   private final cannon3 c_fire3 = new cannon3(m_pneumatics);
+  private final cannon4 c_fire4 = new cannon4(m_pneumatics);
+  private final cannon5 c_fire5 = new cannon5(m_pneumatics);
+  private final cannonAll c_fireAll = new cannonAll(m_pneumatics);
   private final CannonUp c_up = new CannonUp(m_pneumatics);
   private final CannonDown c_dn = new CannonDown(m_pneumatics);
   private final Compressor_bro c_compressor = new Compressor_bro(m_pneumatics);
@@ -93,10 +99,15 @@ public class RobotContainer {
     
     
     
-    
+    //Fire away
     fire_3.whileTrue(c_fire3);
+    fire_4.whileTrue(c_fire4);
+    fire_5.whileTrue(c_fire5);
+    
+    
     b_up.whileTrue(c_up);
     b_dn.whileTrue(c_dn);
+    
     b_Compressor.whileTrue(c_compressor);
     m_driveTrain.setDefaultCommand(drive);
 
