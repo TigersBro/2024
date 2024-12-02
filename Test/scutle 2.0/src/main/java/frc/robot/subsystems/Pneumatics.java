@@ -21,30 +21,32 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
-
-
 public class Pneumatics extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   private DoubleSolenoid lifter;
-  //private Timer time;
+  // private Timer time;
   // private Relay cannon;
-  private Spark cannon2;
   private Spark cannon3;
   private Spark cannon4;
+  private Spark cannon5;
+  private boolean rightSafetyState;
+  private boolean leftSafetyState;
   private final PneumaticHub hub = new PneumaticHub();
   private final Compressor m_compressor = new Compressor(PneumaticsModuleType.REVPH);
-  private GenericEntry chonkyDragon ;
+  private GenericEntry chonkyDragon;
 
   public Pneumatics() {
-   lifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.Pneumatics.PNEUMATICS_LIFTER_UP, Constants.Pneumatics.PNEUMATICS_LIFTER_DN);
-    //time = new Timer();
-    // cannon = new Relay(7);
-    cannon2 = new Spark(2);
-    cannon3 = new Spark(3);
-    cannon4 = new Spark(4);
-
+    leftSafetyState = false;
+    rightSafetyState = false;
+    lifter = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.Pneumatics.PNEUMATICS_LIFTER_UP,
+        Constants.Pneumatics.PNEUMATICS_LIFTER_DN);
+    cannon3 = new Spark(2);
+    cannon4 = new Spark(3);
+    cannon5 = new Spark(4);
     addShuffleBoard();
-
+// time = new Timer();
+// cannon = new Relay(7);
+   
   }
 
   @Override
@@ -52,71 +54,132 @@ public class Pneumatics extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void fire4(){
+  public void fire3() {
     // cannon.set(Relay.Value.kOn);
-    cannon2.set(1);;
+    if(rightSafetyState = true );
+    {  
+      cannon3.set(1);
+      rightSafetyState = false;
     }
-  public void fire5(){
-    // cannon.set(Relay.Value.kOn);
-    cannon4.set(1);;
-    }
-  public void fire3(){
-    // cannon.set(Relay.Value.kOn);
-    cannon3.set(1);;
-    }
-  
-  public void stop4(){
-    // cannon.set(Relay.Value.kOff);
-    cannon2.set(0);;
+      
   }
-  public void stop5(){
-    // cannon.set(Relay.Value.kOff);
-    cannon4.set(0);;
-  }
-  public void stop3(){
-    // cannon.set(Relay.Value.kOff);
-    cannon3.set(0);;
-  }
-    
 
-  public void liftUp(){
+  public void fire4() {
+    // cannon.set(Relay.Value.kOn);
+    if(rightSafetyState == true);
+    {  
+      cannon4.set(1);
+      rightSafetyState = false;
+    }
+
+    ;
+  }
+
+  public void fire5() {
+    // cannon.set(Relay.Value.kOn);
+    if(rightSafetyState == true);
+    {  
+      cannon5.set(1);
+      rightSafetyState = false;
+    }
+    ;
+  }
+
+  public void setLeftSafetyStateOff(){
+    leftSafetyState = false;
+  }
+  public void setRightSafetyStateOff(){
+    rightSafetyState = false;
+  }
+  public void setLeftSafetyStateOn(){
+    leftSafetyState = true;
+  }
+  public void setRightSafetyStateOn(){
+    rightSafetyState = true;
+  }
+  public void fireAll() {
+    // cannon.set(Relay.Value.kOn);
+    if (rightSafetyState == true && leftSafetyState == true);
+    {
+      cannon3.set(1);
+      cannon4.set(1);
+      cannon5.set(1);
+    }
+
+  }
+
+  public void stop3() {
+    // cannon.set(Relay.Value.kOff);
+    cannon3.set(0);
+    ;
+  }
+
+  public void stop4() {
+    // cannon.set(Relay.Value.kOff);
+    cannon4.set(0);
+    ;
+  }
+
+  public void stop5() {
+    // cannon.set(Relay.Value.kOff);
+    cannon5.set(0);
+    ;
+  }
+
+  public void liftUp() {
     lifter.set(Value.kForward);
   }
 
-  public void liftDn(){
+  public void liftDn() {
     lifter.set(Value.kReverse);
   }
-  public void disable(){
+
+  public void disable() {
     lifter.set(Value.kOff);
   }
-  public void enableCompressor(){
-    
-    m_compressor.enableHybrid(0, Constants.Pneumatics.PNEUMATICS_PRESSURE_LIMIT);
-    
+
+  public void enableCompressor() {
+    // m_compressor.enableAnalog(70, 120);
+    // m_compressor.enableHybrid(70, 120);
+    m_compressor.enableDigital();
   }
-  public boolean getCompressor(){
+
+  public void resetCompressor() {
+    // m_compressor.enableAnalog(70, 120);
+    // m_compressor.enableHybrid(70, 120);
+    // m_compressor.disable();
+    // m_compressor.close();
+  }
+
+  public boolean getCompressor() {
     return m_compressor.isEnabled();
   }
 
-  public void toggleCompressor(){
-    double test = chonkyDragon.getDouble(Constants.Pneumatics.PNEUMATICS_PRESSURE_LIMIT);
-    m_compressor.enableHybrid(0, test);
+  public void toggleCompressor() {
+    if (getCompressor() == true) {
+      // set the pressure hopefully!!
+      m_compressor.enableHybrid(0, chonkyDragon.getDouble(Constants.Pneumatics.PNEUMATICS_PRESSURE_LIMIT));
+
+      // disableCompressor();
+    } else {
+      // enableCompressor();
+    }
   }
 
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
-  public void addShuffleBoard(){
 
+  public void addShuffleBoard() {
 
     ShuffleboardTab tab = Shuffleboard.getTab("Pneumatics");
     tab.add("Lifter", lifter);
     tab.add("Compressor", m_compressor);
-    //tab.addDouble("PH Pressure [PSI]", this.hub.getPressure(0));
+    tab.addDouble("PH Pressure [PSI]", () -> this.hub.getPressure(0));
 
-    tab.addDouble("PH Pressure [PSI]2", ()->this.hub.getPressure(0));
-    // Get compressor current draw. 
+    tab.addDouble("PH Pressure [PSI]2", () -> this.hub.getPressure(1));
+    // Get compressor current draw.
     tab.addDouble("Compressor Current", m_compressor::getCurrent);
     // Get whether the compressor is active.
     tab.addBoolean("Compressor Active", m_compressor::isEnabled);
