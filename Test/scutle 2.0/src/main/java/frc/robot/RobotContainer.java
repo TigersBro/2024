@@ -100,11 +100,6 @@ public class RobotContainer {
    final Drive drive = new Drive(m_driveTrain, j_joy);
   
 
-    
-    
-    
-    
-    
     //Fire away
     fire_3.whileTrue(c_fire3);
     fire_4.whileTrue(c_fire4);
