@@ -56,7 +56,7 @@ public class Pneumatics extends SubsystemBase {
 
   public void fire3() {
     // cannon.set(Relay.Value.kOn);
-    if(rightSafetyState = true );
+    if(rightSafetyState)
     {  
       cannon3.setVoltage(12);
       rightSafetyState = false;
@@ -66,7 +66,7 @@ public class Pneumatics extends SubsystemBase {
 
   public void fire4() {
     // cannon.set(Relay.Value.kOn);
-    if(rightSafetyState == true);
+    if(rightSafetyState)
     {  
       cannon4.setVoltage(12);
       rightSafetyState = false;
@@ -77,12 +77,12 @@ public class Pneumatics extends SubsystemBase {
 
   public void fire5() {
     // cannon.set(Relay.Value.kOn);
-    if(rightSafetyState == true);
+    if(rightSafetyState )
     {  
       cannon5.setVoltage(12);
       rightSafetyState = false;
     }
-    ;
+    
   }
 
   public void setLeftSafetyStateOff(){
@@ -99,7 +99,7 @@ public class Pneumatics extends SubsystemBase {
   }
   public void fireAll() {
     // cannon.set(Relay.Value.kOn);
-    if (rightSafetyState == true && leftSafetyState == true);
+    if (rightSafetyState == true && leftSafetyState == true)
     {
       cannon3.setVoltage(12);
       cannon4.setVoltage(12);

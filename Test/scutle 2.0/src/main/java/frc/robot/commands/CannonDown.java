@@ -47,5 +47,5 @@ public class CannonDown extends Command {
   public boolean isFinished() {
     time.reset();
     time.start();
-    return false;  }
+    return true;  }
 }

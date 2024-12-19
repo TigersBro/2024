@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -23,6 +24,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import frc.robot.commands.Compressor_bro;
 
@@ -54,7 +56,7 @@ public class RobotContainer {
  */
 
   private final Joystick j_joy = new Joystick(Constants.Controls.JOYSTICK_USB);
-  private final PS5Controller ps_5 = new PS5Controller(0);
+  private final PS5Controller ps_5 = new PS5Controller(Constants.Controls.PS5_USB);
   private final Pneumatics m_pneumatics = new Pneumatics();
   private final cannon3 c_fire3 = new cannon3(m_pneumatics);
   private final cannon4 c_fire4 = new cannon4(m_pneumatics);
@@ -67,7 +69,10 @@ public class RobotContainer {
   private final frc.robot.commands.LeftSafetyOn c_LeftSafetyOn = new frc.robot.commands.LeftSafetyOn(m_pneumatics);
   private final frc.robot.commands.RightSafetyOff c_RightSafetyOff = new frc.robot.commands.RightSafetyOff(m_pneumatics);
   private final frc.robot.commands.LeftSafetyOff c_LeftSafetyOff = new frc.robot.commands.LeftSafetyOff(m_pneumatics);
-  
+  private final DriveTrain m_driveTrain = new DriveTrain();
+  private  SlewRateLimiter m_turnFilter = new SlewRateLimiter(0.5); 
+  private  SlewRateLimiter m_speedFilter =  new SlewRateLimiter(0.5);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -96,10 +101,7 @@ public class RobotContainer {
 
 
    final JoystickButton b_Compressor = new JoystickButton(j_joy, Constants.Controls.STOP_COMPRESSOR);
-   final DriveTrain m_driveTrain = new DriveTrain();
-   final Drive drive = new Drive(m_driveTrain, j_joy);
-  
-
+   
     //Fire away
     fire_3.whileTrue(c_fire3);
     fire_4.whileTrue(c_fire4);
@@ -109,13 +111,27 @@ public class RobotContainer {
     b_up.whileTrue(c_up);
     b_dn.whileTrue(c_dn);
     
-    b_Compressor.whileTrue(c_compressor);
-    m_driveTrain.setDefaultCommand(drive);
+    b_Compressor.whileTrue(c_compressor);    
+  
+    // m_driveTrain.setDefaultCommand(
+    //                     new RunCommand(
+    //                                     () -> m_driveTrain.arcadeDrive(m_speedFilter.calculate(ps_5.getLeftY()),
+    //                                                                    m_turnFilter.calculate(ps_5.getRightY()) 
+    //                                                                   //  m_turnFilter.calculate(j_joy.getZ())
+    //                                   ), 
+    //                                   m_driveTrain
+    //                                   )
+    //                               );
+
+        
+      
     
+    m_driveTrain.setDefaultCommand(new RunCommand(
+      () -> m_driveTrain.arcadeDrive(j_joy.getY(), j_joy.getZ()), m_driveTrain));
     R_trigger.onTrue(c_RightSafetyOn);
     R_trigger.onFalse(c_RightSafetyOff);
-    L_trigger.onTrue(c_RightSafetyOn);
-    L_trigger.onFalse(c_RightSafetyOff);
+    L_trigger.onTrue(c_LeftSafetyOn);
+    L_trigger.onFalse(c_LeftSafetyOff);
 
 
 
