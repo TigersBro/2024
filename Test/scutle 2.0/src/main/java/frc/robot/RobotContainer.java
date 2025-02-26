@@ -52,7 +52,7 @@ public class RobotContainer {
  */
 
   private final Joystick j_joy = new Joystick(Constants.Controls.JOYSTICK_USB);
-  private final PS5Controller ps_5 = new PS5Controller(0);
+  private final PS5Controller ps_5 = new PS5Controller(1);
   private final Pneumatics m_pneumatics = new Pneumatics();
   private final cannon3 c_fire3 = new cannon3(m_pneumatics);
   private final cannon4 c_fire4 = new cannon4(m_pneumatics);
