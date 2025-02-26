@@ -6,10 +6,12 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS5Controller;
 import frc.robot.commands.cannon3;
 import frc.robot.commands.cannon4;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.CannonDown;
 import frc.robot.commands.CannonUp;
 import frc.robot.commands.Drive;
@@ -21,9 +23,11 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import frc.robot.commands.Compressor_bro;
 
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -51,8 +55,9 @@ public class RobotContainer {
  * 
  */
 
-  private final Joystick j_joy = new Joystick(Constants.Controls.JOYSTICK_USB);
-  private final PS5Controller ps_5 = new PS5Controller(1);
+  private final CommandJoystick m_driverController = new CommandJoystick(Constants.Controls.JOYSTICK_USB);
+  
+  private final PS5Controller ps_5 = new PS5Controller(Constants.Controls.PS5_USB);
   private final Pneumatics m_pneumatics = new Pneumatics();
   private final cannon3 c_fire3 = new cannon3(m_pneumatics);
   private final cannon4 c_fire4 = new cannon4(m_pneumatics);
@@ -61,6 +66,7 @@ public class RobotContainer {
   private final CannonUp c_up = new CannonUp(m_pneumatics);
   private final CannonDown c_dn = new CannonDown(m_pneumatics);
   private final Compressor_bro c_compressor = new Compressor_bro(m_pneumatics);
+  
  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -89,15 +95,9 @@ public class RobotContainer {
    final JoystickButton L_trigger = new JoystickButton(ps_5, 5);
 
 
-   final JoystickButton b_Compressor = new JoystickButton(j_joy, Constants.Controls.STOP_COMPRESSOR);
+   //final JoystickButton b_Compressor = new JoystickButton(m_driverController, Constants.Controls.STOP_COMPRESSOR);
    final DriveTrain m_driveTrain = new DriveTrain();
-   final Drive drive = new Drive(m_driveTrain, j_joy);
-  
-
-    
-    
-    
-    
+   
     
     //Fire away
     fire_3.whileTrue(c_fire3);
@@ -108,8 +108,21 @@ public class RobotContainer {
     b_up.whileTrue(c_up);
     b_dn.whileTrue(c_dn);
     
-    b_Compressor.whileTrue(c_compressor);
-    m_driveTrain.setDefaultCommand(drive);
+    m_driveTrain.setDefaultCommand(new Drive(m_driveTrain,
+    () -> -m_driverController.getY(),
+    () -> -m_driverController.getZ(),
+    () -> true));
+
+    m_driverController.button(11).toggleOnTrue(new InstantCommand( () -> m_driveTrain.reverseIt() ));
+
+    m_driverController.button(2).whileTrue( new Drive(m_driveTrain,
+                                        () -> -m_driverController.getY() * DriveConstants.SLOW_MODE_MOVE,
+                                        () -> -m_driverController.getZ() * DriveConstants.SLOW_MODE_TURN,
+                                        () -> true 
+                                        )
+    )
+    ;
+
 
   }
 
