@@ -27,8 +27,8 @@ public class Drive extends Command {
    */
  public Drive(DriveTrain driveSubsystem,DoubleSupplier xSpeed, DoubleSupplier zRotation, BooleanSupplier squareInputs)
   {
-    m_xSpeed = xSpeed;
-    m_zRotation = zRotation;
+    m_xSpeed =  zRotation; 
+    m_zRotation = xSpeed;
     m_drive = driveSubsystem;
     m_squared = squareInputs;
 
@@ -44,8 +44,9 @@ public class Drive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    m_drive.driveArcade(m_xSpeed.getAsDouble(), m_zRotation.getAsDouble(), m_squared.getAsBoolean());
+    double modifier;
+    modifier = m_xSpeed.getAsDouble() * -1;
+    m_drive.driveArcade(modifier, m_zRotation.getAsDouble(), m_squared.getAsBoolean());
 
   }
 

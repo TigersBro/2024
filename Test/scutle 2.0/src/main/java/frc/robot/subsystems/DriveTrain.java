@@ -35,8 +35,13 @@ public class DriveTrain extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   public void driveArcade(double xSpeed, double zRotation, boolean squared) {
+    
+    
+    ///I have no idea why these are reversed..but they are...
+    //xspeed is actually rotation...
+    //zrotation is actually xspeed
     if (reverseIt == true)
-      zRotation = zRotation * -1;
+      xSpeed = xSpeed * -1;
       
     drive.arcadeDrive(xSpeed, zRotation, squared);
   }
