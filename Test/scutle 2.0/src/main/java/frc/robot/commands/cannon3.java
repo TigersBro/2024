@@ -10,10 +10,11 @@ import frc.robot.subsystems.Pneumatics;
 public class cannon3 extends Command {
   /** Creates a new cannon3. */
   private final Pneumatics m_Pneumatics;
-  
+  private boolean m_done; 
   
   public cannon3(Pneumatics pn) {
     m_Pneumatics = pn;
+    m_done = false;
 
   }
 
@@ -25,7 +26,7 @@ public class cannon3 extends Command {
   @Override
   public void execute() {
     m_Pneumatics.fire3();
-
+    m_done = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -38,6 +39,6 @@ public class cannon3 extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_done;
   }
 }

@@ -21,6 +21,7 @@ public final class Constants {
     }
     public static final class Controls{
         public static final int JOYSTICK_USB = 0;
+        public static final int PS5_USB = 1;
         public static final int JOYSTICK_FIRE3 = 270;
         public static final int JOYSTICK_FIRE4 = 0;
         public static final int JOYSTICK_FIRE5 = 90;
