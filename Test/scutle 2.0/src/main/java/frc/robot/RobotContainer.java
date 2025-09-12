@@ -15,6 +15,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.CannonDown;
 import frc.robot.commands.CannonUp;
 import frc.robot.commands.Drive;
+import frc.robot.commands.RightSafetyOn;
 import frc.robot.commands.cannon3;
 import frc.robot.commands.cannon4;  
 import frc.robot.commands.cannon5;
@@ -66,6 +67,10 @@ public class RobotContainer {
   private final CannonUp c_up = new CannonUp(m_pneumatics);
   private final CannonDown c_dn = new CannonDown(m_pneumatics);
   private final Compressor_bro c_compressor = new Compressor_bro(m_pneumatics);
+  private final frc.robot.commands.RightSafetyOn c_RightSafetyOn = new RightSafetyOn(m_pneumatics);
+  private final frc.robot.commands.LeftSafetyOn c_LeftSafetyOn = new frc.robot.commands.LeftSafetyOn(m_pneumatics);
+  private final frc.robot.commands.RightSafetyOff c_RightSafetyOff = new frc.robot.commands.RightSafetyOff(m_pneumatics);
+  private final frc.robot.commands.LeftSafetyOff c_LeftSafetyOff = new frc.robot.commands.LeftSafetyOff(m_pneumatics);
   
  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -94,7 +99,6 @@ public class RobotContainer {
    final JoystickButton R_trigger = new JoystickButton(ps_5,6);
    final JoystickButton L_trigger = new JoystickButton(ps_5, 5);
 
-
    //final JoystickButton b_Compressor = new JoystickButton(m_driverController, Constants.Controls.STOP_COMPRESSOR);
    final DriveTrain m_driveTrain = new DriveTrain();
    
@@ -105,6 +109,11 @@ public class RobotContainer {
     fire_5.whileTrue(c_fire5);
     
     
+   R_trigger.onTrue(c_RightSafetyOn);
+   R_trigger.onFalse(c_RightSafetyOff);
+   L_trigger.onTrue(c_RightSafetyOn);
+   L_trigger.onFalse(c_RightSafetyOff);
+
     b_up.whileTrue(c_up);
     b_dn.whileTrue(c_dn);
     
