@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.Compressor;
@@ -44,7 +45,7 @@ public class Pneumatics extends SubsystemBase {
     cannon4 = new Spark(3);
     cannon5 = new Spark(4);
     addShuffleBoard();
-// time = new Timer();
+   // time = new Timer();
 // cannon = new Relay(7);
    
   }
@@ -59,6 +60,7 @@ public class Pneumatics extends SubsystemBase {
     if(rightSafetyState)
     {  
       cannon3.setVoltage(12);
+      wait_for_controller();
       rightSafetyState = false;
     }
       
@@ -69,6 +71,7 @@ public class Pneumatics extends SubsystemBase {
     if(rightSafetyState)
     {  
       cannon4.setVoltage(12);
+      wait_for_controller();
       rightSafetyState = false;
     }
 
@@ -80,11 +83,23 @@ public class Pneumatics extends SubsystemBase {
     if(rightSafetyState )
     {  
       cannon5.setVoltage(12);
+      wait_for_controller();
       rightSafetyState = false;
     }
     
   }
 
+  public void wait_for_controller(){
+    try 
+    {
+      Thread.sleep(1000); // Pause execution for 1000 milliseconds (1 second)
+    } 
+    catch (InterruptedException e) 
+    {
+      Thread.currentThread().interrupt(); // Restore the interrupted status
+      System.err.println("Thread was interrupted during sleep.");
+    }
+  }
   public void setLeftSafetyStateOff(){
     leftSafetyState = false;
   }
