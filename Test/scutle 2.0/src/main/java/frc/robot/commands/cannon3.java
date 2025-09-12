@@ -4,14 +4,16 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Pneumatics;
 
 public class cannon3 extends Command {
   /** Creates a new cannon3. */
   private final Pneumatics m_Pneumatics;
-  private boolean m_done; 
-  
+  private boolean m_done;
+  private Timer m_timer = new Timer();
+
   public cannon3(Pneumatics pn) {
     m_Pneumatics = pn;
     m_done = false;
@@ -26,6 +28,8 @@ public class cannon3 extends Command {
   @Override
   public void execute() {
     m_Pneumatics.fire3();
+    m_timer.reset();
+    m_timer.start();
     m_done = true;
   }
 
@@ -39,6 +43,13 @@ public class cannon3 extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if (m_timer.hasElapsed(1)){
+      m_done  = true;
+    }
+    else{
+      m_done = false;
+    }
     return m_done;
+  
   }
 }

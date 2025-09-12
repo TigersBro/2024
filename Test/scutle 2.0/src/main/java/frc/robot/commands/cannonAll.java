@@ -4,14 +4,22 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Pneumatics;
 
 public class cannonAll extends Command {
   
+   private boolean m_done;
+
+  private Timer m_timer = new Timer();
   private final Pneumatics m_Pneumatics;
+
+
   public cannonAll( Pneumatics pn ) {
     m_Pneumatics = pn;
+    
+    m_done = false;
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -25,7 +33,10 @@ public class cannonAll extends Command {
   public void execute() {
 
     m_Pneumatics.fireAll();
-
+    m_done = true;
+    
+    m_timer.reset();
+    m_timer.start();
 
     
   }
@@ -37,6 +48,14 @@ public class cannonAll extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (m_timer.hasElapsed(1)){
+      m_done  = true;
+    }
+    else{
+      m_done = false;
+    }
+     return m_done;
+
   }
-}
+  }
+

@@ -4,31 +4,30 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS5Controller;
 import frc.robot.commands.cannon3;
 import frc.robot.commands.cannon4;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.CannonDown;
 import frc.robot.commands.CannonUp;
 import frc.robot.commands.Drive;
+import frc.robot.commands.LeftSafetyOff;
 import frc.robot.commands.RightSafetyOn;
 import frc.robot.commands.cannon3;
-import frc.robot.commands.cannon4;  
+import frc.robot.commands.cannon4;
 import frc.robot.commands.cannon5;
 import frc.robot.commands.cannonAll;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import frc.robot.commands.Compressor_bro;
 
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -56,8 +55,7 @@ public class RobotContainer {
  * 
  */
 
-  private final CommandJoystick m_driverController = new CommandJoystick(Constants.Controls.JOYSTICK_USB);
-  
+  private final Joystick j_joy = new Joystick(Constants.Controls.JOYSTICK_USB);
   private final PS5Controller ps_5 = new PS5Controller(Constants.Controls.PS5_USB);
   private final Pneumatics m_pneumatics = new Pneumatics();
   private final cannon3 c_fire3 = new cannon3(m_pneumatics);
@@ -71,8 +69,10 @@ public class RobotContainer {
   private final frc.robot.commands.LeftSafetyOn c_LeftSafetyOn = new frc.robot.commands.LeftSafetyOn(m_pneumatics);
   private final frc.robot.commands.RightSafetyOff c_RightSafetyOff = new frc.robot.commands.RightSafetyOff(m_pneumatics);
   private final frc.robot.commands.LeftSafetyOff c_LeftSafetyOff = new frc.robot.commands.LeftSafetyOff(m_pneumatics);
-  
- 
+  private final DriveTrain m_driveTrain = new DriveTrain();
+  private  SlewRateLimiter m_turnFilter = new SlewRateLimiter(0.5); 
+  private  SlewRateLimiter m_speedFilter =  new SlewRateLimiter(0.9);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -99,38 +99,39 @@ public class RobotContainer {
    final JoystickButton R_trigger = new JoystickButton(ps_5,6);
    final JoystickButton L_trigger = new JoystickButton(ps_5, 5);
 
-   //final JoystickButton b_Compressor = new JoystickButton(m_driverController, Constants.Controls.STOP_COMPRESSOR);
-   final DriveTrain m_driveTrain = new DriveTrain();
+
+   final JoystickButton b_Compressor = new JoystickButton(j_joy, Constants.Controls.STOP_COMPRESSOR);
    
-    
     //Fire away
     fire_3.whileTrue(c_fire3);
     fire_4.whileTrue(c_fire4);
     fire_5.whileTrue(c_fire5);
     
     
-   R_trigger.onTrue(c_RightSafetyOn);
-   R_trigger.onFalse(c_RightSafetyOff);
-   L_trigger.onTrue(c_RightSafetyOn);
-   L_trigger.onFalse(c_RightSafetyOff);
-
     b_up.whileTrue(c_up);
     b_dn.whileTrue(c_dn);
     
-    m_driveTrain.setDefaultCommand(new Drive(m_driveTrain,
-    () -> -m_driverController.getY(),
-    () -> -m_driverController.getZ(),
-    () -> true));
+    b_Compressor.whileTrue(c_compressor);    
+  
+     m_driveTrain.setDefaultCommand(
+                         new RunCommand(
+                                         () -> m_driveTrain.arcadeDrive(j_joy.getZ()/2,
+                                                                        m_speedFilter.calculate(j_joy.getY()/2)
+                                       ), 
+                                       m_driveTrain
+                                       )
+                                   );
 
-    m_driverController.button(11).toggleOnTrue(new InstantCommand( () -> m_driveTrain.reverseIt() ));
+        
+      
+    
+    //m_driveTrain.setDefaultCommand(new RunCommand(
+    //  () -> m_driveTrain.arcadeDrive( j_joy.getZ(),j_joy.getY()), m_driveTrain));
+    R_trigger.onTrue(c_RightSafetyOn);
+    R_trigger.onFalse(c_RightSafetyOff);
+    L_trigger.onTrue(c_LeftSafetyOn);
+    L_trigger.onFalse(c_LeftSafetyOff);
 
-    m_driverController.button(2).whileTrue( new Drive(m_driveTrain,
-                                        () -> -m_driverController.getY() * DriveConstants.SLOW_MODE_MOVE,
-                                        () -> -m_driverController.getZ() * DriveConstants.SLOW_MODE_TURN,
-                                        () -> true 
-                                        )
-    )
-    ;
 
 
   }

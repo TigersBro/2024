@@ -58,7 +58,7 @@ public class Pneumatics extends SubsystemBase {
     // cannon.set(Relay.Value.kOn);
     if(rightSafetyState)
     {  
-      cannon3.setVoltage(12);
+      cannon3.set(1);
       rightSafetyState = false;
     }
       
