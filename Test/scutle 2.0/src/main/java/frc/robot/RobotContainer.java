@@ -111,8 +111,8 @@ public class RobotContainer {
     
    R_trigger.onTrue(c_RightSafetyOn);
    R_trigger.onFalse(c_RightSafetyOff);
-   L_trigger.onTrue(c_RightSafetyOn);
-   L_trigger.onFalse(c_RightSafetyOff);
+   //L_trigger.onTrue(c_RightSafetyOn);
+   //L_trigger.onFalse(c_RightSafetyOff);
 
     b_up.whileTrue(c_up);
     b_dn.whileTrue(c_dn);
